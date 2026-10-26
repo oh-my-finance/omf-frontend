@@ -31,4 +31,4 @@ npm run build
 - DB 접근과 업무 규칙은 `back`, 배포 운영은 `infra`, UR/FR/NFR과 학습 로드맵은 `docs`가 소유합니다.
 - 증권업 입문 → 차트 복기 → 경량 모델 실험은 새 계획입니다. 현재 구현은 성향 진단·용어·개념·퀴즈·시뮬레이션·복습·콘텐츠 운영입니다.
 
-조직 저장소 대상: [back](https://github.com/oh-my-finance/back), [infra](https://github.com/oh-my-finance/infra), [docs](https://github.com/oh-my-finance/docs). 원격 생성·권한·기본 브랜치는 이 작업에서 확인되지 않았습니다.
+조직 저장소 대상: [back](https://github.com/oh-my-finance/omf-backend), [infra](https://github.com/oh-my-finance/omf-infra), [docs](https://github.com/oh-my-finance/omf-docs). 원격 생성·권한·기본 브랜치는 이 작업에서 확인되지 않았습니다.
