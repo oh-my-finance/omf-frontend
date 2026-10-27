@@ -1,5 +1,8 @@
 name: Front checks
-on: [push, pull_request]
+on:
+  push:
+    branches: [main]
+  pull_request:
 permissions:
   contents: read
 jobs:
@@ -14,3 +17,31 @@ jobs:
       - run: npm ci
       - run: npm run lint
       - run: npm run build
+
+  # 같은 저장소 브랜치의 PR이 검사를 모두 통과하면 squash로 병합한다.
+  # 초안, `no-automerge` 라벨, 워크플로 파일 변경(GITHUB_TOKEN으로 병합할 수 없다)은 건너뛴다.
+  automerge:
+    needs: check
+    if: >-
+      github.event_name == 'pull_request' &&
+      github.event.pull_request.head.repo.full_name == github.repository &&
+      !github.event.pull_request.draft &&
+      !contains(github.event.pull_request.labels.*.name, 'no-automerge')
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    env:
+      GH_TOKEN: ${{ github.token }}
+      PR: ${{ github.event.pull_request.number }}
+      TITLE: ${{ github.event.pull_request.title }}
+      HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+    steps:
+      - run: |
+          if gh pr diff "$PR" -R "$GITHUB_REPOSITORY" --name-only | grep -q '^\.github/workflows/'; then
+            echo "::notice::워크플로를 바꾸는 PR은 사람이 병합한다."
+            exit 0
+          fi
+          gh pr merge "$PR" -R "$GITHUB_REPOSITORY" --squash --delete-branch \
+            --match-head-commit "$HEAD_SHA" \
+            --subject "$TITLE (#$PR)" --body "$GITHUB_SERVER_URL/$GITHUB_REPOSITORY/pull/$PR"
