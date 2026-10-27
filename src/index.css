@@ -723,3 +723,26 @@ input {
 .replay-reproduction p { margin: 10px 0 0; font-size: 13px; }
 @media (max-width: 980px) { .replay-grid { grid-template-columns: 1fr; } .replay-scenarios { grid-template-columns: 1fr; } }
 @media (max-width: 600px) { .replay-compare { grid-template-columns: repeat(2, minmax(0, 1fr)); } .replay-tags { grid-template-columns: 1fr; } }
+
+/* 입문 과정 */
+.course-progress { display: flex; flex-direction: column; gap: 12px; margin-bottom: 18px; }
+.course-progress-head { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; align-items: baseline; }
+.course-progress p { margin: 0; font-size: 14.5px; }
+.course-revisit h2 { margin: 6px 0 8px; font-size: 15px; }
+.course-revisit ul { margin: 0; padding-left: 18px; display: flex; flex-direction: column; gap: 6px; font-size: 14px; }
+.course-stages { list-style: none; margin: 0 0 18px; padding: 0; display: flex; flex-direction: column; gap: 14px; }
+.course-stage { border-left: 4px solid var(--border); }
+.course-stage.is-done { border-left-color: var(--good); }
+.course-stage-head { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+.course-stage-head h2 { margin: 0; font-size: 18px; }
+.course-stage-index { font-size: 12px; font-weight: 700; color: var(--primary); }
+.course-goal { margin: 6px 0 12px; color: var(--text-muted); font-size: 14px; }
+.course-concepts { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+.course-concept { display: flex; justify-content: space-between; gap: 12px; align-items: center; padding: 10px 12px; border: 1px solid var(--border); border-radius: 10px; background: var(--surface-soft); }
+.course-concept > a { display: flex; flex-direction: column; gap: 2px; color: inherit; text-decoration: none; min-width: 0; }
+.course-concept > a:hover strong, .course-concept > a:focus-visible strong { color: var(--primary); text-decoration: underline; }
+.course-concept-meta { display: flex; gap: 8px; align-items: center; flex-shrink: 0; font-size: 12.5px; }
+.course-chip { font-size: 12px; font-weight: 700; padding: 2px 9px; border-radius: 999px; background: #eef1f8; color: var(--text-muted); }
+.course-concept.status-passed .course-chip { background: var(--good-bg); color: var(--good); }
+.course-concept.status-in_progress .course-chip { background: var(--warn-bg); color: var(--warn-text); }
+@media (max-width: 600px) { .course-concept { flex-direction: column; align-items: flex-start; } }

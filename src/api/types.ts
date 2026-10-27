@@ -734,3 +734,54 @@ export interface ReplayReview {
   };
   notice: string;
 }
+
+// backend com.finmate.learning.CourseDtos와 맞춘 타입. 비로그인 응답은 status·progress가 null이다.
+export type CourseStatus = "NOT_STARTED" | "IN_PROGRESS" | "PASSED";
+
+export interface CourseSummary {
+  id: string;
+  title: string;
+  summary: string;
+  stageCount: number;
+  conceptCount: number;
+}
+
+export interface CourseConceptStep {
+  slug: string;
+  title: string;
+  summary: string;
+  level: number;
+  quizCount: number;
+  status: CourseStatus | null;
+  bestScore: number | null;
+  attempts: number;
+  lastAttemptAt: string | null;
+}
+
+export interface CourseStage {
+  id: string;
+  title: string;
+  goal: string;
+  concepts: CourseConceptStep[];
+  passed: number;
+  completed: boolean;
+}
+
+export interface CourseProgress {
+  passed: number;
+  total: number;
+  percent: number;
+  next: { slug: string; title: string; stageTitle: string } | null;
+  revisit: { slug: string; title: string; reason: string }[];
+}
+
+export interface CourseView {
+  id: string;
+  title: string;
+  summary: string;
+  version: string;
+  passScorePercent: number;
+  stages: CourseStage[];
+  progress: CourseProgress | null;
+  notice: string;
+}
