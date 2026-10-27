@@ -1,0 +1,103 @@
+/* 로그인 화면: 캠퍼스 이미지를 보존하고 화면 높이에 맞춰 입력 영역을 위쪽에 모은다. */
+.login-shell.login-shell-refined {
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  min-height: 100dvh;
+  background: #f8f7f3;
+}
+.login-shell-refined .login-aside {
+  height: 100dvh;
+  position: sticky;
+  top: 0;
+  padding: clamp(26px, 4vh, 40px) clamp(28px, 4.4vw, 72px) 25px;
+  background: #eaf0e5;
+}
+.login-shell-refined .login-aside-top { position: relative; z-index: 1; }
+.login-shell-refined .login-aside-copy { margin-top: clamp(28px, 5vh, 58px); }
+.login-room-label { display: inline-flex; align-items: center; gap: 7px; color: #607058; font-size: 12px; font-weight: 600; }
+.login-room-label > span { width: 6px; height: 6px; border-radius: 50%; background: #c45a32; }
+.login-shell-refined .login-aside-copy h2 { font-size: clamp(28px, 2.8vw, 40px); line-height: 1.35; letter-spacing: -.045em; margin: 14px 0; font-weight: 750; }
+.login-shell-refined .login-aside-copy > p { font-size: 13px; line-height: 1.85; margin: 0; }
+.login-campus-wrap { position: relative; flex: 1; min-height: 0; align-self: center; display: flex; align-items: center; justify-content: center; width: min(130%, 690px); margin: 8px -15% 0; }
+.login-shell-refined .login-campus { height: 100%; width: 100%; object-fit: contain; max-width: 100%; margin: 0; }
+.login-campus-badge { position: absolute; left: 9%; top: 12%; z-index: 1; display: inline-flex; align-items: center; gap: 8px; background: #fffdf7; border: 1px solid #dde4d5; color: #64735c; padding: 11px 14px; font-size: 11px; border-radius: 10px; transform: rotate(-5deg); box-shadow: 0 4px 14px #37503606; }
+.login-campus-badge > svg { color: #c35c34; }
+.login-shell-refined .login-aside-note { display: flex; align-items: center; justify-content: center; align-self: center; gap: 9px; flex-shrink: 0; margin: 8px 0 0; color: #61715b; font-size: 11px; line-height: 1.5; }
+.login-aside-note > span { width: 3px; height: 3px; border-radius: 50%; background: #a9b59e; margin: 0 3px; }
+.login-shell-refined .login-main { display: flex; flex-direction: column; justify-content: flex-start; padding: 28px clamp(26px, 4.2vw, 70px) 32px; }
+.login-main-top { width: 100%; min-height: 34px; display: flex; align-items: center; justify-content: flex-end; }
+.login-shell-refined .login-back { position: static; display: inline-flex; padding: 8px 0 8px 12px; font-size: 12px; }
+.login-shell-refined .login-form { max-width: 422px; gap: 18px; padding: 27px 30px 24px; margin: clamp(30px, 5.7vh, 60px) auto 0; border: 1px solid #e4e6de; border-radius: 22px; background: #fffefa; box-shadow: 0 10px 35px #344a3504; }
+.login-shell-refined .login-form-heading { position: relative; padding-right: 42px; }
+.login-form-emblem { position: absolute; right: 0; top: 0; display: grid; place-items: center; width: 34px; height: 34px; border-radius: 12px; color: #bd4824; background: #fff0e6; transform: rotate(7deg); }
+.login-shell-refined .login-form-heading h1 { font-size: 27px; font-weight: 750; line-height: 1.35; letter-spacing: -.04em; margin: 0 0 8px; }
+.login-shell-refined .login-form-heading > p { font-size: 12px; line-height: 1.6; }
+.login-shell-refined .login-tabs { gap: 4px; border: none; padding: 4px; border-radius: 11px; background: #f1f2eb; }
+.login-shell-refined .login-tabs button { flex: 1; min-height: 38px; padding: 9px 12px; margin: 0; border: 1px solid transparent; border-radius: 8px; background: transparent; color: #6a7568; font-size: 13px; line-height: 1.3; transition: background .15s ease, box-shadow .15s ease; }
+.login-shell-refined .login-tabs button[aria-pressed='true'] { background: #fffefa; color: #294337; border-color: #e2e6d9; box-shadow: 0 2px 5px #243e3507; }
+.login-shell-refined .login-fields { gap: 14px; }
+.login-shell-refined .login-form .field-label { font-size: 12px; font-weight: 600; margin-bottom: 7px; }
+.login-shell-refined .login-form .field-input { font-size: 13px; line-height: 1.4; min-height: 44px; padding: 12px 13px; border-radius: 9px; background: #fff; }
+.login-shell-refined .login-form .field-input:focus { border-color: #8caa7c; box-shadow: 0 0 0 3px #8caa7c16; outline: none; }
+.login-shell-refined .login-form > .btn { min-height: 45px; font-size: 13px; padding: 12px 20px; border-radius: 9px; }
+.login-shell-refined .login-switch { font-size: 11px; line-height: 1.6; }
+.login-public-preview { border-top: 1px solid #e8e9e1; padding-top: 16px; }
+.login-public-preview > p { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 3px 8px; font-size: 11px; color: #576a5a; margin: 0 0 11px; font-weight: 600; }
+.login-public-preview > p > span { color: #7a8278; font-size: 10px; font-weight: 400; }
+.login-public-preview > div { display: grid; grid-template-columns: 1fr 1fr; gap: 9px; }
+.login-public-preview a { min-width: 0; display: flex; align-items: center; gap: 8px; color: #354a3b; border-radius: 10px; border: 1px solid #e5e8db; background: #f5f7ee; padding: 11px 9px; font-size: 11px; font-weight: 600; transition: border-color .15s ease, background .15s ease; }
+.login-public-preview a:hover { border-color: #bdcbb0; background: #f0f4e7; }
+.login-preview-icon { display: grid; place-items: center; color: #718861; flex-shrink: 0; }
+.login-public-preview a > span:nth-child(2) { min-width: 0; }
+.login-public-preview small { display: block; color: #7d8777; font-size: 9px; font-weight: 400; line-height: 1.5; margin-top: 3px; white-space: nowrap; }
+.login-public-preview a > svg:last-child { margin-left: auto; color: #7e8d73; flex-shrink: 0; }
+.login-shell-refined .error-text { margin: 0; font-size: 12px; line-height: 1.5; }
+
+/* 낮은 노트북 화면에서는 그림과 간격을 줄이고, 오류 등으로 늘어난 내용은 자연스럽게 스크롤한다. */
+@media (min-width: 741px) and (max-height: 760px) {
+  .login-shell-refined .login-main { padding-top: 18px; padding-bottom: 20px; }
+  .login-shell-refined .login-form { margin-top: 14px; padding: 23px 26px 21px; gap: 15px; }
+  .login-shell-refined .login-form-heading h1 { font-size: 25px; }
+  .login-shell-refined .login-fields { gap: 12px; }
+  .login-shell-refined .login-aside { padding-top: 26px; padding-bottom: 20px; }
+  .login-shell-refined .login-aside-copy { margin-top: 25px; }
+  .login-shell-refined .login-aside-copy h2 { font-size: 30px; }
+  .login-campus-badge { top: 5%; font-size: 10px; padding: 9px 12px; }
+}
+@media (min-width: 741px) and (max-height: 680px) {
+  .login-shell-refined .login-main { padding-top: 14px; padding-bottom: 14px; }
+  .login-main-top { min-height: 27px; }
+  .login-shell-refined .login-form { margin-top: 10px; padding-top: 18px; padding-bottom: 18px; gap: 12px; }
+  .login-shell-refined .login-fields { gap: 10px; }
+  .login-shell-refined .login-form .field-label { margin-bottom: 5px; }
+  .login-shell-refined .login-form .field-input { min-height: 42px; padding-top: 10px; padding-bottom: 10px; }
+  .login-public-preview { padding-top: 12px; }
+  .login-public-preview > p { margin-bottom: 8px; }
+  .login-public-preview a { padding-top: 8px; padding-bottom: 8px; }
+}
+@media (min-width: 741px) and (max-width: 1000px) {
+  .login-shell.login-shell-refined { grid-template-columns: minmax(0, .95fr) minmax(0, 1.05fr); }
+  .login-shell-refined .login-main { padding-right: 22px; padding-left: 22px; }
+  .login-shell-refined .login-form { padding-left: 22px; padding-right: 22px; }
+  .login-shell-refined .login-aside-copy > p { font-size: 12px; }
+  .login-campus-badge { left: 7%; font-size: 10px; }
+  .login-shell-refined .login-aside-note { font-size: 10px; gap: 5px; }
+}
+@media (max-width: 740px) {
+  .login-shell.login-shell-refined { grid-template-columns: 1fr; }
+  .login-shell-refined .login-aside { display: none; }
+  .login-shell-refined .login-main { padding: 22px 22px 28px; min-height: 100dvh; }
+  .login-main-top { justify-content: space-between; min-height: 35px; }
+  .login-shell-refined .login-mobile-brand { display: block; position: static; }
+  .login-shell-refined .login-mobile-brand .brand-name { font-size: 25px; }
+  .login-shell-refined .login-mobile-brand .brand-symbol { width: 28px; height: 28px; }
+  .login-shell-refined .login-form { max-width: 422px; margin-top: clamp(28px, 5vh, 46px); gap: 19px; padding: 25px 23px 23px; border-radius: 18px; }
+  .login-shell-refined .login-form-heading h1 { font-size: 26px; }
+  .login-shell-refined .login-back { font-size: 11px; }
+}
+@media (max-width: 380px) {
+  .login-shell-refined .login-main { padding: 18px 16px 24px; }
+  .login-shell-refined .login-form { padding: 23px 19px; gap: 17px; margin-top: 27px; }
+  .login-shell-refined .login-form-heading h1 { font-size: 24px; }
+  .login-public-preview a { gap: 6px; padding: 10px 7px; }
+  .login-public-preview small { font-size: 8px; }
+}

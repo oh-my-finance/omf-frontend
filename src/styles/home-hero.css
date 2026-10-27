@@ -1,0 +1,31 @@
+/* 캠퍼스 옆의 작은 질문 노트. 장식 대신 직접 고르고 읽는 내용을 더한다. */
+.hero-question { max-width: 470px; padding: 14px 18px 17px; margin-top: 25px; border: 1px solid #e3e5d9; border-radius: 13px; background: #fffef9; box-shadow: 0 4px 0 #eeeee4; }
+.hero-question-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding-bottom: 11px; border-bottom: 1px solid #ecece1; }
+.hero-question-head h2 { font-size: 12px; line-height: 1.5; font-weight: 600; color: #6b7468; margin: 0; }
+.hero-question-choices { display: flex; align-items: center; gap: 3px; }
+.hero-question-choices button { min-width: 44px; min-height: 44px; padding: 8px 11px; border: 0; border-radius: 8px; font-size: 12px; font-weight: 600; line-height: 1.4; color: var(--text-muted); background: transparent; transition: background .18s, color .18s; }
+.hero-question-choices button:hover { background: var(--surface-soft); color: var(--text); }
+.hero-question-choices button[aria-pressed='true'] { color: var(--primary); background: #faede3; }
+.hero-question-content { min-height: 58px; padding-top: 13px; }
+.hero-question-content > a { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; color: var(--text); }
+.hero-question-content strong { font-size: 15px; line-height: 1.55; letter-spacing: -.025em; word-break: keep-all; }
+.hero-question-content svg { color: var(--primary); flex-shrink: 0; margin-top: 3px; }
+.hero-question-content p { margin: 7px 28px 0 0; font-size: 12px; line-height: 1.65; color: var(--text-muted); word-break: keep-all; }
+.hero-question-content > a:hover strong { color: var(--primary); }
+@media (max-width: 1000px) and (min-width: 741px) {
+  .home-hero { gap: 24px; }
+  .hero-question { padding: 12px 14px 15px; }
+  .hero-question-head { align-items: flex-start; flex-direction: column; gap: 5px; }
+  .hero-question-choices { margin-left: -8px; }
+}
+@media (max-width: 740px) {
+  .home-hero { padding-top: 32px; gap: 28px; }
+  .hero-actions .btn { font-size: 12px; }
+  .hero-secondary { font-size: 12px; }
+  .hero-question { max-width: 100%; margin-top: 22px; padding: 11px 15px 16px; }
+  .hero-question-head { gap: 6px; }
+  .hero-question-head h2 { font-size: 11px; }
+  .hero-question-choices button { padding: 8px; min-width: 42px; font-size: 11px; }
+  .hero-question-content strong { font-size: 14px; }
+  .hero-art { max-width: 420px; }
+}

@@ -1,0 +1,190 @@
+/* 학습 포털: 과정은 목차처럼, 용어는 작은 노트처럼 읽히도록 구분한다. */
+.home-reading { padding-top: 30px; }
+.home-reading-head { align-items: center; margin-bottom: 25px; }
+.home-reading-title { display: flex; align-items: center; gap: 13px; min-width: 0; }
+.home-reading-symbol { display: grid; place-items: center; width: 43px; height: 43px; flex: 0 0 auto; color: #a74828; background: #f8e9dc; border: 1px solid #ecd7c8; border-radius: 13px 13px 13px 4px; }
+.home-reading-title h2 { font-size: 24px; letter-spacing: -.04em; }
+.home-reading-title p { margin: 4px 0 0; color: var(--text-muted); font-size: 12px; line-height: 1.6; }
+.home-reading-head > a { min-height: 36px; padding: 8px 0 8px 12px; }
+.home-reading a:focus-visible, .home-reading button:focus-visible { outline: 2px solid var(--primary); outline-offset: 4px; }
+.home-board-main { gap: 22px; }
+.home-panel { border-color: #dfe3d8; border-radius: 15px; box-shadow: 0 3px 9px #24423603; }
+.home-course-overview { padding: 25px; overflow: hidden; }
+.home-course-heading { display: flex; align-items: flex-start; gap: 16px; margin-bottom: 24px; }
+.home-course-symbol { display: grid; place-items: center; flex: 0 0 auto; width: 54px; height: 58px; border: 1px solid #d7dfcd; border-radius: 12px 15px 15px 5px; background: #edf1e6; color: #58704b; box-shadow: inset -4px 0 0 #e1e7d7; }
+.home-course-intro { min-width: 0; flex: 1; }
+.home-course-intro .home-panel-head { align-items: center; }
+.home-panel-head h3 { font-size: 18px; font-weight: 700; }
+.home-panel-head > a { color: #617267; font-size: 12px; }
+.home-panel-description { margin: 8px 0 13px; font-size: 13px; line-height: 1.8; }
+.home-course-meta { align-items: center; flex-wrap: wrap; gap: 8px 13px; margin: 0; font-size: 11px; line-height: 1.7; }
+.home-course-meta > span + span { padding-left: 13px; border-color: #dce2d4; }
+.home-course-meta strong { color: var(--text); font-weight: 700; margin-right: 3px; font-size: 13px; }
+.home-course-meta > span:last-child { color: #78816f; }
+
+/* 단계 선택은 진척률이 아니라 공개된 과정의 순서를 나타낸다. */
+.home-stage-choices { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0; margin: 0 -25px 21px; padding: 0 25px; background: #f5f6f0; border-top: 1px solid #e6e9df; border-bottom: 1px solid #e2e6da; }
+.home-stage-choices > button { position: relative; display: flex; align-items: flex-start; gap: 9px; min-width: 0; min-height: 92px; padding: 17px 10px 16px; border: 0; border-radius: 0; background: transparent; font-size: 12px; line-height: 1.6; }
+.home-stage-choices > button + button { border-left: 1px solid #e3e7dc; }
+.home-stage-choices > button::after { content: ''; position: absolute; right: 10px; bottom: -1px; left: 10px; height: 3px; border-radius: 4px 4px 0 0; background: transparent; }
+.home-stage-choices > button:hover { background: #eef1e7; color: var(--text); }
+.home-stage-choices > button > span { opacity: 1; font-size: inherit; }
+.home-stage-choices .home-stage-marker { display: grid; place-items: center; flex: 0 0 auto; width: 26px; height: 26px; margin-top: 1px; border: 1px solid #dbe1d2; border-radius: 50%; background: #fff; color: #758267; font-size: 10px; font-weight: 600; font-variant-numeric: tabular-nums; }
+.home-stage-label { display: block; min-width: 0; word-break: keep-all; overflow-wrap: anywhere; }
+.home-stage-label small { display: block; margin-top: 3px; color: #83907b; font-size: 11px; font-weight: 400; }
+.home-stage-choices > button[aria-pressed='true'] { background: #edf1e5; color: var(--text); }
+.home-stage-choices > button[aria-pressed='true']::after { background: #5b744e; }
+.home-stage-choices > button[aria-pressed='true'] .home-stage-marker { border-color: #5b744e; background: #5b744e; color: #fff; box-shadow: 0 0 0 3px #dfe7d3; }
+.home-stage-choices > button[aria-pressed='true'] .home-stage-label small { color: #6f7f62; }
+.home-stage-caption { display: flex; align-items: center; justify-content: space-between; gap: 14px; margin: 0 0 13px; }
+.home-stage-caption h4 { display: flex; align-items: center; gap: 8px; margin: 0; font-size: 14px; line-height: 1.7; }
+.home-stage-caption h4 > span { color: #a44f33; font-size: 11px; font-weight: 600; font-variant-numeric: tabular-nums; }
+.home-stage-caption > span { color: var(--text-muted); font-size: 11px; white-space: nowrap; }
+.home-curriculum-table { table-layout: fixed; }
+.home-curriculum-table thead { background: #f7f7f3; }
+.home-curriculum-table thead th { padding: 10px 10px; font-size: 11px; color: #7a8579; border-bottom-color: #e5e8de; }
+.home-curriculum-table thead th:first-child { width: 47px; border-radius: 7px 0 0 7px; }
+.home-curriculum-table thead th:last-child { border-radius: 0 7px 7px 0; }
+.home-curriculum-table tbody td, .home-curriculum-table tbody th { padding: 16px 10px; border-bottom-color: #e9ece3; }
+.home-curriculum-table tbody tr { transition: background-color .18s ease; }
+.home-curriculum-table tbody tr:hover, .home-curriculum-table tbody tr:focus-within { background: #fbfaf5; }
+.home-curriculum-table tbody th a { gap: 4px; padding: 1px 0; }
+.home-curriculum-table tbody th strong { font-size: 14px; line-height: 1.6; font-weight: 650; }
+.home-curriculum-table tbody th span { font-size: 13px; line-height: 1.8; }
+.home-curriculum-table .home-table-order { width: 47px; }
+.home-table-order > span { display: inline-grid; place-items: center; width: 25px; height: 25px; border-radius: 8px; color: #89947d; background: #f1f3ed; font-size: 10px; }
+.home-curriculum-table .home-table-number { width: 68px; color: #567047; font-size: 13px; font-weight: 600; }
+.home-curriculum-table thead .home-table-number { font-size: 11px; font-weight: 500; }
+.home-table-number > span { color: #86917d; font-weight: 400; font-size: 11px; }
+.home-stage-goal { display: flex; align-items: flex-start; gap: 7px; margin: 17px 0 0; padding: 12px 13px; background: #f4f6ef; border-radius: 8px; font-size: 13px; line-height: 1.8; }
+.home-stage-goal > svg { flex: 0 0 auto; margin-top: 1px; color: #778d64; }
+.home-stage-goal strong { margin-right: 2px; font-size: 11px; line-height: 2.1; }
+
+/* 실습 도구는 같은 카드의 반복 대신 작은 도구함으로 묶는다. */
+.home-tools { padding: 22px 25px 10px; }
+.home-tools .home-panel-head { align-items: center; margin-bottom: 6px; }
+.home-tools .home-panel-head > span { font-size: 11px; }
+.home-tool-list > a { grid-template-columns: 45px minmax(0, 1fr) 29px; gap: 15px; padding: 17px 0; border-bottom-color: #e8ebe1; }
+.home-tool-list > a:last-child { padding-bottom: 13px; }
+.home-tool-symbol { position: relative; display: grid; place-items: center; width: 44px; height: 46px; border-radius: 12px 15px 12px 6px; }
+.home-tool-symbol::after { content: ''; position: absolute; top: 4px; right: 5px; width: 4px; height: 4px; border-radius: 50%; background: currentColor; opacity: .35; }
+.home-tool-symbol.is-map { color: #648251; background: #edf2e5; }
+.home-tool-symbol.is-lab { color: #b27732; background: #fcf0dc; }
+.home-tool-symbol.is-replay { color: #a56850; background: #f8ece4; }
+.home-tool-list h4 { margin: 0 0 3px; font-size: 14px; }
+.home-tool-list p { font-size: 13px; line-height: 1.75; }
+.home-tool-arrow { display: grid; place-items: center; width: 28px; height: 28px; border: 1px solid #e3e7db; border-radius: 50%; color: #7b8a70; transition: transform .18s ease, background-color .18s ease; }
+.home-tool-list > a:hover .home-tool-arrow { transform: translateX(3px); background: #edf2e5; }
+
+/* 오른쪽 보조 열은 별도 노트·바로가기·기록함으로 나눈다. */
+.home-sidebar { display: grid; gap: 18px; border: 0; padding: 0; border-radius: 0; background: transparent; }
+.home-dictionary { position: relative; padding: 23px 21px 21px; border: 1px solid #e3decc; border-radius: 14px; background: #fffdf6; box-shadow: 0 3px 9px #55482603; }
+.home-dictionary::before { content: ''; position: absolute; top: -1px; left: 24px; height: 5px; width: 31px; border-radius: 0 0 4px 4px; background: #dcad78; }
+.home-dictionary-head { align-items: center; gap: 10px; }
+.home-dictionary-head h3 { display: flex; align-items: center; gap: 7px; font-size: 13px; }
+.home-dictionary-head h3 svg { color: #9e7951; flex: 0 0 auto; }
+.home-dictionary-head > a { font-size: 11px; }
+.home-term-choices { margin-top: 18px; gap: 3px; padding: 3px; border: 1px solid #e6e1d2; background: #f4f1e7; border-radius: 8px; }
+.home-term-choices > button { min-height: 38px; border-radius: 5px; font-size: 12px; }
+.home-term-choices > button[aria-pressed='true'] { color: #96502c; background: #fffefa; box-shadow: 0 1px 4px #50442910; }
+.home-term-content { min-height: 0; }
+.home-term-name { display: block; margin: 21px 0 12px; }
+.home-term-name > h4 { color: var(--text); font-size: 29px; letter-spacing: -.045em; line-height: 1.4; }
+.home-term-name > span { display: block; font-size: 11px; line-height: 1.8; margin-top: 2px; color: #89917d; }
+.home-term-definition { font-size: 13px; line-height: 1.85; }
+.home-term-formula { padding: 12px; border: 1px solid #e9e3d2; border-radius: 7px; background: #f6f2e6; font-size: 13px; line-height: 1.85; color: #7d7156; }
+.home-term-example { border-left: 2px solid #dfd2b6; padding-left: 10px; }
+.home-term-example h5 { color: #9a815c; font-size: 11px; }
+.home-term-example p { font-size: 13px; line-height: 1.85; }
+.home-term-foot { gap: 13px; margin-top: 19px; padding-top: 14px; border-top: 1px dashed #dedaca; }
+.home-term-foot > span { font-size: 11px; }
+.home-term-foot > a { justify-content: space-between; font-size: 12px; }
+.home-sidebar-links { margin: 0; padding: 19px 21px 13px; border: 1px solid #dfe3d8; border-radius: 13px; background: #fff; }
+.home-sidebar-links h3, .home-sidebar-account h3 { font-size: 13px; }
+.home-sidebar-links nav { margin-top: 9px; }
+.home-sidebar-links a { min-height: 41px; font-size: 12px; border-top: 1px solid #f0f1eb; }
+.home-sidebar-links a:first-child { border-top: 0; }
+.home-sidebar-links a > svg { color: #91a085; }
+.home-sidebar-account { margin: 0; padding: 19px 21px 20px; border: 1px solid #dce3d3; border-radius: 13px; background: #edf2e7; }
+.home-account-heading { display: flex; align-items: center; gap: 8px; }
+.home-account-heading > span { display: grid; place-items: center; height: 25px; width: 25px; border-radius: 50%; background: #e0e9d6; color: #70875c; }
+.home-sidebar-account p { font-size: 13px; line-height: 1.85; margin: 11px 0 14px; }
+.home-sidebar-account .btn { min-height: 40px; border-color: #c7d2bd; border-radius: 7px; background: #fffefa; font-size: 12px; }
+
+@media (max-width: 1100px) {
+  .home-course-overview { padding: 22px; }
+  .home-course-heading { gap: 13px; }
+  .home-course-symbol { width: 45px; height: 50px; }
+  .home-stage-choices { margin-right: -22px; margin-left: -22px; padding-right: 13px; padding-left: 13px; }
+  .home-stage-choices > button { flex-direction: column; gap: 8px; padding: 14px 11px; }
+  .home-stage-choices > button::after { left: 11px; right: 11px; }
+  .home-dictionary, .home-sidebar-links, .home-sidebar-account { padding-right: 18px; padding-left: 18px; }
+}
+@media (max-width: 960px) {
+  .home-sidebar { grid-template-columns: 1fr 1fr; align-items: start; gap: 18px; }
+  .home-dictionary { grid-row: span 2; }
+  .home-stage-choices { padding-right: 22px; padding-left: 22px; }
+  .home-stage-choices > button { flex-direction: row; }
+  .home-sidebar-links, .home-sidebar-account { margin: 0; border-top-width: 1px; }
+}
+@media (max-width: 600px) {
+  .home-reading { padding-top: 25px; }
+  .home-reading-head { align-items: flex-start; flex-wrap: wrap; gap: 6px 14px; margin-bottom: 20px; }
+  .home-reading-title { gap: 10px; }
+  .home-reading-symbol { width: 36px; height: 38px; border-radius: 10px 10px 10px 3px; }
+  .home-reading-title h2 { font-size: 20px; }
+  .home-reading-title p { font-size: 11px; margin-top: 2px; }
+  .home-reading-head > a { margin: 0 0 0 auto; min-height: 32px; padding: 7px 0 0; font-size: 11px; }
+  .home-board, .home-board-main { gap: 17px; }
+  .home-course-overview { padding: 19px 17px; border-radius: 12px; }
+  .home-course-heading { gap: 11px; margin-bottom: 19px; }
+  .home-course-symbol { width: 36px; height: 42px; border-radius: 9px 11px 11px 4px; }
+  .home-course-symbol svg { width: 22px; height: 22px; }
+  .home-course-intro .home-panel-head { align-items: flex-start; flex-wrap: wrap; gap: 2px 10px; }
+  .home-panel-head h3 { font-size: 16px; }
+  .home-panel-head > a { font-size: 11px; }
+  .home-panel-description { margin-top: 7px; font-size: 12px; }
+  .home-course-meta { gap: 5px 9px; font-size: 11px; }
+  .home-course-meta > span + span { padding-left: 9px; }
+  .home-course-meta > span:last-child { display: none; }
+  .home-stage-choices { grid-template-columns: repeat(2, minmax(0, 1fr)); margin: 0 -17px 19px; padding: 0 9px; }
+  .home-stage-choices > button { flex-direction: row; min-height: 77px; padding: 13px 8px; gap: 8px; font-size: 11px; }
+  .home-stage-choices > button:nth-child(3) { border-left: 0; }
+  .home-stage-choices > button:nth-child(n+3) { border-top: 1px solid #e3e7dc; }
+  .home-stage-choices .home-stage-marker { width: 23px; height: 23px; font-size: 9px; }
+  .home-stage-label small { font-size: 11px; margin-top: 2px; }
+  .home-stage-caption { gap: 8px; margin-bottom: 11px; }
+  .home-stage-caption h4 { gap: 6px; font-size: 12px; }
+  .home-stage-caption > span { font-size: 11px; }
+  .home-curriculum-table thead th { padding: 9px 4px; font-size: 11px; }
+  .home-curriculum-table thead th:first-child { width: 29px; }
+  .home-curriculum-table tbody td, .home-curriculum-table tbody th { padding: 13px 4px; }
+  .home-curriculum-table .home-table-order { width: 29px; }
+  .home-table-order > span { height: 21px; width: 21px; border-radius: 6px; font-size: 9px; }
+  .home-curriculum-table .home-table-number { width: 52px; font-size: 12px; }
+  .home-curriculum-table thead .home-table-number { padding-left: 0; padding-right: 2px; font-size: 11px; }
+  .home-curriculum-table tbody th strong { font-size: 13px; }
+  .home-curriculum-table tbody th span { font-size: 12px; line-height: 1.8; }
+  .home-stage-goal { flex-wrap: wrap; gap: 4px 6px; padding: 11px; font-size: 12px; line-height: 1.85; }
+  .home-stage-goal strong { margin: 0; font-size: 11px; }
+  .home-stage-goal > span { flex-basis: 100%; padding-left: 23px; }
+  .home-tools { padding: 18px 17px 8px; border-radius: 12px; }
+  .home-tools .home-panel-head { flex-wrap: wrap; gap: 3px; }
+  .home-tools .home-panel-head > span { font-size: 11px; }
+  .home-tool-list > a { grid-template-columns: 38px minmax(0, 1fr) 25px; gap: 11px; padding: 16px 0; }
+  .home-tool-symbol { width: 37px; height: 40px; border-radius: 10px 12px 10px 5px; }
+  .home-tool-symbol > svg { width: 22px; height: 22px; }
+  .home-tool-arrow { width: 25px; height: 25px; }
+  .home-tool-list h4 { font-size: 13px; }
+  .home-tool-list p { font-size: 12px; }
+  .home-sidebar { display: grid; grid-template-columns: 1fr; gap: 16px; padding: 0; }
+  .home-dictionary { grid-row: auto; padding: 21px; }
+  .home-sidebar-links, .home-sidebar-account { margin: 0; padding: 19px 21px; }
+  .home-term-name { display: flex; }
+  .home-term-name > span { display: inline; margin: 0; }
+  .home-term-definition, .home-term-formula, .home-term-example p, .home-sidebar-account p { font-size: 12px; }
+  .home-term-choices > button, .home-term-foot > a, .home-sidebar-links a, .home-sidebar-account .btn { font-size: 11px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .home-reading *, .home-reading *::after { transition: none; }
+}

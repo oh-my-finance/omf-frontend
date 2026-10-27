@@ -1,6 +1,7 @@
 import { useState } from "react";
-import { Link, NavLink, useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import Brand from "./Brand";
 
 const PUBLIC_LINKS = [
   { to: "/glossary", label: "용어 사전" },
@@ -30,14 +31,7 @@ export default function Header() {
   return (
     <header className="site-header">
       <div className="site-header-inner">
-        <Link to="/" className="brand" aria-label="FinMATE 홈">
-          <span className="brand-mark" aria-hidden="true">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none">
-              <path d="M6 4h13M6 4v16M6 11h9" stroke="#fff" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
-          </span>
-          <span className="brand-name">FinMATE</span>
-        </Link>
+        <Brand />
 
         <button
           type="button"
@@ -46,6 +40,7 @@ export default function Header() {
           aria-controls="site-nav"
           onClick={() => setOpen(value => !value)}
         >
+          <span className={`menu-lines${open ? " is-open" : ""}`} aria-hidden="true"><i /><i /></span>
           {open ? "메뉴 닫기" : "메뉴"}
         </button>
 

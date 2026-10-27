@@ -2,6 +2,8 @@
 
 증권업을 이해하기 위한 FinMATE 학습 서비스의 React 19 + TypeScript + Vite 프런트엔드입니다. 이 디렉터리 전체가 독립 `front` 저장소의 루트가 됩니다.
 
+홈·로그인 디자인 고도화의 As-is / To-be, 화면 비교, 사용 기술과 원리, 전용 로컬 실행 방법은 [프런트 고도화 문서](docs/frontend-upgrade.md)에 정리했습니다.
+
 ## 개발
 
 Node.js는 `.nvmrc` 기준입니다. API는 별도로 `back` 저장소에서 실행합니다.
