@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import Header from "../components/Header";
 import { api } from "../api/client";
 import { useAuth } from "../context/AuthContext";
@@ -16,6 +16,8 @@ function percent(value: number | undefined) {
 export default function HomePage() {
   const { user } = useAuth();
   const navigate = useNavigate();
+  // 탈퇴처럼 다른 화면에서 끝난 일을 홈에서 알린다.
+  const notice = (useLocation().state as { notice?: string } | null)?.notice;
   const [termCount, setTermCount] = useState<number | null>(null);
   const [categoryCount, setCategoryCount] = useState<number | null>(null);
   const [models, setModels] = useState<ModelCard[]>([]);
@@ -38,6 +40,7 @@ export default function HomePage() {
     <div className="app-page">
       <Header />
       <main className="home-main">
+        {notice && <p className="home-notice" role="status">{notice}</p>}
         <section className="home-hero">
           <div>
             <span className="eyebrow">FINMATE · 투자 성향 진단과 금융 학습</span>
