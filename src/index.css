@@ -746,3 +746,25 @@ input {
 .course-concept.status-passed .course-chip { background: var(--good-bg); color: var(--good); }
 .course-concept.status-in_progress .course-chip { background: var(--warn-bg); color: var(--warn-text); }
 @media (max-width: 600px) { .course-concept { flex-direction: column; align-items: flex-start; } }
+
+/* 공통 상태·좁은 화면(WP9) */
+.load-error { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin: 0 0 16px; }
+.legacy-pad { padding: 22px 40px 0; }
+.legacy-body { padding: 20px 40px 34px; }
+.explore-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+/* 표시 여부를 화면 폭으로 바꾸므로 display는 인라인이 아니라 여기서 정한다. */
+.login-aside { width: 440px; flex-shrink: 0; display: flex; flex-direction: column; justify-content: space-between; }
+.login-main { padding: 40px; min-width: 0; }
+.login-form { width: 100%; max-width: 360px; }
+.home-start-steps { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; }
+.home-start-steps a { display: flex; flex-direction: column; gap: 6px; height: 100%; padding: 18px 20px; border: 1px solid var(--border); border-radius: 14px; background: var(--surface); color: var(--text); text-decoration: none; }
+.home-start-steps a:hover, .home-start-steps a:focus-visible { border-color: var(--primary); }
+.home-start-steps b { font-size: 15px; }
+.home-start-steps span { color: var(--text-muted); font-size: 13.5px; line-height: 1.7; }
+@media (max-width: 860px) { .login-aside { display: none; } }
+@media (max-width: 600px) {
+  .legacy-pad { padding: 18px 16px 0; }
+  .legacy-body { padding: 16px 16px 28px; }
+  .explore-grid { grid-template-columns: 1fr; }
+  .login-main { padding: 24px 16px; }
+}

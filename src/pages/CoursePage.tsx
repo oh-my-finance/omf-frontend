@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Header from "../components/Header";
+import LoadError from "../components/LoadError";
 import { api } from "../api/client";
 import type { CourseConceptStep, CourseStatus, CourseView } from "../api/types";
 import { useAuth } from "../context/AuthContext";
@@ -21,11 +22,12 @@ export default function CoursePage() {
   const { user } = useAuth();
   const [course, setCourse] = useState<CourseView | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [reload, setReload] = useState(0);
 
   useEffect(() => {
     const load = user ? api.getCourseProgress(COURSE_ID) : api.getCourse(COURSE_ID);
     load.then(setCourse).catch(() => setError("학습 과정을 불러오지 못했습니다."));
-  }, [user]);
+  }, [user, reload]);
 
   return (
     <div className="app-page">
@@ -40,7 +42,7 @@ export default function CoursePage() {
           <Link className="btn btn-secondary" to="/learn">개념 전체 보기</Link>
         </div>
 
-        {error && <p className="error-text" role="alert">{error}</p>}
+        {error && <LoadError message={error} onRetry={() => { setError(null); setReload(value => value + 1); }} />}
         {!course && !error && <p className="subtle" role="status">불러오는 중…</p>}
 
         {course && (

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import Header from "../components/Header";
+import LoadError from "../components/LoadError";
 import { api } from "../api/client";
 import type { CategoryRecommendationResponse, ProductResponse } from "../api/types";
 
@@ -21,20 +22,23 @@ export default function ExplorePage() {
   const [products, setProducts] = useState<ProductResponse[] | null>(null);
   const [profileLabel, setProfileLabel] = useState<string>("");
 
+  const [error, setError] = useState<string | null>(null);
+  const [reload, setReload] = useState(0);
+
   useEffect(() => {
     if (!assessmentId) return;
-    api.getAssessment(assessmentId).then((res) => setProfileLabel(res.profile?.profileLabel ?? ""));
+    api.getAssessment(assessmentId).then((res) => setProfileLabel(res.profile?.profileLabel ?? "")).catch(() => setProfileLabel(""));
     api.getRecommendations(assessmentId).then((recs) => {
       setRecommendations(recs);
       if (recs.length > 0) setSelectedCategoryId(recs[0].categoryId);
-    });
-  }, [assessmentId]);
+    }).catch(() => setError("탐색 카테고리를 불러오지 못했습니다."));
+  }, [assessmentId, reload]);
 
   useEffect(() => {
     if (!selectedCategoryId) return;
     setProducts(null);
-    api.getProducts(selectedCategoryId).then(setProducts);
-  }, [selectedCategoryId]);
+    api.getProducts(selectedCategoryId).then(setProducts).catch(() => setError("상품 목록을 불러오지 못했습니다."));
+  }, [selectedCategoryId, reload]);
 
   const selected = recommendations.find((r) => r.categoryId === selectedCategoryId);
 
@@ -42,7 +46,8 @@ export default function ExplorePage() {
     <div style={{ minHeight: "100vh", background: "var(--bg)", display: "flex", flexDirection: "column" }}>
       <Header />
 
-      <div style={{ padding: "22px 40px 0", display: "flex", flexDirection: "column", gap: 16 }}>
+      <div className="legacy-pad" style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+        {error && <LoadError message={error} onRetry={() => { setError(null); setReload(value => value + 1); }} />}
         <div style={{ fontSize: 12.5, color: "var(--text-faint)" }}>
           분석 결과 &nbsp;›&nbsp; <span style={{ color: "var(--text)", fontWeight: 600 }}>탐색 카테고리</span>
         </div>
@@ -96,13 +101,13 @@ export default function ExplorePage() {
         )}
       </div>
 
-      <div style={{ flex: 1, padding: "20px 40px", display: "flex", flexDirection: "column", gap: 14 }}>
+      <div className="legacy-body" style={{ flex: 1, display: "flex", flexDirection: "column", gap: 14 }}>
         {products === null ? (
           <div style={{ textAlign: "center", color: "var(--text-muted)", fontSize: 14 }}>불러오는 중...</div>
         ) : products.length === 0 ? (
           <EmptyProducts />
         ) : (
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(2, minmax(0,1fr))", gap: 16 }}>
+          <div className="explore-grid">
             {products.map((p) => (
               <div key={p.id} className="card" style={{ padding: 22, display: "flex", flexDirection: "column", gap: 10 }}>
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
@@ -148,7 +153,7 @@ export default function ExplorePage() {
 function EmptyProducts() {
   return (
     <div style={{ flex: 1, display: "flex", alignItems: "center", justifyContent: "center" }}>
-      <div style={{ width: 400, display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center", gap: 16 }}>
+      <div style={{ width: 400, maxWidth: "100%", display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center", gap: 16 }}>
         <div
           style={{
             width: 64,

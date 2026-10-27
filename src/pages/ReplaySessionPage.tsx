@@ -2,6 +2,7 @@ import { useCallback, useEffect, useState, type FormEvent } from "react";
 import { Link, useParams } from "react-router-dom";
 import Header from "../components/Header";
 import ReplayChart, { ReplayTable } from "../components/ReplayChart";
+import LoadError from "../components/LoadError";
 import { ApiError, api } from "../api/client";
 import type { ReplayDecisionResult, ReplayReview, ReplayReviewDecision, ReplaySessionView } from "../api/types";
 
@@ -47,8 +48,8 @@ export default function ReplaySessionPage() {
       <div className="app-page">
         <Header />
         <main className="practice-main">
-          <p className="error-text" role="alert">{error}</p>
-          <Link className="btn btn-secondary" to="/replay">목록으로</Link>
+          <LoadError message={error} onRetry={() => { setError(null); void load(); }} />
+          <p><Link to="/replay">목록으로</Link></p>
         </main>
       </div>
     );

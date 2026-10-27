@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import Header from "../components/Header";
+import LoadError from "../components/LoadError";
 import { api } from "../api/client";
 import type { ProductResponse } from "../api/types";
 
@@ -22,7 +23,7 @@ export default function ProductDetailPage() {
     <div style={{ minHeight: "100vh", background: "var(--bg)", display: "flex", flexDirection: "column" }}>
       <Header />
 
-      <div style={{ padding: "22px 40px 0" }}>
+      <div className="legacy-pad">
         <div style={{ fontSize: 12.5, color: "var(--text-faint)" }}>
           분석 결과 &nbsp;›&nbsp; 탐색 카테고리 &nbsp;›&nbsp; <span style={{ color: "var(--text)", fontWeight: 600 }}>상품 상세</span>
         </div>
@@ -41,13 +42,13 @@ export default function ProductDetailPage() {
         </a>
       </div>
 
-      <div style={{ flex: 1, display: "flex", justifyContent: "center", padding: "22px 40px 34px" }}>
+      <div className="legacy-body" style={{ flex: 1, display: "flex", justifyContent: "center" }}>
         {error ? (
-          <div style={{ color: "var(--danger)", fontSize: 14 }}>{error}</div>
+          <LoadError message={error} />
         ) : !product ? (
           <div style={{ color: "var(--text-muted)", fontSize: 14 }}>불러오는 중...</div>
         ) : (
-          <div style={{ width: 640, display: "flex", flexDirection: "column", gap: 20 }}>
+          <div style={{ width: 640, maxWidth: "100%", display: "flex", flexDirection: "column", gap: 20 }}>
             <div className="card" style={{ padding: 28, display: "flex", flexDirection: "column", gap: 16 }}>
               <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
                 <span className="badge badge-primary">{product.categoryName}</span>
