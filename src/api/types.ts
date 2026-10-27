@@ -480,6 +480,8 @@ export interface GlossaryQuizResult {
 export interface QuizAttemptSummary {
   id: string;
   slug: string;
+  /** 개념 제목. 이전 백엔드는 보내지 않으므로 없으면 slug를 쓴다. */
+  title?: string;
   attemptedAt: string;
   contentVersion: string;
   total: number;

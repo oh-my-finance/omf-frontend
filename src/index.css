@@ -794,3 +794,15 @@ input {
     padding: 16px;
   }
 }
+
+/* 내 학습: 입문 과정·차트 복기 요약 */
+.my-tracks { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 14px; margin: 26px 0 8px; }
+.my-tracks:empty { display: none; }
+.my-track { padding: 20px 22px; display: flex; flex-direction: column; gap: 10px; align-items: flex-start; }
+.my-track h2 { margin: 0; font-size: 17px; }
+.my-track p { margin: 0; font-size: 14px; }
+.my-track .bar-track { width: 100%; }
+.my-track-meter { display: flex; align-items: baseline; gap: 8px; }
+.my-track-meter strong { font-size: 24px; }
+.my-track-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 6px; width: 100%; font-size: 14px; }
+.my-track-list li { display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
