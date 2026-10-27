@@ -6,6 +6,7 @@ const PUBLIC_LINKS = [
   { to: "/glossary", label: "용어 사전" },
   { to: "/learn", label: "개념 학습" },
   { to: "/practice", label: "모의투자" },
+  { to: "/replay", label: "차트 복기" },
   { to: "/models", label: "모델 실험실" },
 ];
 

@@ -592,3 +592,145 @@ export interface AdminConceptSummary {
   updatedAt: string;
   hasDraft: boolean;
 }
+
+// backend com.finmate.replay.ReplayDtos와 1:1로 맞춘 타입. 거래일(day)은 1부터 센다.
+export interface ReplayOption {
+  value: string;
+  label: string;
+}
+
+export interface ReplayCostModel {
+  version: string;
+  commissionPct: number;
+  slippagePct: number;
+  sellTaxPct: number;
+  initialCapital: number;
+  note: string;
+}
+
+export interface ReplayScenario {
+  id: string;
+  title: string;
+  summary: string;
+  instrument: string;
+  totalDays: number;
+  decisionCount: number;
+  dataVersion: string;
+  dataKind: "SYNTHETIC";
+  dataNotice: string;
+}
+
+export interface ReplayScenarioList {
+  scenarios: ReplayScenario[];
+  costModel: ReplayCostModel;
+  notice: string;
+}
+
+export interface ReplayBar {
+  day: number;
+  open: number;
+  high: number;
+  low: number;
+  close: number;
+  volume: number;
+  ma20: number | null;
+}
+
+export interface ReplayEvent {
+  id: string;
+  title: string;
+  detail: string;
+  occurredDay: number;
+  publishedDay: number;
+}
+
+export interface ReplayDecisionResult {
+  step: number;
+  decisionDay: number;
+  revealedUntilDay: number;
+  position: string;
+  positionLabel: string;
+  rationale: string;
+  tags: ReplayOption[];
+  confidence: number;
+  decidedAt: string;
+  cost: number;
+  portfolioReturnPct: number;
+  stockReturnPct: number;
+  favorable: boolean;
+}
+
+export interface ReplayPortfolio {
+  value: number;
+  stockWeightPct: number;
+  totalReturnPct: number;
+  totalCost: number;
+  buyAndHoldReturnPct: number;
+}
+
+export interface ReplaySessionView {
+  id: string;
+  scenario: ReplayScenario;
+  status: "IN_PROGRESS" | "COMPLETED";
+  practice: boolean;
+  step: number;
+  totalSteps: number;
+  visibleUntilDay: number;
+  bars: ReplayBar[];
+  events: ReplayEvent[];
+  decisions: ReplayDecisionResult[];
+  portfolio: ReplayPortfolio;
+  costModel: ReplayCostModel;
+  positions: ReplayOption[];
+  tags: ReplayOption[];
+  notice: string;
+}
+
+export interface ReplaySessionSummary {
+  id: string;
+  scenarioId: string;
+  scenarioTitle: string;
+  status: "IN_PROGRESS" | "COMPLETED";
+  practice: boolean;
+  step: number;
+  totalSteps: number;
+  createdAt: string;
+  completedAt: string | null;
+}
+
+export interface ReplayDecisionRequest {
+  step: number;
+  position: string;
+  rationale: string;
+  tags: string[];
+  confidence: number;
+}
+
+export interface ReplayReviewDecision {
+  decision: ReplayDecisionResult;
+  reflection: string | null;
+  reflectionLabel: string | null;
+  reflectionNote: string | null;
+  quadrant: "ALIGNED" | "UNLUCKY" | "LUCKY" | "REVISIT" | "PENDING";
+  quadrantLabel: string;
+  concepts: { slug: string; title: string }[];
+}
+
+export interface ReplayReview {
+  sessionId: string;
+  scenario: ReplayScenario;
+  practice: boolean;
+  lesson: string;
+  decisions: ReplayReviewDecision[];
+  portfolio: ReplayPortfolio;
+  cashReturnPct: number;
+  reflections: ReplayOption[];
+  reproduction: {
+    dataVersion: string;
+    generatorVersion: string;
+    seed: number;
+    costModelVersion: string;
+    decisionDays: number[];
+  };
+  notice: string;
+}
