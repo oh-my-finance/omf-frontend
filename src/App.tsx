@@ -18,6 +18,7 @@ import MyPage from "./pages/MyPage";
 import AdminGlossaryPage from "./pages/AdminGlossaryPage";
 import AdminLearningPage from "./pages/AdminLearningPage";
 import ReplayListPage from "./pages/ReplayListPage";
+import CoursePage from "./pages/CoursePage";
 import ReplaySessionPage from "./pages/ReplaySessionPage";
 
 /**
@@ -33,6 +34,7 @@ export default function App() {
         <Route path="/glossary" element={<GlossaryPage />} />
         <Route path="/glossary/:slug" element={<GlossaryDetailPage />} />
         <Route path="/learn" element={<LearnPage />} />
+        <Route path="/course" element={<CoursePage />} />
         <Route path="/practice" element={<PracticePage />} />
         <Route path="/models" element={<ModelLabPage />} />
         <Route path="/replay" element={<ReplayListPage />} />
