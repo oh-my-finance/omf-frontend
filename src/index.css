@@ -549,7 +549,8 @@ input {
 .avatar { width: 30px; height: 30px; border-radius: 50%; background: var(--primary-tint); color: var(--primary); display: inline-flex; align-items: center; justify-content: center; font-weight: 700; font-size: 13px; }
 .btn-small { padding: 8px 14px; font-size: 12.5px; }
 .nav-toggle-button { display: none; border: 1.5px solid var(--border); background: #fff; border-radius: 9px; padding: 7px 12px; font-size: 13px; font-weight: 700; color: var(--text-muted); }
-@media (max-width: 980px) {
+/* 로그인하면 메뉴 9개 + 계정 영역이라 1180px 아래에서는 한 줄에 들어가지 않는다. 두 줄로 밀리기 전에 접는다. */
+@media (max-width: 1180px) {
   .nav-toggle-button { display: inline-flex; }
   .site-header-inner { flex-wrap: wrap; }
   .site-nav { display: none; width: 100%; flex-direction: column; align-items: stretch; padding: 4px 0 14px; }
@@ -756,11 +757,6 @@ input {
 .login-aside { width: 440px; flex-shrink: 0; display: flex; flex-direction: column; justify-content: space-between; }
 .login-main { padding: 40px; min-width: 0; }
 .login-form { width: 100%; max-width: 360px; }
-.home-start-steps { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; }
-.home-start-steps a { display: flex; flex-direction: column; gap: 6px; height: 100%; padding: 18px 20px; border: 1px solid var(--border); border-radius: 14px; background: var(--surface); color: var(--text); text-decoration: none; }
-.home-start-steps a:hover, .home-start-steps a:focus-visible { border-color: var(--primary); }
-.home-start-steps b { font-size: 15px; }
-.home-start-steps span { color: var(--text-muted); font-size: 13.5px; line-height: 1.7; }
 @media (max-width: 860px) { .login-aside { display: none; } }
 @media (max-width: 600px) {
   .legacy-pad { padding: 18px 16px 0; }
@@ -806,3 +802,9 @@ input {
 .my-track-meter strong { font-size: 24px; }
 .my-track-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 6px; width: 100%; font-size: 14px; }
 .my-track-list li { display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+
+/* 없는 주소 */
+.not-found h1 { font-size: clamp(26px, 3.8vw, 38px); margin: 8px 0 12px; }
+.not-found code { background: var(--surface-soft); border: 1px solid var(--border); border-radius: 6px; padding: 1px 6px; word-break: break-all; }
+.home-flow b a { color: inherit; }
+.home-flow b a:hover, .home-flow b a:focus-visible { color: var(--primary); }
