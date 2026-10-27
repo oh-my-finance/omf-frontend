@@ -8,11 +8,11 @@ button, input, select, textarea { font: inherit; }
 button, a, input, select, textarea { -webkit-tap-highlight-color: transparent; }
 :focus-visible { outline: 3px solid var(--primary); outline-offset: 4px; }
 .field-input:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
-.btn { min-height: 44px; border-radius: 10px; letter-spacing: -.01em; transition: background-color .18s, border-color .18s, color .18s, box-shadow .18s; }
+.btn { min-height: 44px; border-radius: 0; letter-spacing: -.01em; transition: background-color .18s, border-color .18s, color .18s, box-shadow .18s; }
 a.btn-primary:hover { color: #fff; }
-.btn-primary { box-shadow: 0 1px 0 rgba(255, 255, 255, .18) inset, 0 1px 2px rgba(110, 38, 16, .18); }
+.btn-primary { box-shadow: none; }
 .btn-secondary { color: var(--text); border-width: 1px; border-color: var(--border-strong); }
-.btn-secondary:hover { border-color: #b9c2b4; color: var(--text); background: var(--surface-soft); }
+.btn-secondary:hover { border-color: #b8ab90; color: var(--text); background: var(--surface-soft); }
 .btn-small { min-height: 40px; padding: 8px 18px; font-size: 14px; }
 .practice-head > .btn { flex-shrink: 0; }
 
@@ -29,17 +29,17 @@ a.btn-primary:hover { color: #fff; }
  * 공통 머리: 위쪽은 계정·안내 같은 보조 링크, 아래쪽은 굵은 학습 메뉴.
  * 현재 화면은 메뉴 아래 굵은 선으로 표시한다. 공간이 부족해지기 전에 접고 펼침 상태를 보조 기술에도 전달한다.
  */
-.site-header { position: sticky; top: 0; z-index: 20; background: rgba(255, 255, 255, .96); border-bottom: 1px solid var(--border); backdrop-filter: saturate(1.4) blur(14px); -webkit-backdrop-filter: saturate(1.4) blur(14px); }
-.site-utility { border-bottom: 1px solid #eef0ea; }
+.site-header { position: sticky; top: 0; z-index: 20; background: #fff; border-bottom: 1px solid var(--border); }
+.site-utility { border-bottom: 1px solid #e6dfcd; }
 .site-utility-inner { width: min(100% - 64px, 1200px); margin: 0 auto; min-height: 36px; display: flex; align-items: center; justify-content: flex-end; }
 .site-utility-inner > a, .site-utility-inner > button { position: relative; display: inline-flex; align-items: center; gap: 6px; min-height: 36px; padding: 0 12px; border: 0; background: none; color: var(--text-muted); font-size: var(--fs-caption); font-weight: 500; }
 .site-utility-inner > * + *::before { content: ''; position: absolute; left: 0; top: 50%; width: 1px; height: 11px; margin-top: -5px; background: var(--border-strong); }
 .site-utility-inner > a:hover, .site-utility-inner > button:hover { color: var(--primary); }
 .site-utility-inner > :last-child { padding-right: 0; }
-.site-utility .avatar { width: 22px; height: 22px; font-size: 11px; }
+.site-utility .avatar { width: 22px; height: 22px; font-size: var(--fs-caption); }
 .site-header-inner { width: min(100% - 64px, 1200px); margin: 0 auto; min-height: 76px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
 .site-nav { display: flex; align-items: stretch; align-self: stretch; gap: 4px; justify-content: flex-end; }
-.site-nav-link { position: relative; display: inline-flex; align-items: center; padding: 0 16px; color: var(--text); font-size: 17px; font-weight: 700; white-space: nowrap; letter-spacing: -.03em; transition: color .15s; }
+.site-nav-link { position: relative; display: inline-flex; align-items: center; padding: 0 16px; color: var(--text); font-size: 17px; font-weight: 700; white-space: nowrap; letter-spacing: -.01em; transition: color .15s; }
 .site-nav-link::after { content: ''; position: absolute; right: 16px; bottom: -1px; left: 16px; height: 3px; background: transparent; transition: background-color .15s; }
 .site-nav-link:hover { color: var(--primary); }
 .site-nav-link.is-active { color: var(--primary); }
@@ -49,7 +49,7 @@ a.btn-primary:hover { color: #fff; }
 .header-account-link:hover .header-name, .header-account-link:focus-visible .header-name { color: var(--primary); text-decoration: underline; }
 .header-name { font-weight: 600; color: var(--text); }
 .avatar { width: 32px; height: 32px; border-radius: 50%; background: var(--sage); color: var(--text); display: inline-flex; align-items: center; justify-content: center; font-weight: 700; font-size: 14px; }
-.nav-toggle-button { display: none; align-items: center; gap: 9px; min-height: 44px; border: 1px solid var(--border-strong); background: var(--surface); border-radius: 10px; padding: 9px 14px; font-size: 14px; font-weight: 600; color: var(--text); }
+.nav-toggle-button { display: none; align-items: center; gap: 9px; min-height: 44px; border: 1px solid var(--border-strong); background: var(--surface); border-radius: 0; padding: 9px 14px; font-size: 14px; font-weight: 600; color: var(--text); }
 .menu-lines { display: grid; gap: 5px; width: 16px; }
 .menu-lines i { display: block; height: 1.5px; background: currentColor; transition: transform .15s; }
 .menu-lines.is-open i:first-child { transform: translateY(3.25px) rotate(45deg); }
@@ -58,7 +58,7 @@ a.btn-primary:hover { color: #fff; }
 /* 공통 푸터: 바로가기 줄, 서비스 소개, 교육 서비스 고지. */
 .site-footer { margin-top: 96px; border-top: 1px solid var(--border); background: #f1f2eb; }
 .site-footer-inner { width: min(100% - 64px, 1200px); margin: 0 auto; }
-.footer-links { border-bottom: 1px solid #dfe3d8; background: #fff; }
+.footer-links { border-bottom: 1px solid #d8ceb8; background: #fff; }
 .footer-links .site-footer-inner { display: flex; flex-wrap: wrap; }
 .footer-links a { position: relative; display: inline-flex; align-items: center; min-height: 54px; padding: 0 18px; color: var(--text); font-size: var(--fs-small); font-weight: 700; }
 .footer-links a:first-child { padding-left: 0; }
@@ -71,7 +71,7 @@ a.btn-primary:hover { color: #fff; }
 .footer-info p { margin: 0; word-break: keep-all; }
 .footer-info strong { margin-right: 8px; color: var(--text); }
 .footer-copy { margin-top: 6px !important; color: var(--text-faint); font-size: var(--fs-caption); }
-.footer-top-button { flex-shrink: 0; min-height: 40px; padding: 0 16px; border: 1px solid var(--border-strong); border-radius: 999px; background: #fff; color: var(--text-muted); font-size: var(--fs-caption); font-weight: 600; }
+.footer-top-button { flex-shrink: 0; min-height: 40px; padding: 0 16px; border: 1px solid var(--border-strong); border-radius: 0; background: #fff; color: var(--text-muted); font-size: var(--fs-caption); font-weight: 600; }
 .footer-top-button:hover { color: var(--primary); border-color: var(--primary); }
 
 @media (max-width: 1460px) { .site-header .brand-caption { display: none; } }
@@ -84,7 +84,7 @@ a.btn-primary:hover { color: #fff; }
   .site-nav-link { padding: 14px 4px; font-size: 17px; border-top: 1px solid var(--border); }
   .site-nav-link::after { display: none; }
   .site-nav-account { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 4px; padding-top: 16px; border-top: 1px solid var(--border); }
-  .site-nav-account > a, .site-nav-account > button { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 16px; border: 1px solid var(--border-strong); border-radius: 10px; background: #fff; color: var(--text); font-size: 15px; font-weight: 600; }
+  .site-nav-account > a, .site-nav-account > button { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 16px; border: 1px solid var(--border-strong); border-radius: 0; background: #fff; color: var(--text); font-size: 15px; font-weight: 600; }
   .site-nav-account > :first-child { border-color: var(--primary); background: var(--primary); color: #fff; }
   .site-nav-account > .header-account-link { border-color: var(--border-strong); background: #fff; color: var(--text); }
 }

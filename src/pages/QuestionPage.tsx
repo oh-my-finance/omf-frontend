@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Header from "../components/Header";
 import Stepper from "../components/Stepper";
+import Icon from "../components/Icon";
 import { api, ApiError } from "../api/client";
 import type { QuestionResponse } from "../api/types";
 import AssessmentAvailability from "../components/AssessmentAvailability";
@@ -126,15 +127,15 @@ export default function QuestionPage() {
             <span style={{ fontSize: 13, fontWeight: 700, color: "var(--primary)" }}>
               질문 {step + 1} / {questions.length}
             </span>
-            <span style={{ fontSize: 12, color: "var(--text-faint)" }}>답변 완료 {answeredCount} / {questions.length}</span>
+            <span style={{ fontSize: 13, color: "var(--text-faint)" }}>답변 완료 {answeredCount} / {questions.length}</span>
           </div>
-          <div style={{ width: "100%", height: 7, borderRadius: 6, background: "var(--border)", overflow: "hidden" }}>
+          <div style={{ width: "100%", height: 7, borderRadius: 0, background: "var(--border)", overflow: "hidden" }}>
             <div
               style={{
                 width: `${((step + 1) / questions.length) * 100}%`,
                 height: "100%",
                 background: "var(--primary)",
-                borderRadius: 6,
+                borderRadius: 0,
                 transition: "width 0.2s ease",
               }}
             />
@@ -162,7 +163,7 @@ export default function QuestionPage() {
                       alignItems: "center",
                       gap: 14,
                       padding: "16px 18px",
-                      borderRadius: 12,
+                      borderRadius: 0,
                       border: `1.5px solid ${selected ? "var(--primary)" : "var(--border)"}`,
                       background: selected ? "var(--primary-tint)" : "#fff",
                       cursor: "pointer",
@@ -252,7 +253,7 @@ function NarrativeStep({ value, onChange, submitting, error, onBack, onSubmit }:
     <div style={{ width: 620, maxWidth: "100%", display: "flex", flexDirection: "column", gap: 20 }}>
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
         <span style={{ fontSize: 13, fontWeight: 700, color: "var(--primary)" }}>마지막 단계 · 선택</span>
-        <span style={{ fontSize: 12, color: "var(--text-faint)" }}>모든 문항 답변 완료</span>
+        <span style={{ fontSize: 13, color: "var(--text-faint)" }}>모든 문항 답변 완료</span>
       </div>
       <section className="card narrative-step">
         <h2>투자에 대한 생각을 자유롭게 적어 주세요</h2>
@@ -299,24 +300,7 @@ function Shell({ children }: { children: React.ReactNode }) {
 function UnavailableState({ onRetry }: { onRetry: () => void }) {
   return (
     <div style={{ width: 460, display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center", gap: 18, margin: "0 auto" }}>
-      <div
-        style={{
-          width: 72,
-          height: 72,
-          borderRadius: "50%",
-          background: "var(--danger-bg)",
-          border: "1.5px solid var(--danger-border)",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
-        <svg width="32" height="32" viewBox="0 0 24 24" fill="none">
-          <path d="M12 3l10 18H2L12 3z" stroke="#D64545" strokeWidth="1.8" strokeLinejoin="round" />
-          <line x1="12" y1="10" x2="12" y2="14" stroke="#D64545" strokeWidth="1.8" strokeLinecap="round" />
-          <circle cx="12" cy="17" r="1" fill="#D64545" />
-        </svg>
-      </div>
+      <Icon name="alert" size={40} style={{ color: "var(--danger)" }} />
       <div style={{ fontWeight: 700, fontSize: 19 }}>진단 문항을 불러올 수 없습니다</div>
       <div style={{ fontSize: 13.5, color: "var(--text-muted)", lineHeight: 1.7 }}>
         문항 데이터가 아직 준비되지 않았습니다.

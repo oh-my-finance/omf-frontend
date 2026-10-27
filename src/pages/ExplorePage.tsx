@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import Header from "../components/Header";
 import LoadError from "../components/LoadError";
+import Icon from "../components/Icon";
 import { api } from "../api/client";
 import type { CategoryRecommendationResponse, ProductResponse } from "../api/types";
 
@@ -48,7 +49,7 @@ export default function ExplorePage() {
 
       <div className="legacy-pad" style={{ display: "flex", flexDirection: "column", gap: 16 }}>
         {error && <LoadError message={error} onRetry={() => { setError(null); setReload(value => value + 1); }} />}
-        <div style={{ fontSize: 12.5, color: "var(--text-faint)" }}>
+        <div style={{ fontSize: 13, color: "var(--text-faint)" }}>
           분석 결과 &nbsp;›&nbsp; <span style={{ color: "var(--text)", fontWeight: 600 }}>탐색 카테고리</span>
         </div>
         <div style={{ fontWeight: 700, fontSize: 19 }}>{profileLabel} 고객님께 안내되는 탐색 카테고리</div>
@@ -64,7 +65,7 @@ export default function ExplorePage() {
                 onClick={() => setSelectedCategoryId(rec.categoryId)}
                 style={{
                   padding: "10px 18px",
-                  borderRadius: 999,
+                  borderRadius: 0,
                   border: `1.5px solid ${active ? "var(--primary)" : "var(--border)"}`,
                   background: active ? "var(--primary-tint)" : "#fff",
                   color: active ? "var(--primary)" : "var(--text-muted)",
@@ -87,11 +88,11 @@ export default function ExplorePage() {
         {selected && (
           <div
             style={{
-              fontSize: 12.5,
+              fontSize: 13,
               color: "var(--text-muted)",
               background: "#fff",
               border: "1px solid var(--border)",
-              borderRadius: 10,
+              borderRadius: 0,
               padding: "12px 16px",
               lineHeight: 1.6,
             }}
@@ -116,7 +117,7 @@ export default function ExplorePage() {
                     {p.riskGrade}등급
                   </span>
                 </div>
-                <div style={{ fontSize: 12.5, color: "var(--text-faint)" }}>예상 투자 기간 {p.expectedPeriod}</div>
+                <div style={{ fontSize: 13, color: "var(--text-faint)" }}>예상 투자 기간 {p.expectedPeriod}</div>
                 <div style={{ fontSize: 13, color: "var(--text-muted)", lineHeight: 1.6 }}>{p.description}</div>
                 <a
                   href="#"
@@ -139,7 +140,7 @@ export default function ExplorePage() {
           padding: "14px 40px",
           background: "#fff",
           borderTop: "1px solid var(--border)",
-          fontSize: 11.5,
+          fontSize: 13,
           color: "var(--text-faint)",
           textAlign: "center",
         }}
@@ -154,23 +155,7 @@ function EmptyProducts() {
   return (
     <div style={{ flex: 1, display: "flex", alignItems: "center", justifyContent: "center" }}>
       <div style={{ width: 400, maxWidth: "100%", display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center", gap: 16 }}>
-        <div
-          style={{
-            width: 64,
-            height: 64,
-            borderRadius: 16,
-            background: "#eff1f6",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
-            <rect x="3" y="8" width="18" height="12" rx="1.6" stroke="#8B95B3" strokeWidth="1.8" />
-            <path d="M3 8l3-4h12l3 4" stroke="#8B95B3" strokeWidth="1.8" strokeLinejoin="round" />
-            <line x1="9" y1="12" x2="15" y2="12" stroke="#8B95B3" strokeWidth="1.8" strokeLinecap="round" />
-          </svg>
-        </div>
+        <Icon name="inbox" size={36} style={{ color: "var(--text-faint)" }} />
         <div style={{ fontWeight: 700, fontSize: 16 }}>조건에 맞는 상품이 없습니다</div>
         <div style={{ fontSize: 13, color: "var(--text-muted)", lineHeight: 1.6 }}>
           이 카테고리에는 현재 안내 가능한 예시 상품이 없습니다.
