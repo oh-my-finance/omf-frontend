@@ -1,0 +1,66 @@
+name: Deploy frontend
+# 사람이 고른 대상에 main의 커밋을 배포한다. 브라우저는 같은 origin의 /api를 부르므로 VITE_API_BASE_URL=/api로 빌드한다.
+# 장기 키 없이 OIDC만 쓴다. 대상 값은 저장소 변수로 받는다:
+#   A(gcp): GCP_WIF_PROVIDER, GCP_DEPLOY_FRONTEND_SA, GCP_PROJECT_ID   (Hosting 설정은 firebase.json)
+#   C(aws): AWS_DEPLOY_FRONTEND_ROLE_ARN, AWS_FRONTEND_BUCKET, AWS_CLOUDFRONT_DISTRIBUTION_ID, AWS_REGION
+on:
+  workflow_dispatch:
+    inputs:
+      target:
+        description: 배포 대상
+        type: choice
+        options: [gcp, aws]
+        required: true
+
+permissions:
+  contents: read
+  id-token: write
+
+concurrency:
+  group: deploy-frontend-${{ inputs.target }}
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+        env:
+          VITE_API_BASE_URL: /api
+
+      # ---------------------------------------------------------------- A: Firebase Hosting
+      - if: inputs.target == 'gcp'
+        uses: google-github-actions/auth@v2
+        with:
+          workload_identity_provider: ${{ vars.GCP_WIF_PROVIDER }}
+          service_account: ${{ vars.GCP_DEPLOY_FRONTEND_SA }}
+      - if: inputs.target == 'gcp'
+        run: npx --yes firebase-tools@15.34.1 deploy --only hosting --project "${{ vars.GCP_PROJECT_ID }}" --non-interactive
+
+      # ---------------------------------------------------------------- C: S3 + CloudFront
+      - if: inputs.target == 'aws'
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ vars.AWS_DEPLOY_FRONTEND_ROLE_ARN }}
+          aws-region: ${{ vars.AWS_REGION || 'ap-northeast-2' }}
+      - if: inputs.target == 'aws'
+        name: S3 업로드(해시 붙은 자산은 1년 캐시, index.html은 매번 확인)
+        run: |
+          aws s3 sync dist/assets "s3://${{ vars.AWS_FRONTEND_BUCKET }}/assets" --delete \
+            --cache-control "public, max-age=31536000, immutable"
+          aws s3 sync dist "s3://${{ vars.AWS_FRONTEND_BUCKET }}" --delete --exclude "assets/*" \
+            --cache-control "no-cache"
+      - if: inputs.target == 'aws'
+        run: |
+          aws cloudfront create-invalidation --distribution-id "${{ vars.AWS_CLOUDFRONT_DISTRIBUTION_ID }}" \
+            --paths "/index.html" "/"
+
+      - name: 기록
+        run: echo "배포 대상 ${{ inputs.target }}, 커밋 ${{ github.sha }}" >> "$GITHUB_STEP_SUMMARY"

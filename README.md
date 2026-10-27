@@ -19,16 +19,21 @@ npm run lint
 npm run build
 ```
 
-## Netlify 배포
+## 배포
 
-독립 `front` 저장소를 연결하면 base directory는 루트(비움), build는 `npm run build`, publish는 `dist`입니다. 현재 통합 작업공간을 직접 연결할 경우에만 base directory를 `front`로 설정합니다. SPA redirect는 `netlify.toml`에 있습니다.
+배포는 사람이 GitHub Actions의 **Deploy frontend**를 `main`에서 실행하고 대상(`gcp`/`aws`)을 고릅니다(장기 키 없이 OIDC). 두 대상 모두 같은 origin의 `/api`를 쓰므로 `VITE_API_BASE_URL=/api`로 빌드합니다.
 
-호스팅 환경변수에 `VITE_API_BASE_URL=https://<실제-api-host>/api`를 넣은 다음 빌드합니다. Vite 환경변수는 빌드 시 브라우저 번들에 포함됩니다. DB URL·DB 비밀번호·Supabase secret/service role 키·LLM 키는 여기에 넣지 않습니다. API의 `FRONTEND_ORIGIN`에는 프런트의 정확한 HTTPS origin을 설정합니다.
+| 대상 | 호스팅 | `/api` | 저장소 변수 |
+|---|---|---|---|
+| A (GCP) | Firebase Hosting, 설정은 `firebase.json`(rewrite·SPA 폴백·보안 헤더·캐시) | rewrite → Cloud Run `omf-backend` | `GCP_WIF_PROVIDER`, `GCP_DEPLOY_FRONTEND_SA`, `GCP_PROJECT_ID` |
+| C (AWS) | S3 + CloudFront(보안 헤더는 CloudFront 정책) | CloudFront behavior → ALB | `AWS_DEPLOY_FRONTEND_ROLE_ARN`, `AWS_FRONTEND_BUCKET`, `AWS_CLOUDFRONT_DISTRIBUTION_ID` |
+
+변수 값은 omf-infra Terraform 출력입니다. `VITE_` 변수는 브라우저 번들에 들어가므로 비밀값을 넣지 않습니다. `netlify.toml`은 채택하지 않은 대안 D의 기록입니다(ADR-020).
 
 ## 경계와 다음 단계
 
 - 이 저장소는 화면·상호작용·API 호출·프런트 빌드 설정을 소유합니다.
 - DB 접근과 업무 규칙은 `back`, 배포 운영은 `infra`, UR/FR/NFR과 학습 로드맵은 `docs`가 소유합니다.
-- 증권업 입문 → 차트 복기 → 경량 모델 실험은 새 계획입니다. 현재 구현은 성향 진단·용어·개념·퀴즈·시뮬레이션·복습·콘텐츠 운영입니다.
+- 현재 구현은 성향 진단·용어·개념·퀴즈·시뮬레이션·복습·콘텐츠 운영·차트 복기(합성 데이터)입니다. 증권업 입문 과정과 경량 모델 실험은 계획입니다.
 
 조직 저장소 대상: [back](https://github.com/oh-my-finance/omf-backend), [infra](https://github.com/oh-my-finance/omf-infra), [docs](https://github.com/oh-my-finance/omf-docs). 원격 생성·권한·기본 브랜치는 이 작업에서 확인되지 않았습니다.
