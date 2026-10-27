@@ -43,9 +43,6 @@ export default function LoginPage() {
         style={{
           background: "linear-gradient(155deg,#16224D 0%, #1E3FC4 65%, #2F55E8 100%)",
           padding: "56px 44px",
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "space-between",
           position: "relative",
           overflow: "hidden",
         }}
