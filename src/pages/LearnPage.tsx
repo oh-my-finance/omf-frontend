@@ -2,6 +2,8 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import type { ReactNode } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import Header from "../components/Header";
+import SiteFooter from "../components/SiteFooter";
+import SubPageHeader from "../components/SubPageHeader";
 import ConceptTree from "../components/ConceptTree";
 import ConceptDiagram from "../components/ConceptDiagram";
 import QuizPanel from "../components/QuizPanel";
@@ -142,20 +144,14 @@ export default function LearnPage() {
   return (
     <div className="app-page">
       <Header />
+      <SubPageHeader
+        section="learning"
+        current="/learn"
+        title="개념 학습"
+        description="개념을 고르면 구조·확인 포인트·확인 문제·모의투자가 함께 열립니다. 왼쪽 목록에서 하위 개념을 펼쳐 원하는 깊이까지 내려갈 수 있습니다. 진단 등급을 바꾸거나 가입을 권유하지 않습니다."
+        meta={tree ? `개념 ${tree.conceptCount}개 · 콘텐츠 버전 ${tree.contentVersion}` : undefined}
+      />
       <main className="learn-main">
-        <section className="learn-intro">
-          <span className="eyebrow">상품 기초 학습 · 출처 연결 콘텐츠 · 모의투자</span>
-          <h1>상품을 보기 전에, 구조를 읽는 법부터.</h1>
-          <p className="intro-copy">
-            진단 등급을 바꾸거나 가입을 권유하는 페이지가 아닙니다. 개념을 고르면 구조·확인 포인트·확인 문제·모의투자가
-            함께 열립니다. 왼쪽 목록에서 하위 개념을 펼쳐 원하는 깊이까지 내려갈 수 있습니다.
-          </p>
-          {tree && (
-            <p className="subtle">
-              개념 {tree.conceptCount}개 · 콘텐츠 버전 {tree.contentVersion}
-            </p>
-          )}
-        </section>
 
         <div className="learn-layout">
           <aside className={`learn-aside${navOpen ? " is-open" : ""}`}>
@@ -382,6 +378,7 @@ export default function LearnPage() {
           </div>
         </div>
       </main>
+      <SiteFooter />
     </div>
   );
 }

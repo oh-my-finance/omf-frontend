@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import Header from "../components/Header";
+import SiteFooter from "../components/SiteFooter";
+import SubPageHeader from "../components/SubPageHeader";
 import { useAuth } from "../context/AuthContext";
 import { api, ApiError } from "../api/client";
 import type { GlossaryTerm } from "../api/types";
@@ -16,6 +18,21 @@ export default function GlossaryDetailPage() {
   const [error, setError] = useState<string | null>(null);
   const [saving, setSaving] = useState(false);
   const [retry, setRetry] = useState(0);
+  const [categoryNames, setCategoryNames] = useState<Record<string, string>>({});
+  const [termNames, setTermNames] = useState<Record<string, string>>({});
+  const categoryName = term ? categoryNames[term.categoryId] : undefined;
+
+  // 분야와 이어 읽을 용어는 영문 식별자 대신 이름으로 보여 준다. 실패하면 식별자를 그대로 쓴다.
+  useEffect(() => {
+    let current = true;
+    api.getGlossaryCategories()
+      .then(data => { if (current) setCategoryNames(Object.fromEntries(data.categories.map(item => [item.id, item.name]))); })
+      .catch(() => { /* 분야 이름은 보조 정보 */ });
+    api.getGlossaryTerms()
+      .then(data => { if (current) setTermNames(Object.fromEntries(data.terms.map(item => [item.slug, item.term]))); })
+      .catch(() => { /* 용어 이름은 보조 정보 */ });
+    return () => { current = false; };
+  }, []);
 
   useEffect(() => {
     let current = true;
@@ -53,15 +70,15 @@ export default function GlossaryDetailPage() {
   return (
     <div className="app-page">
       <Header />
+      <SubPageHeader section="learning" current="/glossary" title="용어 사전" detail={term?.term ?? "용어"} />
       <main className="glossary-detail-main">
-        <Link className="glossary-back" to="/glossary">← 용어 목록으로</Link>
         {loading && <p role="status" className="subtle">용어를 불러오는 중…</p>}
         {error && <div className="card glossary-message" role="alert">{error} {!term && <button className="btn btn-secondary" onClick={() => setRetry(value => value + 1)}>다시 시도</button>}</div>}
         {term && (
           <>
             <div className="glossary-detail-head">
               <div>
-                <div className="glossary-detail-meta"><span className="badge badge-primary">{levelName[term.level] ?? term.level}</span><span>{term.categoryId}</span><span>버전 {term.contentVersion}</span></div>
+                <div className="glossary-detail-meta"><span className="badge badge-primary">{levelName[term.level] ?? term.level}</span><Link to={`/glossary?category=${encodeURIComponent(term.categoryId)}`}>{categoryName ?? term.categoryId}</Link><span>버전 {term.contentVersion}</span></div>
                 <h1>{term.term}</h1>
                 {term.english && <p className="glossary-english">{term.english}{term.fullName && term.fullName !== term.english ? ` · ${term.fullName}` : ""}</p>}
               </div>
@@ -78,7 +95,7 @@ export default function GlossaryDetailPage() {
               <aside className="glossary-detail-aside">
                 <div className="card">
                   <h2>이어 읽기</h2>
-                  {term.related.length > 0 ? <div className="glossary-related">{term.related.map(related => <Link key={related} to={`/glossary/${related}`}>{related} →</Link>)}</div> : <p className="subtle">연결된 용어가 없습니다.</p>}
+                  {term.related.length > 0 ? <div className="glossary-related">{term.related.map(related => <Link key={related} to={`/glossary/${related}`}>{termNames[related] ?? related} →</Link>)}</div> : <p className="subtle">연결된 용어가 없습니다.</p>}
                   {term.conceptSlug && <Link className="glossary-concept-link" to={`/learn?concept=${encodeURIComponent(term.conceptSlug)}`}>관련 학습 개념 보기 →</Link>}
                 </div>
                 <div className="card">
@@ -91,6 +108,7 @@ export default function GlossaryDetailPage() {
           </>
         )}
       </main>
+      <SiteFooter />
     </div>
   );
 }

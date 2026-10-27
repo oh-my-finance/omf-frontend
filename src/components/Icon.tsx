@@ -1,6 +1,6 @@
 import type { CSSProperties, ReactNode } from "react";
 
-export type IconName = "arrow" | "book" | "compass" | "chart" | "replay" | "check" | "spark";
+export type IconName = "arrow" | "book" | "compass" | "chart" | "replay" | "check" | "spark" | "search" | "pause" | "play" | "prev" | "next" | "plus" | "user" | "list";
 
 /** 작은 화면에서도 선 굵기가 일정한 공통 아이콘. */
 export default function Icon({ name, size = 22, style }: { name: IconName; size?: number; style?: CSSProperties }) {
@@ -12,6 +12,14 @@ export default function Icon({ name, size = 22, style }: { name: IconName; size?
     replay: <><path d="M3 10a9 9 0 1 1 1.5 7M3 4v6h6" /><path d="M12 7v5l3 2" /></>,
     check: <path d="m5 12 4 4L19 6" />,
     spark: <path d="m12 3 2.5 6.5L21 12l-6.5 2.5L12 21l-2.5-6.5L3 12l6.5-2.5L12 3Z" />,
+    search: <><circle cx="11" cy="11" r="7" /><path d="m20 20-4-4" /></>,
+    pause: <path d="M9 5v14m6-14v14" />,
+    play: <path d="M7 5v14l12-7L7 5Z" />,
+    prev: <path d="m15 5-7 7 7 7" />,
+    next: <path d="m9 5 7 7-7 7" />,
+    plus: <path d="M12 5v14M5 12h14" />,
+    user: <><circle cx="12" cy="8" r="4" /><path d="M4 21c1-4 4-6 8-6s7 2 8 6" /></>,
+    list: <path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01" />,
   };
   return <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" style={style}>{paths[name]}</svg>;
 }
