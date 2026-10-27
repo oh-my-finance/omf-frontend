@@ -37,10 +37,10 @@ export default function LoginPage() {
   };
 
   return (
-    <div style={{ minHeight: "100vh", background: "var(--bg)", display: "flex" }}>
+    <div className="login-shell" style={{ minHeight: "100vh", background: "var(--bg)", display: "flex" }}>
       <div
+        className="login-aside"
         style={{
-          width: 440,
           background: "linear-gradient(155deg,#16224D 0%, #1E3FC4 65%, #2F55E8 100%)",
           padding: "56px 44px",
           display: "flex",
@@ -112,8 +112,8 @@ export default function LoginPage() {
         </div>
       </div>
 
-      <div style={{ flex: 1, display: "flex", alignItems: "center", justifyContent: "center", padding: 40 }}>
-        <form onSubmit={submit} style={{ width: 360, display: "flex", flexDirection: "column", gap: 22 }}>
+      <div className="login-main" style={{ flex: 1, display: "flex", alignItems: "center", justifyContent: "center" }}>
+        <form className="login-form" onSubmit={submit} style={{ display: "flex", flexDirection: "column", gap: 22 }}>
           <div style={{ display: "flex", borderBottom: "1.5px solid var(--border)" }}>
             <button
               type="button"

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Header from "../components/Header";
+import LoadError from "../components/LoadError";
 import { api } from "../api/client";
 import type { ReplayScenarioList, ReplaySessionSummary } from "../api/types";
 import { useAuth } from "../context/AuthContext";
@@ -17,9 +18,11 @@ export default function ReplayListPage() {
   const [starting, setStarting] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
 
+  const [reload, setReload] = useState(0);
+
   useEffect(() => {
     api.getReplayScenarios().then(setCatalog).catch(() => setError("시나리오를 불러오지 못했습니다."));
-  }, []);
+  }, [reload]);
 
   useEffect(() => {
     if (!user) return;
@@ -57,7 +60,9 @@ export default function ReplayListPage() {
         </div>
 
         {catalog && <p className="replay-notice" role="note">{catalog.notice}</p>}
-        {error && <p className="error-text" role="alert">{error}</p>}
+        {error && !catalog && <LoadError message={error} onRetry={() => { setError(null); setReload(value => value + 1); }} />}
+        {error && catalog && <p className="error-text" role="alert">{error}</p>}
+        {!catalog && !error && <p className="subtle" role="status">시나리오를 불러오는 중…</p>}
 
         <section className="replay-scenarios" aria-label="시나리오">
           {catalog?.scenarios.map(scenario => (

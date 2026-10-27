@@ -50,7 +50,7 @@ export default function HomePage() {
               <button className="btn btn-primary" onClick={() => navigate(user ? "/start" : "/login")}>
                 {user ? "이번 달 성향 진단하기" : "로그인하고 진단 시작"}
               </button>
-              <Link className="btn btn-secondary" to="/glossary">주식 용어 사전</Link>
+              <Link className="btn btn-secondary" to="/course">처음이라면 입문 과정부터</Link>
             </div>
           </div>
           <aside className="card home-flow" aria-label="FinMATE 이용 흐름">
@@ -63,6 +63,17 @@ export default function HomePage() {
               <li><span className="home-step">5</span><div><b>복습</b>틀린 문항은 1·3·7·14·30일 간격으로 다시 돌아옵니다.</div></li>
             </ol>
           </aside>
+        </section>
+
+        <section className="home-section home-start" aria-labelledby="home-start-title">
+          <span className="eyebrow">처음 오셨다면</span>
+          <h2 id="home-start-title">이 순서로 시작해 보세요</h2>
+          <ol className="home-start-steps">
+            <li><Link to="/course"><b>1. 증권업 입문 과정</b><span>증권이 무엇이고 은행·증권회사·거래소가 각각 무엇을 하는지부터, 주식·채권을 거쳐 선물·옵션까지 순서대로 갑니다.</span></Link></li>
+            <li><Link to="/glossary"><b>2. 모르는 용어는 사전에서</b><span>읽다가 막히는 단어는 질문으로 찾고, 저장해 두었다가 복습합니다.</span></Link></li>
+            <li><Link to="/replay"><b>3. 차트 복기로 판단 연습</b><span>그 시점까지의 정보만 보고 판단한 뒤 다음 구간을 열어, 수익과 근거를 나눠 돌아봅니다.</span></Link></li>
+            <li><Link to={user ? "/start" : "/login"}><b>4. 성향 진단과 내 학습</b><span>진단 결과와 틀린 문제로 다음에 볼 개념을 안내받습니다.</span></Link></li>
+          </ol>
         </section>
 
         <section className="home-section">
