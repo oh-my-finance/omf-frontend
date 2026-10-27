@@ -17,6 +17,8 @@ import GlossaryDetailPage from "./pages/GlossaryDetailPage";
 import MyPage from "./pages/MyPage";
 import AdminGlossaryPage from "./pages/AdminGlossaryPage";
 import AdminLearningPage from "./pages/AdminLearningPage";
+import ReplayListPage from "./pages/ReplayListPage";
+import ReplaySessionPage from "./pages/ReplaySessionPage";
 
 /**
  * 학습·용어·모의투자·모델 실험실은 진단 등급이나 로그인과 무관하게 열어 둔다(docs/09).
@@ -33,6 +35,8 @@ export default function App() {
         <Route path="/learn" element={<LearnPage />} />
         <Route path="/practice" element={<PracticePage />} />
         <Route path="/models" element={<ModelLabPage />} />
+        <Route path="/replay" element={<ReplayListPage />} />
+        <Route path="/replay/:sessionId" element={<ProtectedRoute><ReplaySessionPage /></ProtectedRoute>} />
 
         <Route path="/start" element={<ProtectedRoute><StartPage /></ProtectedRoute>} />
         <Route path="/diagnosis" element={<ProtectedRoute><QuestionPage /></ProtectedRoute>} />

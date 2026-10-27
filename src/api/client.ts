@@ -36,6 +36,11 @@ import type {
   AdminConceptSummary,
   LearningPathResponse,
   ModelsResponse,
+  ReplayScenarioList,
+  ReplaySessionSummary,
+  ReplaySessionView,
+  ReplayDecisionRequest,
+  ReplayReview,
 } from "./types";
 
 const BASE_URL = import.meta.env.VITE_API_BASE_URL ?? "http://localhost:8080/api";
@@ -241,4 +246,24 @@ export const api = {
 
   getModels: () => request<ModelsResponse>("/ml/models"),
   getLearningPath: () => request<LearningPathResponse>("/me/learning-path"),
+
+  // 차트 복기. 세션 응답에는 공개된 구간만 있다. 다음 구간은 판단을 보낸 응답으로만 받는다.
+  getReplayScenarios: () => request<ReplayScenarioList>("/replay/scenarios"),
+  getReplaySessions: () => request<ReplaySessionSummary[]>("/replay/sessions"),
+  startReplay: (scenarioId: string) =>
+    request<ReplaySessionView>("/replay/sessions", { method: "POST", body: JSON.stringify({ scenarioId }) }),
+  getReplaySession: (sessionId: string) =>
+    request<ReplaySessionView>(`/replay/sessions/${encodeURIComponent(sessionId)}`),
+  decideReplay: (sessionId: string, payload: ReplayDecisionRequest) =>
+    request<ReplaySessionView>(`/replay/sessions/${encodeURIComponent(sessionId)}/decisions`, {
+      method: "POST",
+      body: JSON.stringify(payload),
+    }),
+  getReplayReview: (sessionId: string) =>
+    request<ReplayReview>(`/replay/sessions/${encodeURIComponent(sessionId)}/review`),
+  reflectReplay: (sessionId: string, step: number, reflection: string, note: string) =>
+    request<ReplayReview>(`/replay/sessions/${encodeURIComponent(sessionId)}/decisions/${step}/reflection`, {
+      method: "PUT",
+      body: JSON.stringify({ reflection, note }),
+    }),
 };
