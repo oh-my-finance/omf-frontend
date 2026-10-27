@@ -19,6 +19,7 @@ import AdminGlossaryPage from "./pages/AdminGlossaryPage";
 import AdminLearningPage from "./pages/AdminLearningPage";
 import ReplayListPage from "./pages/ReplayListPage";
 import CoursePage from "./pages/CoursePage";
+import SettingsPage from "./pages/SettingsPage";
 import ReplaySessionPage from "./pages/ReplaySessionPage";
 
 /**
@@ -47,6 +48,7 @@ export default function App() {
         <Route path="/product/:productId" element={<ProtectedRoute><ProductDetailPage /></ProtectedRoute>} />
         <Route path="/history" element={<ProtectedRoute><HistoryPage /></ProtectedRoute>} />
         <Route path="/me" element={<ProtectedRoute><MyPage /></ProtectedRoute>} />
+        <Route path="/settings" element={<ProtectedRoute><SettingsPage /></ProtectedRoute>} />
         <Route path="/admin" element={<Navigate to="/admin/glossary" replace />} />
         <Route path="/admin/glossary" element={<ProtectedRoute><AdminGlossaryPage /></ProtectedRoute>} />
         <Route path="/admin/learning" element={<ProtectedRoute><AdminLearningPage /></ProtectedRoute>} />

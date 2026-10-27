@@ -63,8 +63,10 @@ export default function Header() {
           <span className="site-nav-account">
             {user ? (
               <>
-                <span className="header-name">{user.name} 님</span>
-                <span className="avatar" aria-hidden="true">{user.name.charAt(0)}</span>
+                <NavLink to="/settings" className="header-account-link" aria-label={`${user.name} 님 계정 설정`} onClick={() => setOpen(false)}>
+                  <span className="header-name">{user.name} 님</span>
+                  <span className="avatar" aria-hidden="true">{user.name.charAt(0)}</span>
+                </NavLink>
                 <button
                   type="button"
                   className="btn btn-secondary btn-small"

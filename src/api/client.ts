@@ -105,6 +105,10 @@ export const api = {
 
   getMe: () => request<UserResponse>("/auth/me"),
   logout: () => request<void>("/auth/logout", { method: "POST" }),
+  changePassword: (currentPassword: string, newPassword: string) =>
+    request<void>("/auth/password", { method: "PUT", body: JSON.stringify({ currentPassword, newPassword }) }),
+  // 본문(비밀번호)이 있어 DELETE 대신 POST를 쓴다.
+  withdraw: (password: string) => request<void>("/auth/withdraw", { method: "POST", body: JSON.stringify({ password }) }),
 
   getQuestions: () => request<QuestionResponse[]>("/questions"),
 
