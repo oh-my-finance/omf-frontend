@@ -1,6 +1,8 @@
 import { useCallback, useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import Header from "../components/Header";
+import SiteFooter from "../components/SiteFooter";
+import SubPageHeader from "../components/SubPageHeader";
 import { useAuth } from "../context/AuthContext";
 import { api, ApiError } from "../api/client";
 import type { GlossaryCategory, GlossaryQuiz, GlossaryQuizResult, GlossaryTermSummary, TermSearchResponse } from "../api/types";
@@ -14,12 +16,14 @@ function errorMessage(error: unknown) {
 
 export default function GlossaryPage() {
   const { isAuthenticated } = useAuth();
+  // 메인의 통합 검색(?q=)과 분야 바로가기(?category=)로 들어오면 그 조건으로 시작한다.
+  const [params] = useSearchParams();
   const [tab, setTab] = useState<Tab>("browse");
   const [categories, setCategories] = useState<GlossaryCategory[]>([]);
-  const [category, setCategory] = useState("");
+  const [category, setCategory] = useState(() => params.get("category") ?? "");
   const [level, setLevel] = useState("");
-  const [draft, setDraft] = useState("");
-  const [query, setQuery] = useState("");
+  const [draft, setDraft] = useState(() => params.get("q") ?? "");
+  const [query, setQuery] = useState(() => (params.get("q") ?? "").trim());
   const [terms, setTerms] = useState<GlossaryTermSummary[]>([]);
   const [total, setTotal] = useState(0);
   const [version, setVersion] = useState("");
@@ -77,14 +81,14 @@ export default function GlossaryPage() {
   return (
     <div className="app-page">
       <Header />
+      <SubPageHeader
+        section="learning"
+        current="/glossary"
+        title="용어 사전"
+        description="주식 용어를 짧은 정의에서 실제 예시까지 따라가며 배웁니다. 각 항목의 출처와 주의점도 함께 확인하세요."
+        meta={version ? `콘텐츠 버전 ${version}` : undefined}
+      />
       <main className="glossary-main">
-        <div className="glossary-head">
-          <span className="eyebrow">STOCK GLOSSARY</span>
-          <h1>용어를 이해한 뒤, 시장을 읽습니다.</h1>
-          <p className="intro-copy">주식 용어를 짧은 정의에서 실제 예시까지 따라가며 배웁니다. 각 항목의 출처와 주의점도 함께 확인하세요.</p>
-          {version && <span className="subtle">콘텐츠 버전 {version}</span>}
-        </div>
-
         <div className="glossary-tabs" role="tablist" aria-label="용어 학습 방식">
           {(["browse", "bookmarks", "quiz"] as const).map(value => (
             <button key={value} type="button" role="tab" aria-selected={tab === value} className={tab === value ? "is-active" : ""} onClick={() => setTab(value)}>
@@ -169,6 +173,7 @@ export default function GlossaryPage() {
           </>
         )}
       </main>
+      <SiteFooter />
     </div>
   );
 }

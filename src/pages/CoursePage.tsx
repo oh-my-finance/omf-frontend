@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Header from "../components/Header";
 import LoadError from "../components/LoadError";
+import SiteFooter from "../components/SiteFooter";
+import SubPageHeader from "../components/SubPageHeader";
 import { api } from "../api/client";
 import type { CourseConceptStep, CourseStatus, CourseView } from "../api/types";
 import { useAuth } from "../context/AuthContext";
@@ -32,15 +34,14 @@ export default function CoursePage() {
   return (
     <div className="app-page">
       <Header />
+      <SubPageHeader
+        section="learning"
+        current="/course"
+        title={course?.title ?? "증권업 입문 과정"}
+        description={course?.summary}
+        actions={<Link className="btn btn-secondary" to="/learn">개념 전체 보기</Link>}
+      />
       <main className="practice-main course-main">
-        <div className="practice-head">
-          <div>
-            <span className="eyebrow">입문 과정 · 순서대로</span>
-            <h1>{course?.title ?? "증권업 입문 과정"}</h1>
-            <p className="intro-copy">{course?.summary}</p>
-          </div>
-          <Link className="btn btn-secondary" to="/learn">개념 전체 보기</Link>
-        </div>
 
         {error && <LoadError message={error} onRetry={() => { setError(null); setReload(value => value + 1); }} />}
         {!course && !error && <p className="subtle" role="status">불러오는 중…</p>}
@@ -103,6 +104,7 @@ export default function CoursePage() {
           </>
         )}
       </main>
+      <SiteFooter />
     </div>
   );
 }

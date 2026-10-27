@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Header from "../components/Header";
+import SiteFooter from "../components/SiteFooter";
+import SubPageHeader from "../components/SubPageHeader";
 import LoadError from "../components/LoadError";
 import { api } from "../api/client";
 import type { ReplayScenarioList, ReplaySessionSummary } from "../api/types";
@@ -46,18 +48,14 @@ export default function ReplayListPage() {
   return (
     <div className="app-page">
       <Header />
+      <SubPageHeader
+        section="practice"
+        current="/replay"
+        title="차트 복기"
+        description="판단 시점까지의 가격과 공시만 보고 보유 비중과 근거를 확정합니다. 확정해야 다음 구간이 열리고, 끝나면 수익과 근거를 나눠 회고합니다. 되돌릴 수 없고, 이미 본 시나리오를 다시 하면 연습으로 표시됩니다."
+        actions={<Link className="btn btn-secondary" to="/learn">개념 학습으로 가기</Link>}
+      />
       <main className="practice-main">
-        <div className="practice-head">
-          <div>
-            <span className="eyebrow">차트 복기 · 합성 데이터</span>
-            <h1>그 시점에서 판단하고,<br />다음 구간을 보고 돌아봅니다.</h1>
-            <p className="intro-copy">
-              판단 시점까지의 가격과 공시만 보고 보유 비중과 근거를 확정합니다. 확정해야 다음 구간이 열리고, 끝나면 수익과 근거를 나눠
-              회고합니다. 되돌릴 수 없고, 이미 본 시나리오를 다시 하면 연습으로 표시됩니다.
-            </p>
-          </div>
-          <Link className="btn btn-secondary" to="/learn">개념 학습으로 가기</Link>
-        </div>
 
         {catalog && <p className="replay-notice" role="note">{catalog.notice}</p>}
         {error && !catalog && <LoadError message={error} onRetry={() => { setError(null); setReload(value => value + 1); }} />}
@@ -112,6 +110,7 @@ export default function ReplayListPage() {
           </section>
         )}
       </main>
+      <SiteFooter />
     </div>
   );
 }

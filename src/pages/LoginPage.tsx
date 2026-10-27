@@ -7,7 +7,10 @@ import { ApiError } from "../api/client";
 import "../styles/login-refinement.css";
 
 export default function LoginPage() {
-  const [tab, setTab] = useState<"login" | "signup">("login");
+  const location = useLocation();
+  const state = location.state as { from?: string; tab?: string } | null;
+  // 상단의 회원가입 버튼으로 들어오면 가입 탭부터 연다.
+  const [tab, setTab] = useState<"login" | "signup">(state?.tab === "signup" ? "signup" : "login");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
@@ -15,9 +18,8 @@ export default function LoginPage() {
   const [loading, setLoading] = useState(false);
   const { login, signup } = useAuth();
   const navigate = useNavigate();
-  const location = useLocation();
   // 보호된 화면에서 넘어왔다면 로그인 후 그 화면으로 돌려보낸다. 외부 주소로는 보내지 않는다.
-  const from = (location.state as { from?: string } | null)?.from;
+  const from = state?.from;
   const next = from && from.startsWith("/") && !from.startsWith("//") ? from : "/start";
 
   const selectTab = (value: "login" | "signup") => {
