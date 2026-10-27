@@ -12,7 +12,7 @@ Copy-Item .env.example .env.local
 npm run dev
 ```
 
-기본 API는 `http://localhost:8080/api`, 화면은 `http://localhost:5173`입니다. 다른 API를 사용할 때 `.env.local`의 `VITE_API_BASE_URL`을 변경합니다. 인증은 Spring API의 DB 해시 세션을 사용하며, 진단 이력·학습 기록도 API로 조회합니다. 브라우저 토큰 저장은 현재 `localStorage` 방식입니다.
+기본 API는 `http://localhost:8080/api`, 화면은 `http://localhost:5173`입니다. 다른 API를 사용할 때 `.env.local`의 `VITE_API_BASE_URL`을 변경합니다. 배포처럼 같은 origin의 `/api`로 부르려면 `API_PROXY_TARGET=http://localhost:8080 VITE_API_BASE_URL=/api npm run dev`로 띄웁니다(개발 서버와 `vite preview`가 `/api`를 백엔드로 넘깁니다). omf-e2e가 이 방식을 씁니다. 인증은 Spring API의 DB 해시 세션을 사용하며, 진단 이력·학습 기록도 API로 조회합니다. 브라우저 토큰 저장은 현재 `localStorage` 방식입니다.
 
 ```powershell
 npm run lint
