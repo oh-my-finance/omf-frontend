@@ -6,14 +6,11 @@
 .login-aside .brand-caption { display: none; }
 .login-aside-top { position: relative; z-index: 1; }
 .login-aside-copy { position: relative; z-index: 1; margin-top: clamp(32px, 6vh, 64px); }
-.login-room-label { display: inline-flex; align-items: center; gap: 8px; padding: 6px 14px 6px 12px; border-radius: 999px; background: rgba(255, 255, 255, .6); color: #4f6347; font-size: var(--fs-small); font-weight: 600; }
-.login-room-label > span { width: 7px; height: 7px; border-radius: 50%; background: var(--primary); }
-.login-aside-copy h2 { margin: 18px 0 14px; color: var(--text); font-size: clamp(32px, 3vw, 44px); font-weight: 720; line-height: 1.28; letter-spacing: -.045em; }
+.login-room-label { display: block; color: #4f6347; font-size: var(--fs-small); font-weight: 700; letter-spacing: -.01em; }
+.login-aside-copy h2 { margin: 18px 0 14px; color: var(--text); font-size: clamp(32px, 3vw, 44px); font-weight: 720; line-height: 1.28; letter-spacing: -.01em; }
 .login-aside-copy > p { margin: 0; color: var(--text-muted); font-size: var(--fs-body); line-height: 1.75; }
 .login-campus-wrap { position: relative; flex: 1; min-height: 0; align-self: center; display: flex; align-items: center; justify-content: center; width: min(130%, 690px); margin: 8px -15% 0; }
 .login-campus { width: 100%; max-width: 100%; height: 100%; margin: 0; object-fit: contain; }
-.login-campus-badge { position: absolute; top: 12%; left: 9%; z-index: 1; display: inline-flex; align-items: center; gap: 8px; padding: 9px 15px 9px 12px; border: 1px solid #dde4d5; border-radius: 999px; background: var(--surface-paper); box-shadow: var(--shadow-md); color: var(--text-muted); font-size: var(--fs-small); font-weight: 600; }
-.login-campus-badge > svg { color: var(--primary); }
 .login-aside-note { display: flex; align-items: center; justify-content: center; align-self: center; flex-shrink: 0; gap: 10px; margin: 8px 0 0; color: #4f6347; font-size: var(--fs-small); font-weight: 500; line-height: 1.5; }
 .login-aside-note > span { width: 4px; height: 4px; margin: 0 2px; border-radius: 50%; background: #9fac94; }
 
@@ -22,37 +19,43 @@
 .login-back { display: inline-flex; align-items: center; min-height: 40px; padding: 0 4px 0 12px; color: var(--text-muted); font-size: 15px; font-weight: 500; }
 .login-back:hover { color: var(--text); }
 
-.login-form { width: 100%; max-width: 440px; display: flex; flex-direction: column; gap: 22px; margin: clamp(28px, 6vh, 72px) auto 0; padding: 36px 36px 30px; border: 1px solid var(--border); border-radius: 24px; background: var(--surface); box-shadow: var(--shadow-lg); }
+.login-form { width: 100%; max-width: 440px; display: flex; flex-direction: column; gap: 22px; margin: clamp(28px, 6vh, 72px) auto 0; padding: 36px 36px 30px; border: 1px solid var(--border); border-radius: 0; background: var(--surface); box-shadow: none; }
 .login-form-heading { position: relative; padding-right: 52px; }
-.login-form-emblem { position: absolute; top: 0; right: 0; display: grid; place-items: center; width: 40px; height: 40px; border-radius: var(--radius); background: var(--primary-tint); color: var(--primary); }
-.login-form-heading h1 { margin: 0 0 8px; color: var(--text); font-size: 30px; font-weight: 720; line-height: 1.3; letter-spacing: -.04em; }
+.login-form-emblem { position: absolute; top: 0; right: 0; display: grid; place-items: center; width: 40px; height: 40px; color: var(--primary); }
+.login-form-heading h1 { margin: 0 0 8px; color: var(--text); font-size: 30px; font-weight: 720; line-height: 1.3; letter-spacing: -.01em; }
 .login-form-heading > p { margin: 0; color: var(--text-muted); font-size: var(--fs-body); line-height: 1.6; }
 
-.login-tabs { display: flex; gap: 4px; padding: 4px; border-radius: var(--radius); background: var(--surface-soft); }
-.login-tabs button { flex: 1; min-height: 44px; padding: 9px 12px; border: 0; border-radius: 9px; background: transparent; color: var(--text-muted); font-size: 15px; font-weight: 600; line-height: 1.3; transition: background-color .15s, box-shadow .15s, color .15s; }
+.login-tabs { display: flex; border-bottom: 1px solid var(--border); }
+.login-tabs button { flex: 1; min-height: 48px; margin-bottom: -1px; padding: 9px 12px; border: 0; border-bottom: 2px solid transparent; border-radius: 0; background: none; color: var(--text-muted); font-size: var(--fs-body); font-weight: 600; line-height: 1.3; transition: border-color .15s, color .15s; }
 .login-tabs button:hover { color: var(--text); }
-.login-tabs button[aria-pressed='true'] { background: var(--surface); color: var(--text); box-shadow: 0 1px 3px rgba(31, 54, 45, .12); }
+.login-tabs button[aria-pressed='true'] { border-bottom-color: var(--primary); color: var(--primary); }
 
 .login-fields { display: grid; gap: 16px; }
 .login-form .field-label { margin-bottom: 8px; color: var(--text); font-size: var(--fs-small); font-weight: 600; }
-.login-form .field-input { min-height: 50px; padding: 13px 14px; border: 1px solid var(--border-strong); border-radius: var(--radius); background: #fff; font-size: var(--fs-body); line-height: 1.4; transition: border-color .15s, box-shadow .15s; }
-.login-form .field-input:hover { border-color: #b9c2b4; }
-.login-form .field-input:focus { border-color: var(--forest-strong); box-shadow: 0 0 0 4px rgba(47, 74, 63, .12); outline: none; }
-.login-form > .btn { min-height: 52px; padding: 12px 20px; border-radius: var(--radius); font-size: var(--fs-body); }
+.login-form .field-input { min-height: 50px; padding: 13px 14px; border: 1px solid var(--border-strong); border-radius: 0; background: #fff; font-size: var(--fs-body); line-height: 1.4; transition: border-color .15s, box-shadow .15s; }
+.login-form .field-input:hover { border-color: #b8ab90; }
+.login-form .field-input:focus { border-color: var(--forest-strong); outline: 2px solid var(--primary); outline-offset: 0; }
+.login-form > .btn { min-height: 52px; padding: 12px 20px; border-radius: 0; font-size: var(--fs-body); }
 .login-switch { margin: -4px 0 0; color: var(--text-muted); font-size: 15px; line-height: 1.6; text-align: center; }
 .login-switch > a { padding: 4px 0; color: var(--primary); font-size: inherit; font-weight: 700; text-decoration: underline; text-underline-offset: 4px; text-decoration-thickness: 1px; }
-.login-form .error-text { margin: 0; padding: 11px 14px; border: 1px solid var(--danger-border); border-radius: var(--radius-sm); background: var(--danger-bg); color: #b23434; font-size: var(--fs-small); line-height: 1.55; }
+.login-form .error-text { margin: 0; padding: 11px 14px; border: 1px solid var(--danger-border); border-radius: 0; background: var(--danger-bg); color: #b23434; font-size: var(--fs-small); line-height: 1.55; }
 
-.login-public-preview { padding-top: 20px; border-top: 1px solid var(--border); }
-.login-public-preview > p { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 4px 8px; margin: 0 0 12px; color: var(--text); font-size: var(--fs-small); font-weight: 600; }
-.login-public-preview > p > span { color: var(--text-faint); font-size: var(--fs-caption); font-weight: 500; }
-.login-public-preview > div { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-.login-public-preview a { min-width: 0; display: flex; align-items: center; gap: 10px; padding: 13px 12px; border: 1px solid var(--border); border-radius: var(--radius); background: var(--surface-soft); color: var(--text); font-size: 15px; font-weight: 600; transition: border-color .15s, background-color .15s; }
-.login-public-preview a:hover { color: var(--text); border-color: #bdcbb0; background: var(--sage-strong); }
-.login-preview-icon { display: grid; place-items: center; flex-shrink: 0; color: var(--forest-strong); }
-.login-public-preview a > span:nth-child(2) { min-width: 0; }
-.login-public-preview small { display: block; margin-top: 2px; color: var(--text-faint); font-size: var(--fs-caption); font-weight: 500; line-height: 1.45; }
-.login-public-preview a > svg:last-child { flex-shrink: 0; margin-left: auto; color: var(--text-faint); }
+/* 간편 로그인(목업): 제공자별 버튼 색을 따른 전체 너비 막대를 세로로 쌓는다. 로고는 왼쪽, 문구는 가운데. */
+.login-social { padding-top: 20px; border-top: 1px solid var(--border); }
+.login-social-title { margin: 0 0 12px; color: var(--text); font-size: var(--fs-small); font-weight: 600; }
+.login-social-list { display: grid; gap: 8px; }
+.login-social-list button { position: relative; display: flex; align-items: center; justify-content: center; width: 100%; min-height: 48px; padding: 0 48px; border: 1px solid transparent; border-radius: 0; font-size: 15px; font-weight: 600; transition: filter .15s; }
+.login-social-list button > svg { position: absolute; top: 50%; left: 16px; transform: translateY(-50%); }
+.login-social-list button:hover { filter: brightness(.95); }
+.login-social-list [data-provider="kakao"] { background: #fee500; color: rgba(0, 0, 0, .85); }
+.login-social-list [data-provider="kakao"] svg { color: #000; }
+.login-social-list [data-provider="naver"] { background: #03c75a; color: #fff; }
+.login-social-list [data-provider="naver"] svg { left: 19px; }
+.login-social-list [data-provider="google"] { border-color: #747775; background: #fff; color: #1f1f1f; }
+.login-social-list [data-provider="google"] svg { color: #4285f4; }
+.login-social-list [data-provider="apple"] { background: #000; color: #fff; }
+.login-social-status { margin: 12px 0 0; color: var(--text-muted); font-size: var(--fs-small); line-height: 1.55; }
+.login-social-status:empty { display: none; }
 
 /* 낮은 노트북 화면에서는 간격을 줄이고, 오류 등으로 늘어난 내용은 자연스럽게 스크롤한다. */
 @media (min-width: 741px) and (max-height: 820px) {
@@ -66,7 +69,6 @@
   .login-aside { padding-top: 28px; padding-bottom: 22px; }
   .login-aside-copy { margin-top: 28px; }
   .login-aside-copy h2 { font-size: clamp(30px, 2.6vw, 38px); }
-  .login-campus-badge { top: 5%; }
 }
 @media (min-width: 741px) and (max-height: 700px) {
   .login-main { padding-top: 14px; padding-bottom: 16px; }
@@ -76,15 +78,13 @@
   .login-form .field-label { margin-bottom: 6px; }
   .login-form .field-input { min-height: 46px; padding-top: 11px; padding-bottom: 11px; }
   .login-form > .btn { min-height: 48px; }
-  .login-public-preview { padding-top: 14px; }
-  .login-public-preview > p { margin-bottom: 8px; }
-  .login-public-preview a { padding-top: 10px; padding-bottom: 10px; }
+  .login-social { padding-top: 14px; }
+  .login-social-list button { min-height: 44px; }
 }
 @media (min-width: 741px) and (max-width: 1000px) {
   .login-shell { grid-template-columns: minmax(0, .92fr) minmax(0, 1.08fr); }
   .login-main { padding-right: 24px; padding-left: 24px; }
   .login-form { padding-right: 26px; padding-left: 26px; }
-  .login-campus-badge { left: 6%; }
   .login-aside-note { gap: 6px; font-size: var(--fs-caption); }
 }
 @media (max-width: 740px) {
@@ -95,12 +95,11 @@
   .login-mobile-brand { display: block; }
   .login-mobile-brand .brand-name { font-size: 25px; }
   .login-mobile-brand .brand-symbol { width: 28px; height: 28px; }
-  .login-form { max-width: 440px; margin-top: clamp(24px, 5vh, 44px); gap: 20px; padding: 28px 22px 24px; border-radius: 20px; }
+  .login-form { max-width: 440px; margin-top: clamp(24px, 5vh, 44px); gap: 20px; padding: 28px 22px 24px; border-radius: 0; }
   .login-form-heading h1 { font-size: 27px; }
 }
 @media (max-width: 380px) {
   .login-main { padding: 16px 16px 24px; }
   .login-form { padding: 24px 18px 20px; gap: 18px; }
   .login-form-heading h1 { font-size: 25px; }
-  .login-public-preview > div { grid-template-columns: 1fr; }
 }

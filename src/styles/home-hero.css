@@ -1,38 +1,38 @@
 /* 메인 배너와 통합 검색: 분류 꼬리표, 두 줄 제목, 쪽수·일시정지, 바로 가는 버튼과 큰 검색창. */
-.home-notice { width: min(100% - 64px, 1200px); margin: 16px auto 0; padding: 12px 16px; border-radius: var(--radius); background: var(--good-bg); color: var(--good); font-size: var(--fs-small); }
+.home-notice { width: min(100% - 64px, 1200px); margin: 16px auto 0; padding: 12px 16px; border-radius: 0; background: var(--good-bg); color: var(--good); font-size: var(--fs-small); }
 .home-main { width: min(100% - 64px, 1200px); margin: 0 auto; }
 
-.main-visual { position: relative; overflow: hidden; background: linear-gradient(180deg, #e8eee2 0%, #eef2e8 100%); border-bottom: 1px solid #dfe6d6; }
+.main-visual { position: relative; overflow: hidden; background: var(--sage-strong); border-bottom: 1px solid #d8ceb8; }
 .main-visual-inner { width: min(100% - 64px, 1200px); min-height: 440px; margin: 0 auto; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 560px); align-items: center; gap: 40px; padding: 44px 0 76px; }
 .main-visual-copy { min-width: 0; }
 .main-visual-slide { min-height: 222px; animation: main-visual-in .45s ease both; }
 @keyframes main-visual-in { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
-.main-visual-tag { display: inline-flex; align-items: center; min-height: 28px; padding: 0 12px; border-radius: 6px; background: var(--forest-strong); color: #fff; font-size: var(--fs-caption); font-weight: 700; }
-.main-visual-slide h2 { margin: 18px 0 16px; color: var(--text); font-size: clamp(32px, 3.6vw, 44px); font-weight: 800; line-height: 1.28; letter-spacing: -.045em; word-break: keep-all; }
+.main-visual-tag { display: inline-flex; align-items: center; min-height: 28px; padding: 0 12px; border-radius: 0; background: var(--forest-strong); color: #fff; font-size: var(--fs-caption); font-weight: 700; }
+.main-visual-slide h2 { margin: 18px 0 16px; color: var(--text); font-size: clamp(32px, 3.6vw, 44px); font-weight: 800; line-height: 1.28; letter-spacing: -.01em; word-break: keep-all; }
 .main-visual-slide p { max-width: 520px; margin: 0; color: var(--text-muted); font-size: 17px; line-height: 1.7; word-break: keep-all; }
 .main-visual-controls { display: flex; align-items: center; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
-.main-visual-pager { display: inline-flex; align-items: center; gap: 2px; height: 44px; padding: 0 6px 0 16px; border-radius: var(--radius-sm); background: #fff; box-shadow: var(--shadow-sm); }
+.main-visual-pager { display: inline-flex; align-items: center; gap: 2px; height: 44px; padding: 0 6px 0 16px; border-radius: 0; background: #fff; box-shadow: none; }
 .main-visual-pager > span { display: inline-flex; align-items: center; gap: 8px; margin-right: 6px; color: var(--text-faint); font-size: var(--fs-small); font-weight: 600; font-variant-numeric: tabular-nums; }
 .main-visual-pager strong { color: var(--text); }
 .main-visual-pager i { width: 1px; height: 12px; background: var(--border-strong); }
-.main-visual-pager button { display: grid; place-items: center; width: 34px; height: 34px; border: 0; border-radius: 6px; background: transparent; color: var(--text); }
+.main-visual-pager button { display: grid; place-items: center; width: 34px; height: 34px; border: 0; border-radius: 0; background: transparent; color: var(--text); }
 .main-visual-pager button:hover { background: var(--surface-soft); }
-.main-visual-action { min-height: 44px; padding: 0 18px; border-radius: var(--radius-sm); font-size: 15px; gap: 6px; }
+.main-visual-action { min-height: 44px; padding: 0 18px; border-radius: 0; font-size: 15px; gap: 6px; }
 .main-visual-art { display: flex; justify-content: center; min-width: 0; }
 .main-visual-art img { width: 100%; max-width: 560px; height: auto; }
 
 /* 배너 아래에 걸친 통합 검색 */
 .home-search { position: relative; z-index: 2; max-width: 880px; margin: -38px auto 0; }
-.home-search form { display: flex; align-items: center; height: 72px; padding: 0 8px 0 28px; border: 2px solid var(--forest-strong); border-radius: 999px; background: #fff; box-shadow: var(--shadow-lg); }
+.home-search form { display: flex; align-items: center; height: 72px; padding: 0 8px 0 28px; border: 2px solid var(--forest-strong); border-radius: 0; background: #fff; box-shadow: none; }
 .home-search input { flex: 1; min-width: 0; height: 100%; border: 0; background: transparent; color: var(--text); font-size: 18px; outline: none; }
 .home-search input::placeholder { color: #7c867f; }
 .home-search input::-webkit-search-cancel-button { display: none; }
-.home-search form:focus-within { box-shadow: var(--shadow-lg), 0 0 0 4px rgba(47, 74, 63, .14); }
-.home-search button { display: grid; place-items: center; flex-shrink: 0; width: 56px; height: 56px; border: 0; border-radius: 50%; background: var(--forest-strong); color: #fff; transition: background-color .15s; }
+.home-search form:focus-within { outline: 2px solid var(--primary); outline-offset: 0; }
+.home-search button { display: grid; place-items: center; flex-shrink: 0; width: 56px; height: 56px; border: 0; border-radius: 0; background: var(--forest-strong); color: #fff; transition: background-color .15s; }
 .home-search button:hover { background: #233a31; }
 .home-search-suggest { display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 8px; margin: 18px 0 0; }
 .home-search-suggest > span { margin-right: 4px; color: var(--text-muted); font-size: var(--fs-small); font-weight: 700; }
-.home-search-suggest > a { display: inline-flex; align-items: center; min-height: 34px; padding: 0 14px; border: 1px solid var(--border-strong); border-radius: 999px; background: #fff; color: var(--text-muted); font-size: var(--fs-small); font-weight: 500; }
+.home-search-suggest > a { display: inline-flex; align-items: center; min-height: 34px; padding: 0 14px; border: 1px solid var(--border-strong); border-radius: 0; background: #fff; color: var(--text-muted); font-size: var(--fs-small); font-weight: 500; }
 .home-search-suggest > a:hover { color: var(--primary); border-color: var(--primary); }
 
 @media (max-width: 1000px) {

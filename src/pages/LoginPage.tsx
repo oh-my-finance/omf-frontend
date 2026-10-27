@@ -1,10 +1,28 @@
-import { useState, type FormEvent } from "react";
+import { useState, type FormEvent, type ReactNode } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import { RiAppleFill, RiGoogleFill, RiKakaoTalkFill } from "@remixicon/react";
 import Brand from "../components/Brand";
 import Icon from "../components/Icon";
 import { useAuth } from "../context/AuthContext";
 import { ApiError } from "../api/client";
 import "../styles/login-refinement.css";
+
+/** Remix Icon에 네이버 로고가 없어 N 모양을 직접 그린다. */
+function NaverMark() {
+  return <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.273 12.845 7.376 0H0v24h7.726V11.156L16.624 24H24V0h-7.727v12.845Z" /></svg>;
+}
+
+/**
+ * 간편 로그인은 아직 목업이다. 요구사항상 OAuth를 지원하지 않으므로 실제 인증을 붙이기 전까지 화면에 내보내지 않는다.
+ * 켜면 국내 서비스 관례대로 카카오·네이버·Google·Apple 순서로, 제공자별 버튼 색을 따른 전체 너비 막대로 쌓는다.
+ */
+const SOCIAL_LOGIN_ENABLED = false;
+const socialProviders: { id: string; label: string; mark: ReactNode }[] = [
+  { id: "kakao", label: "카카오", mark: <RiKakaoTalkFill size={20} aria-hidden="true" /> },
+  { id: "naver", label: "네이버", mark: <NaverMark /> },
+  { id: "google", label: "Google", mark: <RiGoogleFill size={20} aria-hidden="true" /> },
+  { id: "apple", label: "Apple", mark: <RiAppleFill size={20} aria-hidden="true" /> },
+];
 
 export default function LoginPage() {
   const location = useLocation();
@@ -16,6 +34,7 @@ export default function LoginPage() {
   const [name, setName] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
+  const [socialNotice, setSocialNotice] = useState("");
   const { login, signup } = useAuth();
   const navigate = useNavigate();
   // 보호된 화면에서 넘어왔다면 로그인 후 그 화면으로 돌려보낸다. 외부 주소로는 보내지 않는다.
@@ -25,6 +44,7 @@ export default function LoginPage() {
   const selectTab = (value: "login" | "signup") => {
     setTab(value);
     setError(null);
+    setSocialNotice("");
   };
 
   const submit = async (e: FormEvent<HTMLFormElement>) => {
@@ -51,12 +71,11 @@ export default function LoginPage() {
       <aside className="login-aside" aria-label="FinMATE 금융 학습">
         <div className="login-aside-top"><Brand /></div>
         <div className="login-aside-copy">
-          <span className="login-room-label"><span />나의 금융 공부방</span>
+          <span className="login-room-label">나의 금융 공부방</span>
           <h2>함께 읽고,<br />하나씩 알아가요.</h2>
           <p>주식과 채권의 기초부터 낯선 금융 용어까지.<br />오늘도 내 속도로, 한 페이지부터 시작해요.</p>
         </div>
         <div className="login-campus-wrap">
-          <span className="login-campus-badge"><Icon name="book" size={16} />한 페이지씩, 내 속도로</span>
           <img
             className="login-campus"
             src="/images/finance-campus.webp"
@@ -75,7 +94,7 @@ export default function LoginPage() {
         </div>
         <form className="login-form" onSubmit={submit} aria-busy={loading}>
           <div className="login-form-heading">
-            <span className="login-form-emblem"><Icon name="spark" size={20} /></span>
+            <span className="login-form-emblem"><Icon name="stock" size={26} /></span>
             <h1>{tab === "login" ? "반가워요, 메이트!" : "첫 공부를 함께해요"}</h1>
             <p>{tab === "login" ? "배우던 내용을 이어서 살펴봐요." : "계정을 만들고 나만의 학습 기록을 남겨요."}</p>
           </div>
@@ -141,13 +160,22 @@ export default function LoginPage() {
               {tab === "login" ? "회원가입" : "로그인"}
             </a>
           </p>
-          <div className="login-public-preview">
-            <p>먼저 구경하고 싶다면 <span>로그인 없이도 괜찮아요</span></p>
-            <div>
-              <Link to="/course"><span className="login-preview-icon"><Icon name="book" size={18} /></span><span>입문 과정<small>기초부터 차근차근</small></span><Icon name="arrow" size={15} /></Link>
-              <Link to="/glossary"><span className="login-preview-icon"><Icon name="compass" size={18} /></span><span>용어 사전<small>궁금한 말 찾아보기</small></span><Icon name="arrow" size={15} /></Link>
+          {SOCIAL_LOGIN_ENABLED && <div className="login-social">
+            <p className="login-social-title">{tab === "login" ? "간편 로그인" : "간편 가입"}</p>
+            <div className="login-social-list">
+              {socialProviders.map((provider) => (
+                <button
+                  key={provider.id}
+                  type="button"
+                  data-provider={provider.id}
+                  onClick={() => setSocialNotice(`${provider.label} 로그인은 준비 중이에요. 지금은 이메일로 ${tab === "login" ? "로그인" : "가입"}해 주세요.`)}
+                >
+                  {provider.mark}<span>{provider.label}로 계속하기</span>
+                </button>
+              ))}
             </div>
-          </div>
+            <p className="login-social-status" role="status">{socialNotice}</p>
+          </div>}
         </form>
       </main>
     </div>

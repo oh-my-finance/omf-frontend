@@ -1,25 +1,51 @@
-import type { CSSProperties, ReactNode } from "react";
+import type { CSSProperties } from "react";
+import type { RemixiconComponentType } from "@remixicon/react";
+import {
+  RiAddLine,
+  RiArrowLeftSLine,
+  RiArrowRightLine,
+  RiArrowRightSLine,
+  RiBarChartLine,
+  RiBook2Line,
+  RiCheckLine,
+  RiCompass3Line,
+  RiErrorWarningLine,
+  RiHistoryLine,
+  RiInboxLine,
+  RiListUnordered,
+  RiPauseLine,
+  RiPlayFill,
+  RiSearchLine,
+  RiStockLine,
+  RiTimeLine,
+  RiUserLine,
+} from "@remixicon/react";
 
-export type IconName = "arrow" | "book" | "compass" | "chart" | "replay" | "check" | "spark" | "search" | "pause" | "play" | "prev" | "next" | "plus" | "user" | "list";
+export type IconName = "arrow" | "book" | "compass" | "chart" | "replay" | "check" | "stock" | "search" | "pause" | "play" | "prev" | "next" | "plus" | "user" | "list" | "time" | "alert" | "inbox";
 
-/** 작은 화면에서도 선 굵기가 일정한 공통 아이콘. */
+const icons: Record<IconName, RemixiconComponentType> = {
+  arrow: RiArrowRightLine,
+  book: RiBook2Line,
+  compass: RiCompass3Line,
+  chart: RiBarChartLine,
+  replay: RiHistoryLine,
+  check: RiCheckLine,
+  stock: RiStockLine,
+  search: RiSearchLine,
+  pause: RiPauseLine,
+  play: RiPlayFill,
+  prev: RiArrowLeftSLine,
+  next: RiArrowRightSLine,
+  plus: RiAddLine,
+  user: RiUserLine,
+  list: RiListUnordered,
+  time: RiTimeLine,
+  alert: RiErrorWarningLine,
+  inbox: RiInboxLine,
+};
+
+/** Remix Icon 기반 공통 아이콘. 색은 글자색(currentColor)을 따른다. */
 export default function Icon({ name, size = 22, style }: { name: IconName; size?: number; style?: CSSProperties }) {
-  const paths: Record<IconName, ReactNode> = {
-    arrow: <path d="M5 12h14m-6-6 6 6-6 6" />,
-    book: <><path d="M12 6v15M3 4c4-1 6 0 9 2 3-2 5-3 9-2v15c-4-1-6 0-9 2-3-2-5-3-9-2V4Z" /><path d="m6 8 3 1m6 0 3-1M6 12l3 1m6 0 3-1" /></>,
-    compass: <><circle cx="12" cy="12" r="9" /><path d="m16 8-2 6-6 2 2-6 6-2Z" /></>,
-    chart: <><path d="M4 3v17h17M8 15v-4m5 4V7m5 8V4" /><path d="m6 7 5-4" /></>,
-    replay: <><path d="M3 10a9 9 0 1 1 1.5 7M3 4v6h6" /><path d="M12 7v5l3 2" /></>,
-    check: <path d="m5 12 4 4L19 6" />,
-    spark: <path d="m12 3 2.5 6.5L21 12l-6.5 2.5L12 21l-2.5-6.5L3 12l6.5-2.5L12 3Z" />,
-    search: <><circle cx="11" cy="11" r="7" /><path d="m20 20-4-4" /></>,
-    pause: <path d="M9 5v14m6-14v14" />,
-    play: <path d="M7 5v14l12-7L7 5Z" />,
-    prev: <path d="m15 5-7 7 7 7" />,
-    next: <path d="m9 5 7 7-7 7" />,
-    plus: <path d="M12 5v14M5 12h14" />,
-    user: <><circle cx="12" cy="8" r="4" /><path d="M4 21c1-4 4-6 8-6s7 2 8 6" /></>,
-    list: <path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01" />,
-  };
-  return <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" style={style}>{paths[name]}</svg>;
+  const Glyph = icons[name];
+  return <Glyph size={size} style={style} aria-hidden="true" />;
 }

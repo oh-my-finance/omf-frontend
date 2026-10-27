@@ -1,3 +1,5 @@
+import Icon from "./Icon";
+
 const STEPS = ["시작", "진단", "결과"];
 
 export default function Stepper({ activeIndex }: { activeIndex: number }) {
@@ -10,17 +12,17 @@ export default function Stepper({ activeIndex }: { activeIndex: number }) {
               style={{
                 width: 24,
                 height: 24,
-                borderRadius: "50%",
+                borderRadius: 0,
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
-                fontSize: 12,
+                fontSize: 13,
                 fontWeight: 700,
                 background: i < activeIndex ? "var(--primary-tint)" : i === activeIndex ? "var(--primary)" : "var(--border)",
                 color: i < activeIndex ? "var(--primary)" : i === activeIndex ? "#fff" : "var(--text-faint)",
               }}
             >
-              {i < activeIndex ? "✓" : i + 1}
+              {i < activeIndex ? <Icon name="check" size={14} /> : i + 1}
             </div>
             <span
               style={{

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import Header from "../components/Header";
 import Stepper from "../components/Stepper";
+import Icon from "../components/Icon";
 import { api } from "../api/client";
 import type { AssessmentResultResponse, NarrativeSignal, StyleCheckResponse } from "../api/types";
 
@@ -73,7 +74,7 @@ export default function ResultPage() {
               <span className="badge badge-primary" style={{ fontSize: 14, padding: "7px 14px" }}>
                 {profile.profileLabel}
               </span>
-              <span style={{ fontSize: 12.5, color: "var(--text-faint)" }}>5단계 중 {profile.profileGrade}등급</span>
+              <span style={{ fontSize: 13, color: "var(--text-faint)" }}>5단계 중 {profile.profileGrade}등급</span>
             </div>
             <div style={{ fontSize: 13, color: "var(--text-muted)" }}>
               성향 점수 <strong style={{ color: "var(--text)" }}>{profile.totalScore}</strong>/100
@@ -81,7 +82,7 @@ export default function ResultPage() {
           </div>
 
           <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
-            <div style={{ display: "flex", width: "100%", height: 9, borderRadius: 6, overflow: "hidden", gap: 2 }}>
+            <div style={{ display: "flex", width: "100%", height: 9, borderRadius: 0, overflow: "hidden", gap: 2 }}>
               {GRADE_COLORS.map((color, i) => (
                 <div
                   key={color}
@@ -93,7 +94,7 @@ export default function ResultPage() {
                 />
               ))}
             </div>
-            <div style={{ display: "flex", justifyContent: "space-between", fontSize: 11, color: "var(--text-faint)" }}>
+            <div style={{ display: "flex", justifyContent: "space-between", fontSize: 13, color: "var(--text-faint)" }}>
               {GRADE_LABELS.map((label, i) => (
                 <span key={label} style={i + 1 === profile.profileGrade ? { color: "var(--primary)", fontWeight: 700 } : undefined}>
                   {label}
@@ -104,26 +105,7 @@ export default function ResultPage() {
         </div>
 
         {isFallback && (
-          <div
-            style={{
-              background: "var(--warn-bg)",
-              border: "1.5px solid var(--warn-border)",
-              borderRadius: 12,
-              padding: "13px 16px",
-              display: "flex",
-              gap: 10,
-              alignItems: "center",
-            }}
-          >
-            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" style={{ flexShrink: 0 }}>
-              <circle cx="12" cy="12" r="9" stroke="#8A5A00" strokeWidth="1.8" />
-              <line x1="12" y1="8" x2="12" y2="13" stroke="#8A5A00" strokeWidth="1.8" strokeLinecap="round" />
-              <circle cx="12" cy="16" r="1" fill="#8A5A00" />
-            </svg>
-            <span style={{ fontSize: 12.5, color: "var(--warn-text)" }}>
-              AI 설명을 사용할 수 없어 기본 설명으로 안내합니다. 성향 등급과 탐색 카테고리는 정상적으로 산출되었습니다.
-            </span>
-          </div>
+          <p className="notice-line" style={{ margin: 0 }}>AI 설명을 사용할 수 없어 기본 설명으로 안내합니다. 성향 등급과 탐색 카테고리는 정상적으로 산출되었습니다.</p>
         )}
 
         <div className="card" style={{ padding: "24px 28px", display: "flex", flexDirection: "column", gap: 12 }}>
@@ -163,11 +145,9 @@ export default function ResultPage() {
         <button className="btn btn-secondary btn-block" onClick={() => navigate("/learn")}>안내 범위 밖 상품도 기초 개념 배우기</button>
         <button className="btn btn-primary btn-block" onClick={() => navigate(`/explore/${data.id}`)}>
           탐색 카테고리 보기
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
-            <path d="M9 6l6 6-6 6" stroke="#fff" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" />
-          </svg>
+          <Icon name="next" size={18} />
         </button>
-        <div style={{ fontSize: 11.5, color: "var(--text-faint)", textAlign: "center" }}>
+        <div style={{ fontSize: 13, color: "var(--text-faint)", textAlign: "center" }}>
           본 결과는 참고용 진단이며 투자 자문이 아닙니다.
         </div>
       </div>
