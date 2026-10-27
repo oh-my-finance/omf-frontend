@@ -13,10 +13,9 @@ function NaverMark() {
 }
 
 /**
- * 간편 로그인은 아직 목업이다. 요구사항상 OAuth를 지원하지 않으므로 실제 인증을 붙이기 전까지 화면에 내보내지 않는다.
- * 켜면 국내 서비스 관례대로 카카오·네이버·Google·Apple 순서로, 제공자별 버튼 색을 따른 전체 너비 막대로 쌓는다.
+ * 간편 로그인은 아직 목업이다. 실제 OAuth를 붙이기 전까지 누르면 준비 중 안내만 보여 준다.
+ * 국내 서비스 관례대로 카카오·네이버·Google·Apple 순서로, 제공자별 버튼 색을 따른 전체 너비 막대로 쌓는다.
  */
-const SOCIAL_LOGIN_ENABLED = false;
 const socialProviders: { id: string; label: string; mark: ReactNode }[] = [
   { id: "kakao", label: "카카오", mark: <RiKakaoTalkFill size={20} aria-hidden="true" /> },
   { id: "naver", label: "네이버", mark: <NaverMark /> },
@@ -160,7 +159,7 @@ export default function LoginPage() {
               {tab === "login" ? "회원가입" : "로그인"}
             </a>
           </p>
-          {SOCIAL_LOGIN_ENABLED && <div className="login-social">
+          <div className="login-social">
             <p className="login-social-title">{tab === "login" ? "간편 로그인" : "간편 가입"}</p>
             <div className="login-social-list">
               {socialProviders.map((provider) => (
@@ -175,7 +174,7 @@ export default function LoginPage() {
               ))}
             </div>
             <p className="login-social-status" role="status">{socialNotice}</p>
-          </div>}
+          </div>
         </form>
       </main>
     </div>
