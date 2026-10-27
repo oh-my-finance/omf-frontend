@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Header from "../components/Header";
 import { api, ApiError } from "../api/client";
-import type { LearningPathResponse, LearningPathStep, QuizAttemptSummary, ReviewScheduleSummary, WrongAnswerSummary } from "../api/types";
+import type { CourseView, LearningPathResponse, LearningPathStep, QuizAttemptSummary, ReplaySessionSummary, ReviewScheduleSummary, WrongAnswerSummary } from "../api/types";
 
 type Tab = "review" | "wrong" | "history";
 
@@ -43,6 +43,14 @@ export default function MyPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [retry, setRetry] = useState(0);
+  // 입문 과정·차트 복기는 보조 정보라 실패해도 나머지 화면은 그대로 보여 준다.
+  const [course, setCourse] = useState<CourseView | null>(null);
+  const [replays, setReplays] = useState<ReplaySessionSummary[] | null>(null);
+
+  useEffect(() => {
+    api.getCourseProgress("securities-intro").then(setCourse).catch(() => setCourse(null));
+    api.getReplaySessions().then(setReplays).catch(() => setReplays(null));
+  }, [retry]);
 
   useEffect(() => {
     let current = true;
@@ -74,6 +82,10 @@ export default function MyPage() {
         <p className="intro-copy">진단 결과와 직접 쓴 생각, 틀린 문제를 합쳐 다음에 볼 것을 정리했습니다. 모든 항목에 왜 추천했는지 사유가 붙어 있습니다.</p>
         {error && <div className="card glossary-message" role="alert">{error} <button className="btn btn-secondary" onClick={() => setRetry(value => value + 1)}>다시 시도</button></div>}
         {loading ? <p role="status" className="subtle">학습 기록을 불러오는 중…</p> : !error && <>
+          <div className="my-tracks">
+            {course?.progress && <CourseCard course={course} />}
+            {replays && <ReplayCard sessions={replays} />}
+          </div>
           {path && <LearningPath path={path} />}
 
           <div className="my-stats">
@@ -105,7 +117,7 @@ export default function MyPage() {
           </div>}
           {tab === "history" && <div className="my-list">
             {attempts.length === 0 ? <Empty title="아직 푼 확인 문제가 없습니다." /> : attempts.map(item => <article key={item.id} className="card my-item">
-              <div><span className="eyebrow">{date(item.attemptedAt)}</span><h2>{item.slug === "glossary" ? "주식 용어 확인 문제" : item.slug}</h2><p>{item.answered}개 응답 · {item.correctCount} / {item.total}개 정답</p></div>
+              <div><span className="eyebrow">{date(item.attemptedAt)}</span><h2>{item.title ?? (item.slug === "glossary" ? "주식 용어 확인 문제" : item.slug)}</h2><p>{item.answered}개 응답 · {item.correctCount} / {item.total}개 정답</p></div>
               <strong>{item.scorePercent}점</strong>
             </article>)}
           </div>}
@@ -113,6 +125,57 @@ export default function MyPage() {
         </>}
       </main>
     </div>
+  );
+}
+
+function CourseCard({ course }: { course: CourseView }) {
+  const progress = course.progress!;
+  return (
+    <section className="card my-track" aria-labelledby="my-course-title">
+      <span className="eyebrow">입문 과정</span>
+      <h2 id="my-course-title">{course.title}</h2>
+      <div className="my-track-meter">
+        <strong>{progress.passed} / {progress.total}</strong>
+        <span className="subtle">개념 통과</span>
+      </div>
+      <div className="bar-track" role="progressbar" aria-label="입문 과정 진척" aria-valuemin={0} aria-valuemax={100} aria-valuenow={progress.percent}>
+        <i style={{ width: `${progress.percent}%` }} />
+      </div>
+      {progress.next ? (
+        <p>다음: <Link to={`/learn?concept=${encodeURIComponent(progress.next.slug)}`}>{progress.next.title}</Link></p>
+      ) : (
+        <p>모든 개념을 통과했습니다.</p>
+      )}
+      <Link className="btn btn-secondary btn-small" to="/course">과정 전체 보기</Link>
+    </section>
+  );
+}
+
+const REPLAY_STATUS: Record<ReplaySessionSummary["status"], string> = { IN_PROGRESS: "진행 중", COMPLETED: "회고 가능" };
+
+function ReplayCard({ sessions }: { sessions: ReplaySessionSummary[] }) {
+  const recent = sessions.slice(0, 3);
+  return (
+    <section className="card my-track" aria-labelledby="my-replay-title">
+      <span className="eyebrow">차트 복기</span>
+      <h2 id="my-replay-title">최근 판단 연습</h2>
+      {recent.length === 0 ? (
+        <p className="subtle">아직 기록이 없습니다. 그 시점까지의 정보만 보고 판단해 보세요.</p>
+      ) : (
+        <ul className="my-track-list">
+          {recent.map(session => (
+            <li key={session.id}>
+              <Link to={`/replay/${session.id}`}>{session.scenarioTitle}</Link>
+              <span className="subtle">
+                {REPLAY_STATUS[session.status]}{session.status === "IN_PROGRESS" ? ` · 판단 ${session.step}/${session.totalSteps}` : ""}
+                {session.practice ? " · 연습" : ""}
+              </span>
+            </li>
+          ))}
+        </ul>
+      )}
+      <Link className="btn btn-secondary btn-small" to="/replay">{recent.length === 0 ? "차트 복기 시작하기" : "기록 전체 보기"}</Link>
+    </section>
   );
 }
 
