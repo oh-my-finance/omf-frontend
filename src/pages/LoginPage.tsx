@@ -45,7 +45,7 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="login-shell login-shell-refined">
+    <div className="login-shell">
       <aside className="login-aside" aria-label="FinMATE 금융 학습">
         <div className="login-aside-top"><Brand /></div>
         <div className="login-aside-copy">

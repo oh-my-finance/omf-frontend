@@ -31,9 +31,9 @@
 
 | 화면 | 수정 전 | 수정 후 |
 |---|---|---|
-| 홈 | ![수정 전 홈](screenshots/home-before.png) | ![현재 홈](screenshots/home-hero-v7.png) |
-| 학습 영역 | [3차 과정·도구 본문](screenshots/home-board-v3.png) | ![현재 학습 영역](screenshots/home-learning-v7.png) |
-| 로그인 | ![수정 전 로그인](screenshots/login-before.png) | ![현재 로그인](screenshots/login-v7.png) |
+| 홈 | ![수정 전 홈](screenshots/home-before.png) | ![현재 홈](screenshots/home-hero-v8-desktop.png) |
+| 학습 영역 | [3차 과정·도구 본문](screenshots/home-board-v3.png) | ![현재 학습 영역](screenshots/home-learning-v8-desktop.png) |
+| 로그인 | ![수정 전 로그인](screenshots/login-before.png) | ![현재 로그인](screenshots/login-v8-desktop.png) |
 
 ## 반복 카드에 대한 추가 수정
 
@@ -103,7 +103,25 @@
 - **폼 아래:** 이미 왼쪽에 캠퍼스 이미지가 있으므로 아래에는 실제 사용 가능한 입문 과정·용어 사전 링크를 배치했다. 현재 백엔드에는 OAuth 로그인 연동이 없어 작동하지 않는 소셜 로그인 버튼을 넣지 않았다. 실제 도입에는 공급자 설정과 콜백·서버 인증 연동이 필요하다.
 - **데이터:** 과정·용어의 API, 공개 학습 경로, 로그인·가입 요청과 로그인 후 복귀 동작을 유지한다. 시세·등락률·가상의 통계는 넣지 않았다.
 
-7차 화면: [홈 메인](screenshots/home-hero-v7.png), [금융 학습 영역](screenshots/home-learning-v7.png), [로그인](screenshots/login-v7.png).
+7차 화면: [홈 메인](screenshots/home-hero-v7-desktop.png), [홈 모바일](screenshots/home-hero-v7-mobile.png), [금융 학습 영역](screenshots/home-learning-v7-desktop.png), [로그인](screenshots/login-v7-desktop.png), [로그인 모바일](screenshots/login-v7-mobile.png).
+
+## 가독성과 마감 품질을 끌어올린 8차 수정
+
+‘레이아웃·배치는 좋은데 상세 디자인이 약하고 글씨가 너무 안 보인다’, ‘전문 디자이너가 만든 사이트처럼’이라는 피드백을 반영했다. 7차의 배치·캠퍼스 이미지·색 톤은 그대로 두고, 글자·색·간격·모서리·그림자를 하나의 규칙으로 정리했다.
+
+- **원인:** 홈·로그인의 글자가 8~12px에 몰려 있었다(푸터 8px, 캡션 8~10px, 로그인 라벨 11px). 보조 글자색은 `#83907b`, `#89947d`처럼 화면마다 따로 정한 회색이 섞여 배경 대비가 3:1 안팎이었다. WCAG AA 기준은 4.5:1이다.
+- **글자 크기 체계:** `--fs-body` 16px, `--fs-small` 14px, `--fs-caption` 13px를 최소 기준으로 정했다. 홈·로그인에는 13px보다 작은 글자가 없다(브라우저에서 계산된 글자 크기 전수 확인). 메뉴 15px, 히어로 설명 19px, 로그인 입력 16px(iOS 확대 방지)로 올렸다.
+- **글자색 세 단계:** `--text` 12:1, `--text-muted` 6.9:1, `--text-faint` 4.9:1로 다시 정하고, 개별 회색을 이 토큰으로 바꿨다. 학습·진단 등 다른 화면도 같은 토큰을 쓰므로 함께 읽기 쉬워졌다.
+- **모서리·그림자 토큰:** `--radius-sm/--radius/--radius-lg/--radius-xl`(8·12·16·20px)과 `--shadow-sm/md/lg`를 정의했다. 카드마다 달랐던 13·14·15px 모서리와 거의 보이지 않던 그림자를 정리했다.
+- **홈 첫 화면:** 두 행동을 같은 높이(54px)의 주·보조 버튼으로 맞추고, 라벨은 알약 모양 배지로 바꿨다. 기울어진 메모, 점선 원, 읽을 수 없던 8px 영문 캡션은 제거했다. 질문 노트의 주제 선택은 세그먼트 컨트롤로 바꿨다.
+- **서비스 원칙 띠:** 첫 화면 아래에 ‘순서대로 배우는 입문 과정’, ‘출처를 밝힌 용어 설명’, ‘매매를 권하지 않는 교육 서비스’ 세 항목을 추가했다. 실제 기능과 고지 내용만 적었고, 이용자 수·후기 같은 수치는 넣지 않았다.
+- **학습 포털:** 제목을 ‘학습 포털’ 머리말과 큰 제목으로 바꾸고, 과정 표·단계 선택·도구함·용어 노트의 글자를 한 단계씩 키웠다. 선택된 단계는 짙은 초록 번호와 밑줄로, 도구의 화살표는 마우스를 올리면 채워지게 했다.
+- **로그인:** 카드 안 여백과 그림자를 키우고 탭을 세그먼트 컨트롤로 바꿨다. 입력·버튼 높이는 50·52px이다. 오류 문구는 배경이 있는 알림 상자로 표시한다. 1280×720에서는 로그인 탭이 한 화면에 들어오고, 회원가입 탭은 자연스럽게 스크롤된다.
+- **파일 정리:** 홈·로그인 규칙이 `brand.css`와 차수별 보정 파일에 겹쳐 있던 것을 나눴다. `brand.css`는 공통·헤더·푸터, `home-hero.css`는 첫 화면, `home-learning.css`는 학습 포털, `login-refinement.css`는 로그인만 담당한다.
+
+8차 화면: [홈 메인](screenshots/home-hero-v8-desktop.png), [학습 포털](screenshots/home-learning-v8-desktop.png), [로그인](screenshots/login-v8-desktop.png), [홈 모바일 전체](screenshots/home-v8-mobile.png), [로그인 모바일](screenshots/login-v8-mobile.png). 1440×900·390×844, 2배 해상도로 촬영했다.
+
+8차 검증: `npm run build`, `npm run lint`(기존 학습·관리 화면 경고만 유지), `git diff --check` 통과. Playwright 데스크톱·모바일 **14개 통과**(5.1초). 1440×900, 1280×720, 820×1000, 375×812에서 가로 넘침이 없음을 확인했다.
 
 ## 사용 기술과 원리
 
@@ -115,7 +133,7 @@
 
 ### CSS 변수 · Grid · Flexbox
 
-`src/index.css`의 `:root`가 색상의 원천이다. `--bg`, `--text`, `--primary`, `--primary-tint`, `--surface-soft`를 기존 학습 화면에서도 사용하므로 주제색을 한곳에서 관리한다. 공통 브랜드 규칙은 `src/styles/brand.css`, 7차의 질문 노트·학습 영역·로그인 보정은 `home-hero.css`, `home-learning.css`, `login-refinement.css`로 분리했다.
+`src/index.css`의 `:root`가 색상·글자 크기·모서리·그림자의 원천이다. `--bg`, `--text`, `--primary`, `--primary-tint`, `--surface-soft`를 기존 학습 화면에서도 사용하므로 주제색을 한곳에서 관리한다. 공통 브랜드·헤더·푸터 규칙은 `src/styles/brand.css`, 홈 첫 화면은 `home-hero.css`, 학습 포털은 `home-learning.css`, 로그인은 `login-refinement.css`가 맡는다.
 
 Grid는 메인의 문구·캠퍼스 두 열과 학습 영역의 본문·보조 열 배치를, Flexbox는 메뉴·버튼·입력 영역처럼 한 방향으로 정렬하는 요소를 담당한다. `minmax(0, 1fr)`로 긴 내용이 열 너비를 강제로 키우는 것을 방지한다.
 

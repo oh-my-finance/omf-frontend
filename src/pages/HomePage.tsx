@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import Header from "../components/Header";
 import Brand from "../components/Brand";
-import Icon from "../components/Icon";
+import Icon, { type IconName } from "../components/Icon";
 import HomeLearning from "../components/HomeLearning";
 import { useAuth } from "../context/AuthContext";
 
@@ -24,16 +24,24 @@ export default function HomePage() {
               <Link className="btn btn-primary" to="/course">입문 과정 시작하기 <Icon name="arrow" size={18} /></Link>
               <Link className="hero-secondary" to={user ? "/start" : "/login"} state={user ? undefined : { from: "/start" }}>내 투자 성향 알아보기 <span aria-hidden="true">↗</span></Link>
             </div>
-            <p className="hero-note">입문 과정과 용어 사전은 로그인 없이 읽을 수 있습니다.</p>
+            <p className="hero-note"><Icon name="check" size={16} />입문 과정과 용어 사전은 로그인 없이 읽을 수 있습니다.</p>
             <FirstQuestion />
           </div>
           <div className="hero-art">
             <div className="hero-art-orbit" aria-hidden="true" />
             <span className="hero-art-note"><Icon name="spark" size={16} />작은 이해가 만드는 큰 변화</span>
             <img src="/images/finance-campus.webp" width="1536" height="1024" fetchPriority="high" alt="커다란 오렌지색 책과 계단으로 이루어진 금융 캠퍼스에서 함께 공부하는 세 사람" />
-            <span className="hero-art-caption">YOUR FIRST FINANCE MATE</span>
           </div>
         </section>
+
+        <ul className="home-promises" aria-label="FinMATE 학습 원칙">
+          {PROMISES.map(item => (
+            <li key={item.title}>
+              <span className="home-promise-icon"><Icon name={item.icon} size={22} /></span>
+              <div><strong>{item.title}</strong><p>{item.description}</p></div>
+            </li>
+          ))}
+        </ul>
 
         <HomeLearning />
       </main>
@@ -41,6 +49,13 @@ export default function HomePage() {
     </div>
   );
 }
+
+// 서비스가 실제로 지키는 약속만 적는다. 이용자 수·후기 같은 수치는 넣지 않는다.
+const PROMISES: { icon: IconName; title: string; description: string }[] = [
+  { icon: "book", title: "순서대로 배우는 입문 과정", description: "증권의 기초부터 파생상품까지 단계별로 읽어요." },
+  { icon: "check", title: "출처를 밝힌 용어 설명", description: "정의·계산식·예시를 출처와 함께 보여 드려요." },
+  { icon: "compass", title: "매매를 권하지 않는 교육 서비스", description: "실제 매매·종목 추천·투자 자문은 하지 않아요." },
+];
 
 const FIRST_QUESTIONS = [
   { slug: "stocks", label: "주식", question: "주식을 사면 무엇을 갖게 될까요?", description: "회사의 일부를 소유한다는 뜻부터 살펴봐요." },

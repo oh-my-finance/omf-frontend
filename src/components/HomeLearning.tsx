@@ -27,7 +27,7 @@ export default function HomeLearning() {
   return (
     <section className="home-reading" aria-labelledby="home-reading-title">
       <div className="home-reading-head">
-        <div className="home-reading-title"><span className="home-reading-symbol"><Icon name="book" size={22} /></span><div><h2 id="home-reading-title">금융 학습 한눈에 보기</h2><p>입문부터 실습까지, 궁금한 곳에서 시작하세요.</p></div></div>
+        <div className="home-reading-title"><span className="home-eyebrow">학습 포털</span><h2 id="home-reading-title">금융 학습 한눈에 보기</h2><p>입문부터 실습까지, 궁금한 곳에서 시작하세요.</p></div>
         <Link to="/learn">개념 전체 보기 <Icon name="arrow" size={16} /></Link>
       </div>
       <div className="home-board">
