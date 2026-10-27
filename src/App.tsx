@@ -1,6 +1,7 @@
 import { Navigate, Route, Routes } from "react-router-dom";
 import { AuthProvider } from "./context/AuthContext";
 import ProtectedRoute from "./components/ProtectedRoute";
+import PageTitle from "./components/PageTitle";
 import HomePage from "./pages/HomePage";
 import HistoryPage from "./pages/HistoryPage";
 import LearnPage from "./pages/LearnPage";
@@ -20,6 +21,7 @@ import AdminLearningPage from "./pages/AdminLearningPage";
 import ReplayListPage from "./pages/ReplayListPage";
 import CoursePage from "./pages/CoursePage";
 import SettingsPage from "./pages/SettingsPage";
+import NotFoundPage from "./pages/NotFoundPage";
 import ReplaySessionPage from "./pages/ReplaySessionPage";
 
 /**
@@ -29,6 +31,7 @@ import ReplaySessionPage from "./pages/ReplaySessionPage";
 export default function App() {
   return (
     <AuthProvider>
+      <PageTitle />
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/login" element={<LoginPage />} />
@@ -53,7 +56,7 @@ export default function App() {
         <Route path="/admin/glossary" element={<ProtectedRoute><AdminGlossaryPage /></ProtectedRoute>} />
         <Route path="/admin/learning" element={<ProtectedRoute><AdminLearningPage /></ProtectedRoute>} />
 
-        <Route path="*" element={<Navigate to="/" replace />} />
+        <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </AuthProvider>
   );

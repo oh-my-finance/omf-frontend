@@ -43,40 +43,29 @@ export default function HomePage() {
         {notice && <p className="home-notice" role="status">{notice}</p>}
         <section className="home-hero">
           <div>
-            <span className="eyebrow">FINMATE · 투자 성향 진단과 금융 학습</span>
+            <span className="eyebrow">FINMATE · 증권업과 금융상품 학습</span>
             <h1>무엇을 살지보다,<br />무엇이 결과를 바꾸는지.</h1>
             <p className="intro-copy">
-              FinMATE는 투자 성향을 규칙으로 진단하고, 그 근거를 설명하고, 주식 용어와 상품 구조를 배우고,
-              가정한 숫자로 직접 실험해 보는 학습 서비스입니다. 특정 상품의 매수·매도를 권하지 않습니다.
+              증권이 무엇이고 은행·증권회사·거래소가 각각 무슨 일을 하는지부터 주식·채권·선물·옵션의 구조까지 순서대로 배우고,
+              가정한 숫자로 실험하고, 과거 차트로 판단을 연습하는 학습 서비스입니다. 특정 상품의 매수·매도를 권하지 않습니다.
             </p>
             <div className="action-row">
-              <button className="btn btn-primary" onClick={() => navigate(user ? "/start" : "/login")}>
-                {user ? "이번 달 성향 진단하기" : "로그인하고 진단 시작"}
+              <Link className="btn btn-primary" to="/course">입문 과정 시작하기</Link>
+              <button className="btn btn-secondary" onClick={() => navigate(user ? "/start" : "/login")}>
+                {user ? "이번 달 성향 진단하기" : "로그인하고 성향 진단"}
               </button>
-              <Link className="btn btn-secondary" to="/course">처음이라면 입문 과정부터</Link>
             </div>
           </div>
-          <aside className="card home-flow" aria-label="FinMATE 이용 흐름">
-            <span className="eyebrow">한 번의 흐름</span>
+          <aside className="card home-flow" aria-label="FinMATE 학습 순서">
+            <span className="eyebrow">처음이라면 이 순서로</span>
             <ol>
-              <li><span className="home-step">1</span><div><b>성향 진단</b>5개 문항과 선택형 자유 서술. 등급은 규칙 엔진이 정합니다.</div></li>
-              <li><span className="home-step">2</span><div><b>근거 확인</b>당시 답변·확인 플래그·서술과 설문의 차이를 기록으로 남깁니다.</div></li>
-              <li><span className="home-step">3</span><div><b>용어·개념 학습</b>등급과 무관하게 모든 개념과 용어를 열어 둡니다.</div></li>
-              <li><span className="home-step">4</span><div><b>숫자로 실험</b>금리·보수·레버리지를 바꿔 결과가 어떻게 달라지는지 봅니다.</div></li>
-              <li><span className="home-step">5</span><div><b>복습</b>틀린 문항은 1·3·7·14·30일 간격으로 다시 돌아옵니다.</div></li>
+              <li><span className="home-step">1</span><div><b><Link to="/course">증권업 입문 과정</Link></b>증권과 금융기관, 주문에서 결제까지, 주식·채권을 거쳐 선물·옵션으로.</div></li>
+              <li><span className="home-step">2</span><div><b><Link to="/glossary">용어 사전</Link></b>읽다가 막히는 단어는 질문으로 찾고 저장해 둡니다.</div></li>
+              <li><span className="home-step">3</span><div><b><Link to="/practice">숫자로 실험</Link></b>금리·보수·레버리지를 바꿔 결과가 어떻게 달라지는지 봅니다.</div></li>
+              <li><span className="home-step">4</span><div><b><Link to="/replay">차트 복기</Link></b>그 시점까지의 정보로 판단하고, 다음 구간을 열어 근거와 결과를 나눠 봅니다.</div></li>
+              <li><span className="home-step">5</span><div><b><Link to={user ? "/me" : "/login"}>복습</Link></b>틀린 문항은 1·3·7·14·30일 간격으로 다시 돌아옵니다.</div></li>
             </ol>
           </aside>
-        </section>
-
-        <section className="home-section home-start" aria-labelledby="home-start-title">
-          <span className="eyebrow">처음 오셨다면</span>
-          <h2 id="home-start-title">이 순서로 시작해 보세요</h2>
-          <ol className="home-start-steps">
-            <li><Link to="/course"><b>1. 증권업 입문 과정</b><span>증권이 무엇이고 은행·증권회사·거래소가 각각 무엇을 하는지부터, 주식·채권을 거쳐 선물·옵션까지 순서대로 갑니다.</span></Link></li>
-            <li><Link to="/glossary"><b>2. 모르는 용어는 사전에서</b><span>읽다가 막히는 단어는 질문으로 찾고, 저장해 두었다가 복습합니다.</span></Link></li>
-            <li><Link to="/replay"><b>3. 차트 복기로 판단 연습</b><span>그 시점까지의 정보만 보고 판단한 뒤 다음 구간을 열어, 수익과 근거를 나눠 돌아봅니다.</span></Link></li>
-            <li><Link to={user ? "/start" : "/login"}><b>4. 성향 진단과 내 학습</b><span>진단 결과와 틀린 문제로 다음에 볼 개념을 안내받습니다.</span></Link></li>
-          </ol>
         </section>
 
         <section className="home-section">
