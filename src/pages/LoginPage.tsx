@@ -1,7 +1,10 @@
-import { useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useState, type FormEvent } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import Brand from "../components/Brand";
+import Icon from "../components/Icon";
 import { useAuth } from "../context/AuthContext";
 import { ApiError } from "../api/client";
+import "../styles/login-refinement.css";
 
 export default function LoginPage() {
   const [tab, setTab] = useState<"login" | "signup">("login");
@@ -17,7 +20,12 @@ export default function LoginPage() {
   const from = (location.state as { from?: string } | null)?.from;
   const next = from && from.startsWith("/") && !from.startsWith("//") ? from : "/start";
 
-  const submit = async (e: React.FormEvent) => {
+  const selectTab = (value: "login" | "signup") => {
+    setTab(value);
+    setError(null);
+  };
+
+  const submit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setError(null);
     setLoading(true);
@@ -37,177 +45,109 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="login-shell" style={{ minHeight: "100vh", background: "var(--bg)", display: "flex" }}>
-      <div
-        className="login-aside"
-        style={{
-          background: "linear-gradient(155deg,#16224D 0%, #1E3FC4 65%, #2F55E8 100%)",
-          padding: "56px 44px",
-          position: "relative",
-          overflow: "hidden",
-        }}
-      >
-        <svg
-          width="360"
-          height="360"
-          viewBox="0 0 360 360"
-          style={{ position: "absolute", right: -120, bottom: -100, opacity: 0.35 }}
-        >
-          <circle cx="180" cy="180" r="179" stroke="#ffffff" strokeWidth="1" />
-          <circle cx="180" cy="180" r="130" stroke="#ffffff" strokeWidth="1" />
-          <circle cx="180" cy="180" r="80" stroke="#ffffff" strokeWidth="1" />
-        </svg>
-        <div>
-          <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-            <div
-              style={{
-                width: 32,
-                height: 32,
-                borderRadius: 9,
-                background: "#ffffff",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-            >
-              <svg width="17" height="17" viewBox="0 0 24 24" fill="none">
-                <path
-                  d="M6 4h13M6 4v16M6 11h9"
-                  stroke="#2F55E8"
-                  strokeWidth="2.4"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
+    <div className="login-shell">
+      <aside className="login-aside" aria-label="FinMATE 금융 학습">
+        <div className="login-aside-top"><Brand /></div>
+        <div className="login-aside-copy">
+          <span className="login-room-label"><span />나의 금융 공부방</span>
+          <h2>함께 읽고,<br />하나씩 알아가요.</h2>
+          <p>주식과 채권의 기초부터 낯선 금융 용어까지.<br />오늘도 내 속도로, 한 페이지부터 시작해요.</p>
+        </div>
+        <div className="login-campus-wrap">
+          <span className="login-campus-badge"><Icon name="book" size={16} />한 페이지씩, 내 속도로</span>
+          <img
+            className="login-campus"
+            src="/images/finance-campus.webp"
+            alt="책과 금융 차트가 있는 캠퍼스에서 함께 배우는 사람들의 일러스트"
+            width={1536}
+            height={1024}
+          />
+        </div>
+        <div className="login-aside-note"><Icon name="check" size={14} />기초 개념<span />용어 노트<span />나의 학습 기록</div>
+      </aside>
+
+      <main className="login-main">
+        <div className="login-main-top">
+          <div className="login-mobile-brand"><Brand compact /></div>
+          <Link to="/" className="login-back">← 홈으로</Link>
+        </div>
+        <form className="login-form" onSubmit={submit} aria-busy={loading}>
+          <div className="login-form-heading">
+            <span className="login-form-emblem"><Icon name="spark" size={20} /></span>
+            <h1>{tab === "login" ? "반가워요, 메이트!" : "첫 공부를 함께해요"}</h1>
+            <p>{tab === "login" ? "배우던 내용을 이어서 살펴봐요." : "계정을 만들고 나만의 학습 기록을 남겨요."}</p>
+          </div>
+
+          <div className="login-tabs" aria-label="계정 접속 방법">
+            <button type="button" aria-pressed={tab === "login"} onClick={() => selectTab("login")}>로그인</button>
+            <button type="button" aria-pressed={tab === "signup"} onClick={() => selectTab("signup")}>회원가입</button>
+          </div>
+
+          <div className="login-fields">
+            {tab === "signup" && (
+              <div>
+                <label className="field-label" htmlFor="login-name">이름</label>
+                <input
+                  id="login-name"
+                  className="field-input"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  placeholder="홍길동"
+                  autoComplete="name"
+                  required
                 />
-              </svg>
-            </div>
-            <span style={{ fontWeight: 900, fontSize: 20, color: "#fff" }}>FinMATE</span>
-          </div>
-          <div style={{ marginTop: 28, fontWeight: 700, fontSize: 26, color: "#fff", lineHeight: 1.4 }}>
-            AI가 분석하는 나의
-            <br />
-            투자 성향, 근거 있는
-            <br />
-            탐색까지
-          </div>
-        </div>
-        <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
-          {[
-            "5문항 진단으로 5단계 투자 성향 확인",
-            "AI가 생성하는 근거 문장으로 쉽게 이해",
-            "내부 위험 필터를 통과한 카테고리·상품 탐색",
-          ].map((t) => (
-            <div key={t} style={{ display: "flex", gap: 10, alignItems: "flex-start" }}>
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" style={{ marginTop: 2, flexShrink: 0 }}>
-                <path d="M5 13l4 4L19 7" stroke="#BFD0FF" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
-              <span style={{ fontSize: 13.5, color: "#DCE4FF", lineHeight: 1.5 }}>{t}</span>
-            </div>
-          ))}
-          <div style={{ fontSize: 11.5, color: "#9FB4EE", marginTop: 6 }}>
-            본 서비스는 투자 자문·투자 권유가 아닌 탐색 정보 제공 서비스입니다.
-          </div>
-        </div>
-      </div>
-
-      <div className="login-main" style={{ flex: 1, display: "flex", alignItems: "center", justifyContent: "center" }}>
-        <form className="login-form" onSubmit={submit} style={{ display: "flex", flexDirection: "column", gap: 22 }}>
-          <div style={{ display: "flex", borderBottom: "1.5px solid var(--border)" }}>
-            <button
-              type="button"
-              onClick={() => setTab("login")}
-              style={{
-                background: "none",
-                border: "none",
-                padding: "0 0 14px 0",
-                marginRight: 28,
-                fontWeight: tab === "login" ? 700 : 500,
-                fontSize: 15,
-                color: tab === "login" ? "var(--primary)" : "var(--text-faint)",
-                borderBottom: tab === "login" ? "2.5px solid var(--primary)" : "2.5px solid transparent",
-                marginBottom: -1.5,
-              }}
-            >
-              로그인
-            </button>
-            <button
-              type="button"
-              onClick={() => setTab("signup")}
-              style={{
-                background: "none",
-                border: "none",
-                padding: "0 0 14px 0",
-                fontWeight: tab === "signup" ? 700 : 500,
-                fontSize: 15,
-                color: tab === "signup" ? "var(--primary)" : "var(--text-faint)",
-                borderBottom: tab === "signup" ? "2.5px solid var(--primary)" : "2.5px solid transparent",
-                marginBottom: -1.5,
-              }}
-            >
-              회원가입
-            </button>
-          </div>
-
-          {tab === "signup" && (
+              </div>
+            )}
             <div>
-              <label className="field-label">이름</label>
+              <label className="field-label" htmlFor="login-email">이메일</label>
               <input
+                id="login-email"
                 className="field-input"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                placeholder="홍길동"
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="you@example.com"
+                autoComplete="username"
                 required
               />
             </div>
-          )}
-          <div>
-            <label className="field-label">이메일</label>
-            <input
-              className="field-input"
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="you@example.com"
-              required
-            />
-          </div>
-          <div>
-            <label className="field-label">비밀번호</label>
-            <input
-              className="field-input"
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              placeholder="8자 이상"
-              minLength={8}
-              required
-            />
+            <div>
+              <label className="field-label" htmlFor="login-password">비밀번호</label>
+              <input
+                id="login-password"
+                className="field-input"
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder="8자 이상"
+                autoComplete={tab === "login" ? "current-password" : "new-password"}
+                minLength={8}
+                required
+              />
+            </div>
           </div>
 
-          {error && <div className="error-text">{error}</div>}
+          {error && <div className="error-text" role="alert">{error}</div>}
 
           <button className="btn btn-primary btn-block" type="submit" disabled={loading}>
             {loading ? "처리 중..." : tab === "login" ? "로그인" : "가입하기"}
           </button>
 
-          <div style={{ textAlign: "center", fontSize: 13, color: "var(--text-muted)" }}>
-            {tab === "login" ? (
-              <>
-                계정이 없으신가요?{" "}
-                <a href="#" onClick={(e) => { e.preventDefault(); setTab("signup"); }}>
-                  회원가입
-                </a>
-              </>
-            ) : (
-              <>
-                이미 계정이 있으신가요?{" "}
-                <a href="#" onClick={(e) => { e.preventDefault(); setTab("login"); }}>
-                  로그인
-                </a>
-              </>
-            )}
+          <p className="login-switch">
+            {tab === "login" ? "아직 메이트가 아니신가요? " : "이미 계정이 있으신가요? "}
+            <a href={tab === "login" ? "#signup" : "#login"} onClick={(event) => { event.preventDefault(); selectTab(tab === "login" ? "signup" : "login"); }}>
+              {tab === "login" ? "회원가입" : "로그인"}
+            </a>
+          </p>
+          <div className="login-public-preview">
+            <p>먼저 구경하고 싶다면 <span>로그인 없이도 괜찮아요</span></p>
+            <div>
+              <Link to="/course"><span className="login-preview-icon"><Icon name="book" size={18} /></span><span>입문 과정<small>기초부터 차근차근</small></span><Icon name="arrow" size={15} /></Link>
+              <Link to="/glossary"><span className="login-preview-icon"><Icon name="compass" size={18} /></span><span>용어 사전<small>궁금한 말 찾아보기</small></span><Icon name="arrow" size={15} /></Link>
+            </div>
           </div>
         </form>
-      </div>
+      </main>
     </div>
   );
 }

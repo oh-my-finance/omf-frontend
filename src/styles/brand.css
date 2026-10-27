@@ -1,0 +1,80 @@
+/* FinMATE 브랜드 공통: 따뜻한 종이, 오렌지 포인트, 짙은 초록의 읽기 경험. 홈·로그인 전용 규칙은 각 파일에 둔다. */
+html { scroll-behavior: smooth; scroll-padding-top: 96px; }
+body { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; text-rendering: optimizeLegibility; font-size: var(--fs-body); line-height: 1.6; }
+button, input, select, textarea { font: inherit; }
+button, a, input, select, textarea { -webkit-tap-highlight-color: transparent; }
+:focus-visible { outline: 3px solid var(--primary); outline-offset: 4px; }
+.field-input:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
+.btn { min-height: 44px; border-radius: 10px; letter-spacing: -.01em; transition: background-color .18s, border-color .18s, color .18s, box-shadow .18s; }
+a.btn-primary:hover { color: #fff; }
+.btn-primary { box-shadow: 0 1px 0 rgba(255, 255, 255, .18) inset, 0 1px 2px rgba(110, 38, 16, .18); }
+.btn-secondary { color: var(--text); border-width: 1px; border-color: var(--border-strong); }
+.btn-secondary:hover { border-color: #b9c2b4; color: var(--text); background: var(--surface-soft); }
+.btn-small { min-height: 40px; padding: 8px 18px; font-size: 14px; }
+.practice-head > .btn { flex-shrink: 0; }
+
+/* 책을 닮은 심볼과 워드마크는 홈·학습·로그인에서 공유한다. */
+.brand { display: inline-flex; align-items: center; gap: 9px; color: var(--text); flex-shrink: 0; text-decoration: none; }
+.brand:hover { color: var(--text); }
+.brand-symbol { color: var(--accent); flex-shrink: 0; }
+.brand-name { font-family: Arial, Helvetica, sans-serif; font-size: 28px; font-weight: 800; letter-spacing: -1.4px; line-height: 1; }
+.brand-name > span { font-weight: 500; }
+.brand-name > i { color: var(--accent); font-style: normal; }
+.brand-caption { color: var(--text-faint); font-size: var(--fs-caption); font-weight: 500; border-left: 1px solid var(--border); padding-left: 14px; margin-left: 6px; white-space: nowrap; }
+
+/* 공통 탐색: 공간이 부족해지기 전에 접고 펼침 상태를 보조 기술에도 전달한다. */
+.site-header { position: sticky; top: 0; z-index: 20; background: rgba(248, 247, 243, .9); border-bottom: 1px solid var(--border); backdrop-filter: saturate(1.4) blur(14px); -webkit-backdrop-filter: saturate(1.4) blur(14px); }
+.site-header-inner { width: min(100% - 64px, 1200px); margin: 0 auto; min-height: 72px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+.site-nav { display: flex; align-items: center; gap: 2px; justify-content: flex-end; }
+.site-nav-link { position: relative; padding: 8px 12px; border-radius: var(--radius-sm); font-size: 15px; font-weight: 500; color: var(--text-muted); white-space: nowrap; letter-spacing: -.01em; transition: color .15s, background-color .15s; }
+.site-nav-link:hover { color: var(--text); background: var(--surface-soft); }
+.site-nav-link.is-active { color: var(--primary); font-weight: 600; background: var(--primary-tint); }
+.site-nav-account { display: inline-flex; align-items: center; gap: 12px; margin-left: 12px; padding-left: 16px; border-left: 1px solid var(--border); }
+.header-name { font-size: 14px; font-weight: 500; color: var(--text-muted); }
+.avatar { width: 32px; height: 32px; border-radius: 50%; background: var(--sage); color: var(--text); display: inline-flex; align-items: center; justify-content: center; font-weight: 700; font-size: 14px; }
+.nav-toggle-button { display: none; align-items: center; gap: 9px; min-height: 44px; border: 1px solid var(--border-strong); background: var(--surface); border-radius: 10px; padding: 9px 14px; font-size: 14px; font-weight: 600; color: var(--text); }
+.menu-lines { display: grid; gap: 5px; width: 16px; }
+.menu-lines i { display: block; height: 1.5px; background: currentColor; transition: transform .15s; }
+.menu-lines.is-open i:first-child { transform: translateY(3.25px) rotate(45deg); }
+.menu-lines.is-open i:last-child { transform: translateY(-3.25px) rotate(-45deg); }
+
+/* 푸터: 짧은 소개, 보조 링크, 교육 서비스 고지를 세 단계로 읽는다. */
+.site-footer { border-top: 1px solid var(--border); background: #f1f2eb; }
+.site-footer-inner { width: min(100% - 64px, 1200px); margin: 0 auto; padding: 40px 0 32px; }
+.footer-top { display: flex; align-items: center; gap: 24px; padding-bottom: 28px; }
+.footer-top .brand-symbol { width: 26px; height: 26px; }
+.footer-top .brand-name { font-size: 23px; }
+.footer-top > p { margin: 0; font-size: var(--fs-small); color: var(--text-muted); }
+.footer-top > a { font-size: var(--fs-small); font-weight: 500; color: var(--text-muted); }
+.footer-top > a:hover { color: var(--primary); }
+.footer-top > .footer-model-link { margin-left: auto; }
+.footer-bottom { display: flex; gap: 24px; justify-content: space-between; border-top: 1px solid #dfe3d8; padding-top: 22px; color: var(--text-faint); font-size: var(--fs-caption); line-height: 1.7; }
+.footer-bottom p { margin: 0; }
+
+@media (max-width: 1460px) { .site-header .brand-caption { display: none; } }
+@media (max-width: 1180px) {
+  .site-header-inner { flex-wrap: wrap; min-height: 68px; }
+  .nav-toggle-button { display: inline-flex; }
+  .site-nav { display: none; width: 100%; flex-direction: column; align-items: stretch; gap: 2px; padding: 4px 0 18px; max-height: calc(100dvh - 80px); overflow-y: auto; }
+  .site-nav.is-open { display: flex; }
+  .site-nav-link { padding: 13px 12px; font-size: 16px; }
+  .site-nav-account { margin: 10px 0 0; padding: 16px 0 0; border-left: 0; border-top: 1px solid var(--border); }
+}
+@media (max-width: 1000px) {
+  .site-footer-inner { width: calc(100% - 48px); }
+}
+@media (max-width: 740px) {
+  .site-header-inner { width: calc(100% - 40px); min-height: 64px; }
+  .brand-name { font-size: 26px; }
+  .brand-symbol { width: 31px; height: 31px; }
+  .site-footer-inner { width: calc(100% - 40px); padding-top: 32px; }
+  .footer-top { flex-wrap: wrap; gap: 12px 20px; }
+  .footer-top > p { width: 100%; order: 2; }
+  .footer-top > .footer-model-link { margin-left: 0; order: 3; }
+  .footer-top > a:last-child { order: 4; }
+  .footer-bottom { flex-direction: column; gap: 8px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { transition: none !important; animation: none !important; }
+}
