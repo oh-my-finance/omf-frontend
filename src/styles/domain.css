@@ -1,0 +1,80 @@
+/* 성향별 교과서와 실제 시장 관찰. 기존 종이·초록·주황 토큰을 공유한다. */
+.home-domain-links { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); border: 1px solid var(--border); margin: 0 0 28px; background: var(--surface); }
+.home-domain-links a { display: grid; grid-template-columns: 1fr auto; gap: 8px 20px; padding: 22px 26px; color: var(--text); }
+.home-domain-links a + a { border-left: 1px solid var(--border); }
+.home-domain-links strong { font-size: 19px; }
+.home-domain-links a > span:first-of-type { grid-column: 1; color: var(--text-muted); font-size: var(--fs-small); line-height: 1.6; }
+.home-domain-links a > span:last-child { grid-column: 2; grid-row: 1 / 3; align-self: center; font-size: 25px; color: var(--primary); }
+.home-domain-links a:hover strong { color: var(--primary); text-decoration: underline; text-underline-offset: 4px; }
+.roadmap-basis { padding: 28px 32px; margin-bottom: 20px; }
+.roadmap-basis h2 { margin: 10px 0; font-size: 25px; line-height: 1.4; }
+.roadmap-basis p { line-height: 1.75; }
+.domain-next-links { display: flex; flex-wrap: wrap; gap: 16px 28px; padding: 20px 0 0; border-top: 1px solid var(--border); }
+.market-main { padding-bottom: 0; }
+.market-section-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 20px; margin-bottom: 24px; }
+.market-section-head h2, .stock-section h2 { margin: 0 0 10px; font-size: 25px; }
+.market-section-head p { margin: 0; line-height: 1.7; }
+.market-section-head .btn { flex-shrink: 0; }
+.market-indicators { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; align-items: start; }
+.market-indicator { min-width: 0; padding: 24px; }
+.market-indicator-head { display: flex; flex-wrap: wrap; align-items: flex-start; gap: 10px; justify-content: space-between; }
+.market-indicator h3 { margin: 0; font-size: 18px; line-height: 1.5; flex: 1; min-width: 120px; }
+.market-indicator.status-stale .course-chip { background: var(--primary-tint); color: var(--primary); }
+.market-indicator.status-unavailable .course-chip { background: var(--danger-bg); color: var(--danger); }
+.market-value { display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px; margin: 22px 0 6px; font-size: clamp(29px, 3vw, 37px); line-height: 1.3; font-weight: 700; font-variant-numeric: tabular-nums; overflow-wrap: anywhere; }
+.market-value span { font-size: var(--fs-small); color: var(--text-muted); font-weight: 400; }
+.market-change { min-height: 24px; margin: 0 0 16px; color: var(--text-muted); font-size: var(--fs-caption); line-height: 1.7; }
+.market-description, .market-indicator-message { font-size: var(--fs-small); line-height: 1.75; color: var(--text-muted); }
+.market-description { min-height: 78px; }
+.market-indicator-message { margin: 16px 0 0; }
+.market-metadata { margin: 20px 0 0; border-top: 1px solid var(--border); padding-top: 16px; display: grid; gap: 10px; font-size: var(--fs-caption); }
+.market-metadata > div { display: grid; grid-template-columns: 95px 1fr; gap: 8px; }
+.market-metadata dt { color: var(--text-faint); }
+.market-metadata dd { margin: 0; line-height: 1.6; overflow-wrap: anywhere; }
+.market-trend { margin: 10px 0; }
+.market-trend svg { width: 100%; height: auto; display: block; }
+.market-trend polyline { stroke: var(--forest-strong); stroke-width: 2; stroke-linejoin: round; }
+.market-trend-baseline { stroke: var(--border); stroke-width: 1; }
+.market-trend figcaption { font-size: 11px; line-height: 1.7; color: var(--text-faint); }
+.market-data-table { margin-top: 18px; border-top: 1px solid var(--border); padding-top: 14px; }
+.market-data-table summary { cursor: pointer; font-size: var(--fs-small); color: var(--primary); }
+.market-table-scroll { max-height: 260px; overflow: auto; margin-top: 14px; }
+.market-table-scroll table { width: 100%; border-collapse: collapse; font-size: var(--fs-caption); font-variant-numeric: tabular-nums; }
+.market-table-scroll caption { text-align: left; margin-bottom: 10px; color: var(--text-muted); line-height: 1.6; }
+.market-table-scroll th, .market-table-scroll td { text-align: right; padding: 10px 6px; border-bottom: 1px solid var(--border); font-weight: 400; }
+.market-table-scroll th:first-child { text-align: left; }
+.market-table-scroll thead th { font-weight: 700; background: var(--surface-soft); }
+.market-notice { margin: 20px 0; line-height: 1.75; }
+.market-learning-links { display: flex; flex-wrap: wrap; gap: 12px 22px; padding: 18px 0; border-top: 1px solid var(--border); font-size: var(--fs-small); }
+.market-learning-links span { color: var(--text-faint); }
+.stock-section { margin: 40px 0 24px; padding: 28px 32px; min-width: 0; }
+.stock-section > p { line-height: 1.75; }
+.stock-controls { display: flex; align-items: flex-end; flex-wrap: wrap; gap: 12px; margin: 24px 0; }
+.stock-controls > div { min-width: 0; flex: 1 1 280px; max-width: 420px; }
+.stock-controls .field-label { margin-bottom: 8px; }
+.stock-controls select { width: 100%; min-height: 46px; }
+.stock-chart-placeholder { padding: 48px 28px; background: var(--surface-soft); border: 1px solid var(--border); text-align: center; }
+.stock-chart-placeholder p { max-width: 700px; margin: 12px auto 0; color: var(--text-muted); line-height: 1.75; }
+.stock-chart-frame { height: 520px; width: 100%; border: 1px solid var(--border); overflow: hidden; }
+.stock-chart-frame.is-blocked { height: 120px; background: var(--surface-soft); }
+.stock-chart-wrapper { display: block; height: 100%; width: 100%; border: 0; }
+.chart-load-status { margin: 14px 0; line-height: 1.75; }
+.market-chart-source { font-size: var(--fs-small); margin: 16px 0; }
+@media (max-width: 1000px) {
+  .market-indicators { grid-template-columns: 1fr; }
+  .market-description { min-height: 0; }
+  .market-trend svg { max-height: 150px; }
+}
+@media (max-width: 740px) {
+  .home-domain-links { grid-template-columns: 1fr; margin-bottom: 20px; }
+  .home-domain-links a { padding: 20px; }
+  .home-domain-links a + a { border-left: 0; border-top: 1px solid var(--border); }
+  .roadmap-basis, .stock-section { padding: 22px 20px; }
+  .market-section-head { flex-direction: column; }
+  .market-indicator { padding: 22px 20px; }
+  .stock-chart-frame { height: 440px; }
+  .stock-controls { align-items: stretch; }
+  .stock-controls > div { flex-basis: 100%; max-width: none; }
+  .stock-controls .btn { flex: 1; }
+  .domain-next-links { flex-direction: column; }
+}

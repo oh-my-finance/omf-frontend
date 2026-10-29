@@ -26,6 +26,10 @@ const QUICK_LINKS: { to: string; icon: IconName; label: string; description: str
 export default function HomeLearning() {
   return (
     <>
+      <section className="home-domain-links" aria-label="로드맵과 시장 관찰">
+        <Link to="/roadmap"><strong>내 성향에 맞는 교과서</strong><span>공통 기초부터 성향별 집중 학습·확인 문제까지</span><span aria-hidden="true">→</span></Link>
+        <Link to="/market"><strong>금리·환율·주식 차트</strong><span>실제 시장 자료의 출처와 기준일을 함께 확인</span><span aria-hidden="true">→</span></Link>
+      </section>
       <section className="home-dashboard" aria-label="학습 현황과 바로가기">
         <AccountBox />
         <QuickMenu />

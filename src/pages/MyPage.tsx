@@ -80,6 +80,7 @@ export default function MyPage() {
         <span className="eyebrow">MY LEARNING</span>
         <h1>한 번 맞히는 것보다, 다시 설명할 수 있게.</h1>
         <p className="intro-copy">진단 결과와 직접 쓴 생각, 틀린 문제를 합쳐 다음에 볼 것을 정리했습니다. 모든 항목에 왜 추천했는지 사유가 붙어 있습니다.</p>
+        <p className="replay-notice"><Link to="/roadmap">성향별 교과서 목차와 진척 보기 →</Link> 공통 기초부터 단계별로 학습하고 확인 문제를 풀 수 있습니다.</p>
         {error && <div className="card glossary-message" role="alert">{error} <button className="btn btn-secondary" onClick={() => setRetry(value => value + 1)}>다시 시도</button></div>}
         {loading ? <p role="status" className="subtle">학습 기록을 불러오는 중…</p> : !error && <>
           <div className="my-tracks">

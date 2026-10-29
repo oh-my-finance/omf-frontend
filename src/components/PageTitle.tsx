@@ -6,6 +6,8 @@ const TITLES: [string, string][] = [
   ["/", "증권업과 금융상품 학습"],
   ["/login", "로그인"],
   ["/course", "증권업 입문 과정"],
+  ["/roadmap", "성향별 학습 로드맵"],
+  ["/market", "금리·환율·주식 차트"],
   ["/learn", "개념 학습"],
   ["/glossary/:slug", "용어 상세"],
   ["/glossary", "주식 용어 사전"],
