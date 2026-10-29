@@ -7,6 +7,7 @@ import LoadError from "../components/LoadError";
 import SiteFooter from "../components/SiteFooter";
 import SubPageHeader from "../components/SubPageHeader";
 import TradingViewChart from "../components/TradingViewChart";
+import KoreanStockChart from "../components/KoreanStockChart";
 
 const STATUS_LABEL: Record<MarketIndicator["status"], string> = {
   AVAILABLE: "관측값 제공",
@@ -46,15 +47,17 @@ export default function MarketPage() {
   return (
     <div className="app-page">
       <Header />
-      <SubPageHeader section="practice" current="/market" title="금리·환율·주식 차트" description="숫자의 기준 시각과 출처를 확인하며 시장을 읽어 보세요. 금리·환율 관측값과 외부 주식 차트를 제공합니다." actions={<Link className="btn btn-secondary" to="/roadmap">학습 로드맵</Link>} />
+      <SubPageHeader section="practice" current="/market" title="금리·환율·주식 차트" description="숫자의 기준 시각과 출처를 확인하며 시장을 읽어 보세요. 금리·환율 관측값과 국내·미국 주식 차트를 제공합니다." actions={<Link className="btn btn-secondary" to="/roadmap">학습 로드맵</Link>} />
       <main className="practice-main market-main">
         <section aria-label="금리와 환율">
-          <div className="market-section-head"><div><h2>금리와 환율</h2><p className="subtle">실시간 시세가 아닌 공식 관측값입니다. 미국 금리는 한국은행 기준금리와 다릅니다.</p></div><button type="button" className="btn btn-secondary" onClick={() => setReload(value => value + 1)}>지표 다시 조회</button></div>
+          <div className="market-section-head"><div><h2>금리와 환율</h2><p className="subtle">한국은행 기준금리와 미국 실효 연방기금금리를 구분해 제공합니다. 일별 관측값이며 실시간 시세가 아닙니다.</p></div><button type="button" className="btn btn-secondary" onClick={() => setReload(value => value + 1)}>지표 다시 조회</button></div>
           {error && <LoadError message={error} onRetry={() => setReload(value => value + 1)} />}
           {!data && !error && <p className="subtle" role="status">금리·환율 자료를 불러오는 중…</p>}
           {data && <><div className="market-indicators">{data.indicators.map(indicator => <IndicatorCard key={indicator.id} indicator={indicator} />)}</div><p className="subtle market-notice">{data.notice}</p></>}
           <div className="market-learning-links"><span>숫자를 이해하려면</span><Link to="/learn?concept=bond-price-yield">금리와 채권 가격</Link><Link to="/glossary/exchange-rate">환율의 의미</Link><Link to="/practice">가정값을 바꿔 실험하기</Link></div>
         </section>
+
+        <KoreanStockChart />
 
         <section className="card stock-section" aria-label="주식 차트">
           <h2>주식 차트</h2>
@@ -80,7 +83,7 @@ function IndicatorCard({ indicator }: { indicator: MarketIndicator }) {
   return <article className={`card market-indicator status-${indicator.status.toLowerCase()}`} data-testid={`market-indicator-${indicator.id}`}>
     <div className="market-indicator-head"><h3>{indicator.name}</h3><span className="course-chip">{STATUS_LABEL[indicator.status]}</span></div>
     <p className="market-value">{value !== null ? number(value, indicator.id) : "—"}<span>{indicator.unit}</span></p>
-    <p className="market-change">{indicator.change !== null ? `이전 관측 대비 ${indicator.change > 0 ? "+" : ""}${number(indicator.change, indicator.id)} ${indicator.id === "DFF" ? "%p" : indicator.unit}` : "이전 관측값과 비교할 수 없습니다."}</p>
+    <p className="market-change">{indicator.change !== null ? `이전 관측 대비 ${indicator.change > 0 ? "+" : ""}${number(indicator.change, indicator.id)} ${indicator.id === "DFF" || indicator.id === "BOK_BASE_RATE" ? "%p" : indicator.unit}` : "이전 관측값과 비교할 수 없습니다."}</p>
     <p className="market-description">{indicator.description}</p>
     {indicator.points.length > 1 && <IndicatorTrend indicator={indicator} />}
     <dl className="market-metadata"><div><dt>마지막 관측일</dt><dd>{indicator.asOf ? <time dateTime={indicator.asOf}>{indicator.asOf}</time> : "자료 없음"}</dd></div><div><dt>성공 수신 시각</dt><dd>{indicator.fetchedAt ? <time dateTime={indicator.fetchedAt}>{new Date(indicator.fetchedAt).toLocaleString("ko-KR")}</time> : "수신 기록 없음"}</dd></div><div><dt>출처</dt><dd><a href={indicator.sourceUrl} target="_blank" rel="noopener noreferrer">{indicator.sourceName} · {indicator.id} ↗</a></dd></div></dl>
