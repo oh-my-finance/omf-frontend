@@ -15,7 +15,7 @@
 .market-section-head h2, .stock-section h2 { margin: 0 0 10px; font-size: 25px; }
 .market-section-head p { margin: 0; line-height: 1.7; }
 .market-section-head .btn { flex-shrink: 0; }
-.market-indicators { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; align-items: start; }
+.market-indicators { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; align-items: start; }
 .market-indicator { min-width: 0; padding: 24px; }
 .market-indicator-head { display: flex; flex-wrap: wrap; align-items: flex-start; gap: 10px; justify-content: space-between; }
 .market-indicator h3 { margin: 0; font-size: 18px; line-height: 1.5; flex: 1; min-width: 120px; }
@@ -60,6 +60,22 @@
 .stock-chart-wrapper { display: block; height: 100%; width: 100%; border: 0; }
 .chart-load-status { margin: 14px 0; line-height: 1.75; }
 .market-chart-source { font-size: var(--fs-small); margin: 16px 0; }
+.korean-stock-result { min-width: 0; }
+.korean-stock-heading { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; margin: 24px 0 10px; }
+.korean-stock-heading h3 { margin: 0; font-size: 20px; line-height: 1.6; }
+.korean-stock-heading h3 span { display: block; color: var(--text-muted); font-size: var(--fs-small); font-weight: 400; }
+.korean-stock-notice { font-size: var(--fs-small); line-height: 1.8; }
+.korean-stock-result.status-stale > .korean-stock-heading .course-chip { background: var(--primary-tint); color: var(--primary); }
+.korean-stock-result.status-unavailable > .korean-stock-heading .course-chip { background: var(--danger-bg); color: var(--danger); }
+.korean-stock-chart { margin: 24px 0 10px; }
+.korean-stock-chart svg { width: 100%; height: auto; display: block; }
+.korean-stock-chart text { font-size: 12px; fill: var(--text-muted); }
+.korean-stock-grid { stroke: var(--border); stroke-width: 1; }
+.korean-stock-chart .candle-up { fill: #c23f32; stroke: #c23f32; }
+.korean-stock-chart .candle-down { fill: #2866a8; stroke: #2866a8; }
+.korean-stock-chart line { stroke-width: 1; }
+.korean-stock-chart figcaption { color: var(--text-muted); font-size: var(--fs-caption); line-height: 1.8; }
+.korean-stock-result .market-table-scroll table { min-width: 560px; }
 @media (max-width: 1000px) {
   .market-indicators { grid-template-columns: 1fr; }
   .market-description { min-height: 0; }

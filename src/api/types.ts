@@ -823,3 +823,36 @@ export interface MarketIndicatorsResponse {
   indicators: MarketIndicator[];
   notice: string;
 }
+
+export interface KoreanStock {
+  symbol: string;
+  name: string;
+  market: string;
+}
+
+export interface KoreanStockCatalog {
+  stocks: KoreanStock[];
+  notice: string;
+}
+
+export interface KoreanStockBar {
+  date: string;
+  open: number;
+  high: number;
+  low: number;
+  close: number;
+  volume: number;
+}
+
+export interface KoreanStockHistory {
+  stock: KoreanStock;
+  currency: "KRW";
+  sourceName: string;
+  sourceUrl: string;
+  status: "AVAILABLE" | "STALE" | "UNAVAILABLE";
+  asOf: string | null;
+  fetchedAt: string | null;
+  bars: KoreanStockBar[];
+  message: string;
+  notice: string;
+}
