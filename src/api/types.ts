@@ -787,3 +787,39 @@ export interface CourseView {
   progress: CourseProgress | null;
   notice: string;
 }
+
+/** 공통 기초와 성향별 집중 학습을 한 교과서 목차로 묶은 응답. */
+export interface RoadmapResponse {
+  rulesVersion: string;
+  basis: {
+    assessmentId: string;
+    profileType: string;
+    profileLabel: string;
+    assessedAt: string;
+  } | null;
+  reason: string;
+  course: CourseView;
+  notice: string;
+}
+
+export interface MarketIndicator {
+  id: string;
+  name: string;
+  unit: string;
+  description: string;
+  sourceName: string;
+  sourceUrl: string;
+  status: "AVAILABLE" | "STALE" | "UNAVAILABLE";
+  asOf: string | null;
+  fetchedAt: string | null;
+  value: number | null;
+  previousValue: number | null;
+  change: number | null;
+  points: { date: string; value: number }[];
+  message: string;
+}
+
+export interface MarketIndicatorsResponse {
+  indicators: MarketIndicator[];
+  notice: string;
+}

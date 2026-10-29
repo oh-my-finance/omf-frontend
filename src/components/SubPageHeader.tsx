@@ -5,6 +5,7 @@ const SECTIONS = {
   learning: {
     label: "금융 학습",
     links: [
+      { to: "/roadmap", label: "학습 로드맵" },
       { to: "/course", label: "입문 과정" },
       { to: "/learn", label: "개념 학습" },
       { to: "/glossary", label: "용어 사전" },
@@ -15,6 +16,7 @@ const SECTIONS = {
     links: [
       { to: "/practice", label: "모의투자" },
       { to: "/replay", label: "차트 복기" },
+      { to: "/market", label: "시장 관찰" },
     ],
   },
 };

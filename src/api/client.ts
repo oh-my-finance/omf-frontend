@@ -43,6 +43,8 @@ import type {
   ReplayReview,
   CourseSummary,
   CourseView,
+  RoadmapResponse,
+  MarketIndicatorsResponse,
 } from "./types";
 
 const BASE_URL = import.meta.env.VITE_API_BASE_URL ?? "http://localhost:8080/api";
@@ -257,6 +259,9 @@ export const api = {
   getCourses: () => request<{ version: string; passScorePercent: number; courses: CourseSummary[] }>("/learning/courses"),
   getCourse: (courseId: string) => request<CourseView>(`/learning/courses/${encodeURIComponent(courseId)}`),
   getCourseProgress: (courseId: string) => request<CourseView>(`/me/courses/${encodeURIComponent(courseId)}`),
+  getRoadmap: () => request<RoadmapResponse>("/learning/roadmap"),
+  getMyRoadmap: () => request<RoadmapResponse>("/me/roadmap"),
+  getMarketIndicators: () => request<MarketIndicatorsResponse>("/market/indicators"),
 
   // 차트 복기. 세션 응답에는 공개된 구간만 있다. 다음 구간은 판단을 보낸 응답으로만 받는다.
   getReplayScenarios: () => request<ReplayScenarioList>("/replay/scenarios"),

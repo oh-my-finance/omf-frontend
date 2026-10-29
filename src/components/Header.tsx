@@ -4,11 +4,13 @@ import { useAuth } from "../context/AuthContext";
 import Brand from "./Brand";
 
 const PUBLIC_LINKS = [
+  { to: "/roadmap", label: "학습 로드맵" },
   { to: "/course", label: "입문 과정" },
   { to: "/learn", label: "개념 학습" },
   { to: "/glossary", label: "용어 사전" },
   { to: "/practice", label: "모의투자" },
   { to: "/replay", label: "차트 복기" },
+  { to: "/market", label: "시장 관찰" },
   { to: "/models", label: "모델 실험실" },
 ];
 

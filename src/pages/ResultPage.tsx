@@ -141,6 +141,8 @@ export default function ResultPage() {
             <small>{styleResult.notice}</small>
           </div>}
         </section>}
+        <Link className="btn btn-primary btn-block" to="/roadmap">내 성향별 학습 로드맵 보기</Link>
+        <p className="subtle">로드맵은 가장 최근에 완료한 진단을 기준으로 공통 기초와 집중 학습을 연결합니다.</p>
         <button className="btn btn-secondary btn-block" onClick={() => navigate("/history")}>지난 진단과 비교하기</button>
         <button className="btn btn-secondary btn-block" onClick={() => navigate("/learn")}>안내 범위 밖 상품도 기초 개념 배우기</button>
         <button className="btn btn-primary btn-block" onClick={() => navigate(`/explore/${data.id}`)}>

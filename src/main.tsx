@@ -6,6 +6,7 @@ import "./styles/brand.css";
 import "./styles/home-hero.css";
 import "./styles/home-learning.css";
 import "./styles/subpage.css";
+import "./styles/domain.css";
 import App from "./App.tsx";
 
 createRoot(document.getElementById("root")!).render(

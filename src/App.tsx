@@ -23,6 +23,8 @@ import CoursePage from "./pages/CoursePage";
 import SettingsPage from "./pages/SettingsPage";
 import NotFoundPage from "./pages/NotFoundPage";
 import ReplaySessionPage from "./pages/ReplaySessionPage";
+import RoadmapPage from "./pages/RoadmapPage";
+import MarketPage from "./pages/MarketPage";
 
 /**
  * 학습·용어·모의투자·모델 실험실은 진단 등급이나 로그인과 무관하게 열어 둔다(docs/09).
@@ -39,6 +41,8 @@ export default function App() {
         <Route path="/glossary/:slug" element={<GlossaryDetailPage />} />
         <Route path="/learn" element={<LearnPage />} />
         <Route path="/course" element={<CoursePage />} />
+        <Route path="/roadmap" element={<RoadmapPage />} />
+        <Route path="/market" element={<MarketPage />} />
         <Route path="/practice" element={<PracticePage />} />
         <Route path="/models" element={<ModelLabPage />} />
         <Route path="/replay" element={<ReplayListPage />} />

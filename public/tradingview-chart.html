@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TradingView 차트</title>
+    <style>
+      html, body { height: 100%; width: 100%; margin: 0; background: #fff; }
+      .tradingview-widget-container { height: 100%; width: 100%; }
+      .tradingview-widget-container__widget { height: calc(100% - 32px); width: 100%; }
+      .tradingview-widget-copyright { min-height: 32px; line-height: 32px; text-align: center; font: 13px/32px sans-serif; }
+      .tradingview-widget-copyright a { color: #2962ff; }
+    </style>
+    <script src="/tradingview-chart.js" defer></script>
+  </head>
+  <body>
+    <div id="chart" class="tradingview-widget-container"></div>
+  </body>
+</html>

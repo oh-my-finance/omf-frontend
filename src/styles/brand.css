@@ -75,7 +75,7 @@ a.btn-primary:hover { color: #fff; }
 .footer-top-button:hover { color: var(--primary); border-color: var(--primary); }
 
 @media (max-width: 1460px) { .site-header .brand-caption { display: none; } }
-@media (max-width: 1180px) {
+@media (max-width: 1380px) {
   .site-utility { display: none; }
   .site-header-inner { flex-wrap: wrap; min-height: 68px; }
   .nav-toggle-button { display: inline-flex; }
