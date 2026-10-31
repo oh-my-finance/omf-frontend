@@ -20,6 +20,7 @@ FinMATE 웹. React 19 + Vite + TypeScript, react-router. API 클라이언트는 
 - 브랜치 `wp<번호>-<이름>`에서 작업하고 `main`에는 PR로 합친다. force push 금지.
 - API·환경변수·상태 확인 경로를 바꾸면 먼저 omf-docs/contracts/를 고친다([runtime.md](https://github.com/oh-my-finance/omf-docs/blob/main/contracts/runtime.md)).
 - 커밋 메시지는 `feat(scope): 한국어 요약` 형식. 주석·문서는 한국어.
+- 커밋·PR·병합 메시지에 AI 도구 공동 작성자 트레일러(`Co-Authored-By`, 세션 링크)나 생성 문구(`Generated with ...`)를 넣지 않는다. squash 병합 메시지도 직접 적는다. 문서에 작업자를 AI 도구 이름으로 적지 않는다.
 - 비밀값, `.env`(예시 제외), Terraform state, 실제 `*.tfvars`는 커밋하지 않는다.
 - `terraform apply`, 클라우드 리소스 생성, 원격 저장소 설정 변경은 사람의 확인 후에만 한다.
 - 교육용 서비스다. 매매 주문·투자 권유 기능은 만들지 않는다.
