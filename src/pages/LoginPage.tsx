@@ -1,27 +1,27 @@
-import { useState, type FormEvent, type ReactNode } from "react";
+import { useState, type FormEvent } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { RiAppleFill, RiGoogleFill, RiKakaoTalkFill } from "@remixicon/react";
 import Brand from "../components/Brand";
 import Icon from "../components/Icon";
 import { useAuth } from "../context/AuthContext";
 import { ApiError } from "../api/client";
+import { SIGNUP_PRIVACY_SUMMARY, SIGNUP_TRANSFER_SUMMARY } from "../content/legal";
 import "../styles/login-refinement.css";
 
-/** Remix Icon에 네이버 로고가 없어 N 모양을 직접 그린다. */
-function NaverMark() {
-  return <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.273 12.845 7.376 0H0v24h7.726V11.156L16.624 24H24V0h-7.727v12.845Z" /></svg>;
-}
-
 /**
- * 간편 로그인은 아직 목업이다. 실제 OAuth를 붙이기 전까지 누르면 준비 중 안내만 보여 준다.
- * 국내 서비스 관례대로 카카오·네이버·Google·Apple 순서로, 제공자별 버튼 색을 따른 전체 너비 막대로 쌓는다.
+ * 간편 로그인은 아직 목업이다. 실제 OAuth를 붙이기 전까지 누르기 전부터 "준비 중"임을 보여 주고(aria-disabled),
+ * 누르면 이메일로 이용하라는 안내만 띄운다. 제공자 브랜드 로고·색은 정식 연동 전까지 쓰지 않는다(출시 점검 P0-5).
  */
-const socialProviders: { id: string; label: string; mark: ReactNode }[] = [
-  { id: "kakao", label: "카카오", mark: <RiKakaoTalkFill size={20} aria-hidden="true" /> },
-  { id: "naver", label: "네이버", mark: <NaverMark /> },
-  { id: "google", label: "Google", mark: <RiGoogleFill size={20} aria-hidden="true" /> },
-  { id: "apple", label: "Apple", mark: <RiAppleFill size={20} aria-hidden="true" /> },
+const socialProviders: { id: string; label: string }[] = [
+  { id: "kakao", label: "카카오" },
+  { id: "naver", label: "네이버" },
+  { id: "google", label: "Google" },
+  { id: "apple", label: "Apple" },
 ];
+
+/** 가입 필수 동의 항목. 하나라도 빠지면 가입 버튼을 막는다. */
+type ConsentKey = "terms" | "privacy" | "transfer" | "age";
+const CONSENT_KEYS: ConsentKey[] = ["terms", "privacy", "transfer", "age"];
+const NO_CONSENT: Record<ConsentKey, boolean> = { terms: false, privacy: false, transfer: false, age: false };
 
 export default function LoginPage() {
   const location = useLocation();
@@ -34,6 +34,8 @@ export default function LoginPage() {
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const [socialNotice, setSocialNotice] = useState("");
+  const [consent, setConsent] = useState<Record<ConsentKey, boolean>>(NO_CONSENT);
+  const allAgreed = CONSENT_KEYS.every(key => consent[key]);
   const { login, signup } = useAuth();
   const navigate = useNavigate();
   // 보호된 화면에서 넘어왔다면 로그인 후 그 화면으로 돌려보낸다. 외부 주소로는 보내지 않는다.
@@ -46,15 +48,28 @@ export default function LoginPage() {
     setSocialNotice("");
   };
 
+  const toggleConsent = (key: ConsentKey, checked: boolean) => setConsent(prev => ({ ...prev, [key]: checked }));
+  const toggleAll = (checked: boolean) => setConsent({ terms: checked, privacy: checked, transfer: checked, age: checked });
+
   const submit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setError(null);
+    if (tab === "signup" && !allAgreed) {
+      setError("필수 항목에 모두 동의해야 가입할 수 있어요.");
+      return;
+    }
     setLoading(true);
     try {
       if (tab === "login") {
         await login(email, password);
       } else {
-        await signup(email, password, name);
+        // 서버가 동의 항목을 약관·처리방침 버전, 동의 시각과 함께 기록한다(user_consents). 하나라도 빠지면 400이다.
+        await signup(email, password, name, {
+          terms: consent.terms,
+          privacy: consent.privacy,
+          overseasTransfer: consent.transfer,
+          ageOver14: consent.age,
+        });
       }
       navigate(next, { replace: true });
     } catch (err) {
@@ -91,7 +106,7 @@ export default function LoginPage() {
           <div className="login-mobile-brand"><Brand compact /></div>
           <Link to="/" className="login-back">← 홈으로</Link>
         </div>
-        <form className="login-form" onSubmit={submit} aria-busy={loading}>
+        <form className={`login-form${tab === "signup" ? " is-signup" : ""}`} onSubmit={submit} aria-busy={loading}>
           <div className="login-form-heading">
             <span className="login-form-emblem"><Icon name="stock" size={26} /></span>
             <h1>{tab === "login" ? "반가워요, 메이트!" : "첫 공부를 함께해요"}</h1>
@@ -147,34 +162,83 @@ export default function LoginPage() {
             </div>
           </div>
 
+          {tab === "signup" && (
+            <fieldset className="signup-consent" aria-describedby={allAgreed ? undefined : "consent-hint"}>
+              <legend className="sr-only">가입 동의(모두 필수)</legend>
+              <label className="consent-all">
+                <input type="checkbox" checked={allAgreed} onChange={(e) => toggleAll(e.target.checked)} />
+                <span>필수 항목에 모두 동의</span>
+              </label>
+              <ul className="consent-list">
+                <li>
+                  <label>
+                    <input type="checkbox" checked={consent.terms} onChange={(e) => toggleConsent("terms", e.target.checked)} required />
+                    <span><em>필수</em>이용약관 동의</span>
+                  </label>
+                  <Link to="/terms" target="_blank" rel="noopener" aria-label="이용약관 보기(새 창)">보기</Link>
+                </li>
+                <li>
+                  <label>
+                    <input type="checkbox" checked={consent.privacy} onChange={(e) => toggleConsent("privacy", e.target.checked)} aria-describedby="consent-privacy-desc" required />
+                    <span><em>필수</em>개인정보 수집·이용 동의</span>
+                  </label>
+                  <Link to="/privacy" target="_blank" rel="noopener" aria-label="개인정보 처리방침 보기(새 창)">보기</Link>
+                  <p id="consent-privacy-desc" className="consent-desc">
+                    {SIGNUP_PRIVACY_SUMMARY.items} · {SIGNUP_PRIVACY_SUMMARY.purpose} · {SIGNUP_PRIVACY_SUMMARY.retention}
+                  </p>
+                </li>
+                <li>
+                  <label>
+                    <input type="checkbox" checked={consent.transfer} onChange={(e) => toggleConsent("transfer", e.target.checked)} aria-describedby="consent-transfer-desc" required />
+                    <span><em>필수</em>개인정보 국외 이전 동의</span>
+                  </label>
+                  <Link to="/privacy#outsourcing" target="_blank" rel="noopener" aria-label="국외 이전 내용 보기(새 창)">보기</Link>
+                  <p id="consent-transfer-desc" className="consent-desc">{SIGNUP_TRANSFER_SUMMARY}</p>
+                </li>
+                <li>
+                  <label>
+                    <input type="checkbox" checked={consent.age} onChange={(e) => toggleConsent("age", e.target.checked)} required />
+                    <span><em>필수</em>만 14세 이상입니다</span>
+                  </label>
+                </li>
+              </ul>
+              {!allAgreed && <p id="consent-hint" className="consent-hint">필수 항목에 모두 동의하면 가입할 수 있어요.</p>}
+            </fieldset>
+          )}
+
           {error && <div className="error-text" role="alert">{error}</div>}
 
-          <button className="btn btn-primary btn-block" type="submit" disabled={loading}>
+          <button className="btn btn-primary btn-block" type="submit" disabled={loading || (tab === "signup" && !allAgreed)}>
             {loading ? "처리 중..." : tab === "login" ? "로그인" : "가입하기"}
           </button>
 
-          <p className="login-switch">
-            {tab === "login" ? "아직 메이트가 아니신가요? " : "이미 계정이 있으신가요? "}
-            <a href={tab === "login" ? "#signup" : "#login"} onClick={(event) => { event.preventDefault(); selectTab(tab === "login" ? "signup" : "login"); }}>
-              {tab === "login" ? "회원가입" : "로그인"}
-            </a>
-          </p>
-          <div className="login-social">
-            <p className="login-social-title">{tab === "login" ? "간편 로그인" : "간편 가입"}</p>
+          {/* 가입 탭에서는 위의 탭으로 충분해 전환 문구를 숨기고 높이를 아낀다. */}
+          {tab === "login" && <p className="login-switch">
+            아직 메이트가 아니신가요?{" "}
+            <a href="#signup" onClick={(event) => { event.preventDefault(); selectTab("signup"); }}>회원가입</a>
+          </p>}
+          {/* 가입 탭은 동의 항목이 늘어나 데스크톱 한 화면에 담기 위해 간편 가입 목업을 보여 주지 않는다. */}
+          {tab === "login" && <section className="login-social" aria-labelledby="login-social-title">
+            <p className="login-social-title" id="login-social-title">
+              간편 로그인<span className="soon-badge">준비 중</span>
+              <span className="login-social-caption">아직 사용할 수 없어요</span>
+            </p>
             <div className="login-social-list">
               {socialProviders.map((provider) => (
                 <button
                   key={provider.id}
                   type="button"
                   data-provider={provider.id}
-                  onClick={() => setSocialNotice(`${provider.label} 로그인은 준비 중이에요. 지금은 이메일로 ${tab === "login" ? "로그인" : "가입"}해 주세요.`)}
+                  aria-disabled="true"
+                  aria-label={`${provider.label} 로그인 (준비 중, 사용할 수 없음)`}
+                  onClick={() => setSocialNotice(`${provider.label} 로그인은 준비 중이에요. 지금은 이메일로 로그인하거나 가입해 주세요.`)}
                 >
-                  {provider.mark}<span>{provider.label}로 계속하기</span>
+                  {provider.label}
                 </button>
               ))}
             </div>
             <p className="login-social-status" role="status">{socialNotice}</p>
-          </div>
+          </section>}
         </form>
       </main>
     </div>

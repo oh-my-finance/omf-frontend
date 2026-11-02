@@ -5,6 +5,7 @@ import Brand from "./Brand";
 
 const PUBLIC_LINKS = [
   { to: "/roadmap", label: "학습 로드맵" },
+  { to: "/investing-roadmap", label: "투자 로드맵" },
   { to: "/course", label: "입문 과정" },
   { to: "/learn", label: "개념 학습" },
   { to: "/glossary", label: "용어 사전" },

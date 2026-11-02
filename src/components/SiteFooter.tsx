@@ -3,6 +3,7 @@ import Brand from "./Brand";
 
 const FOOTER_LINKS = [
   { to: "/roadmap", label: "학습 로드맵" },
+  { to: "/investing-roadmap", label: "투자 로드맵" },
   { to: "/course", label: "입문 과정" },
   { to: "/learn", label: "개념 학습" },
   { to: "/glossary", label: "용어 사전" },
@@ -12,7 +13,7 @@ const FOOTER_LINKS = [
   { to: "/models", label: "콘텐츠·모델 안내" },
 ];
 
-/** 공통 푸터: 바로가기 줄, 서비스 소개, 교육 서비스 고지. */
+/** 공통 푸터: 바로가기 줄, 서비스 소개, 교육 서비스 고지, 약관·처리방침 링크. */
 export default function SiteFooter() {
   return (
     <footer className="site-footer">
@@ -26,6 +27,10 @@ export default function SiteFooter() {
         <div className="footer-info">
           <p><strong>FinMATE</strong> 증권업의 구조와 금융상품을 순서대로 배우는 교육용 학습 서비스</p>
           <p>FinMATE는 금융 교육 서비스입니다. 실제 매매·종목 추천·투자 자문을 제공하지 않습니다. 용어 설명의 출처는 각 항목에 표시합니다.</p>
+          <nav className="footer-legal" aria-label="약관·정책">
+            <Link to="/terms">이용약관</Link>
+            <Link to="/privacy" className="footer-legal-privacy">개인정보 처리방침</Link>
+          </nav>
           <p className="footer-copy">© {new Date().getFullYear()} FinMATE. Learn at your own pace.</p>
         </div>
         <button type="button" className="footer-top-button" onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}>

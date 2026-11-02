@@ -3,6 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import Header from "../components/Header";
 import LoadError from "../components/LoadError";
 import Icon from "../components/Icon";
+import EducationNotice from "../components/EducationNotice";
 import { api } from "../api/client";
 import type { ProductResponse } from "../api/types";
 
@@ -65,7 +66,8 @@ export default function ProductDetailPage() {
               <div style={{ fontSize: 13.5, color: "var(--text-muted)", lineHeight: 1.7 }}>{product.description}</div>
             </div>
 
-            <p className="notice-line" style={{ margin: 0 }}>{product.disclaimer}</p>
+            {/* 서버 고지(product.disclaimer)는 "투자 참고용" 표현이 남아 있어 화면 공통 교육 고지로 대신한다. */}
+            <EducationNotice>실제 상품 조건과 다를 수 있으며, 금융투자상품은 원금 손실이 발생할 수 있습니다.</EducationNotice>
           </div>
         )}
       </div>

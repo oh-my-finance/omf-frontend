@@ -3,6 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import Header from "../components/Header";
 import LoadError from "../components/LoadError";
 import Icon from "../components/Icon";
+import EducationNotice from "../components/EducationNotice";
 import { api } from "../api/client";
 import type { CategoryRecommendationResponse, ProductResponse } from "../api/types";
 
@@ -53,6 +54,7 @@ export default function ExplorePage() {
           분석 결과 &nbsp;›&nbsp; <span style={{ color: "var(--text)", fontWeight: 600 }}>탐색 카테고리</span>
         </div>
         <div style={{ fontWeight: 700, fontSize: 19 }}>{profileLabel} 고객님께 안내되는 탐색 카테고리</div>
+        <EducationNotice>탐색 카테고리와 상품은 성향별로 살펴볼 학습용 예시이며, 실제 상품 조건과 다를 수 있습니다.</EducationNotice>
 
         <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
           {recommendations.map((rec) => {
@@ -135,18 +137,6 @@ export default function ExplorePage() {
         )}
       </div>
 
-      <div
-        style={{
-          padding: "14px 40px",
-          background: "#fff",
-          borderTop: "1px solid var(--border)",
-          fontSize: 13,
-          color: "var(--text-faint)",
-          textAlign: "center",
-        }}
-      >
-        본 정보는 투자 참고용이며 투자 자문이나 투자 권유가 아닙니다.
-      </div>
     </div>
   );
 }

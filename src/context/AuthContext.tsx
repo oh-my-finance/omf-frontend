@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useMemo, useState, type ReactNode } from "react";
-import { api, getToken, setToken } from "../api/client";
+import { api, getToken, setToken, type SignupAgreements } from "../api/client";
 import type { UserResponse } from "../api/types";
 
 const USER_KEY = "finmate.user";
@@ -9,7 +9,7 @@ interface AuthContextValue {
   isAuthenticated: boolean;
   checkingSession: boolean;
   login: (email: string, password: string) => Promise<void>;
-  signup: (email: string, password: string, name: string) => Promise<void>;
+  signup: (email: string, password: string, name: string, agreements: SignupAgreements) => Promise<void>;
   logout: () => Promise<void>;
 }
 
@@ -58,8 +58,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     setUser(res.user);
   };
 
-  const signup = async (email: string, password: string, name: string) => {
-    await api.signup(email, password, name);
+  const signup = async (email: string, password: string, name: string, agreements: SignupAgreements) => {
+    await api.signup(email, password, name, agreements);
     await login(email, password);
   };
 

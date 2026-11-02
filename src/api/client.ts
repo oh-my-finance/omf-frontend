@@ -94,11 +94,19 @@ export async function request<T>(path: string, options: RequestInit = {}): Promi
   return (await res.json()) as T;
 }
 
+/** 가입 필수 동의. 서버가 약관·처리방침 버전과 동의 시각을 함께 기록한다. */
+export interface SignupAgreements {
+  terms: boolean;
+  privacy: boolean;
+  overseasTransfer: boolean;
+  ageOver14: boolean;
+}
+
 export const api = {
-  signup: (email: string, password: string, name: string) =>
+  signup: (email: string, password: string, name: string, agreements: SignupAgreements) =>
     request<UserResponse>("/auth/signup", {
       method: "POST",
-      body: JSON.stringify({ email, password, name }),
+      body: JSON.stringify({ email, password, name, agreements }),
     }),
 
   login: (email: string, password: string) =>

@@ -40,21 +40,42 @@
 .login-switch > a { padding: 4px 0; color: var(--primary); font-size: inherit; font-weight: 700; text-decoration: underline; text-underline-offset: 4px; text-decoration-thickness: 1px; }
 .login-form .error-text { margin: 0; padding: 11px 14px; border: 1px solid var(--danger-border); border-radius: 0; background: var(--danger-bg); color: #b23434; font-size: var(--fs-small); line-height: 1.55; }
 
-/* 간편 로그인(목업): 제공자별 버튼 색을 따른 전체 너비 막대를 세로로 쌓는다. 로고는 왼쪽, 문구는 가운데. */
-.login-social { padding-top: 20px; border-top: 1px solid var(--border); }
-.login-social-title { margin: 0 0 12px; color: var(--text); font-size: var(--fs-small); font-weight: 600; }
-.login-social-list { display: grid; gap: 8px; }
-.login-social-list button { position: relative; display: flex; align-items: center; justify-content: center; width: 100%; min-height: 48px; padding: 0 48px; border: 1px solid transparent; border-radius: 0; font-size: 15px; font-weight: 600; transition: filter .15s; }
-.login-social-list button > svg { position: absolute; top: 50%; left: 16px; transform: translateY(-50%); }
-.login-social-list button:hover { filter: brightness(.95); }
-.login-social-list [data-provider="kakao"] { background: #fee500; color: rgba(0, 0, 0, .85); }
-.login-social-list [data-provider="kakao"] svg { color: #000; }
-.login-social-list [data-provider="naver"] { background: #03c75a; color: #fff; }
-.login-social-list [data-provider="naver"] svg { left: 19px; }
-.login-social-list [data-provider="google"] { border-color: #747775; background: #fff; color: #1f1f1f; }
-.login-social-list [data-provider="google"] svg { color: #4285f4; }
-.login-social-list [data-provider="apple"] { background: #000; color: #fff; }
-.login-social-status { margin: 12px 0 0; color: var(--text-muted); font-size: var(--fs-small); line-height: 1.55; }
+/* 가입 동의: 전체 동의 한 줄 + 필수 항목 목록. 요약 문장은 작게, 링크는 오른쪽 끝에 둔다. */
+.signup-consent { display: grid; gap: 8px; min-width: 0; margin: -4px 0 0; padding: 0; border: 0; }
+.signup-consent label { display: flex; align-items: flex-start; gap: 9px; min-width: 0; color: var(--text); font-size: var(--fs-small); line-height: 1.45; cursor: pointer; }
+.signup-consent input[type='checkbox'] { flex-shrink: 0; width: 18px; height: 18px; margin: 0; accent-color: var(--primary); cursor: pointer; }
+.signup-consent input[type='checkbox']:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
+.consent-all { padding: 9px 12px; border: 1px solid var(--border-strong); background: var(--surface-paper); font-weight: 700; }
+.consent-all input[type='checkbox'] { margin-top: 0; }
+.consent-list { display: grid; gap: 6px; margin: 0; padding: 0 2px; list-style: none; }
+.consent-list li { display: grid; grid-template-columns: minmax(0, 1fr) auto; column-gap: 10px; align-items: start; }
+.consent-list li > a { color: var(--text-muted); font-size: var(--fs-caption); line-height: 1.45; text-decoration: underline; text-underline-offset: 3px; white-space: nowrap; }
+.consent-list li > a:hover { color: var(--primary); }
+.consent-list em { margin-right: 6px; color: var(--primary); font-size: var(--fs-caption); font-style: normal; font-weight: 700; }
+.consent-desc { grid-column: 1 / -1; margin: 2px 0 0 27px; color: var(--text-faint); font-size: var(--fs-caption); line-height: 1.5; word-break: keep-all; }
+.consent-hint { margin: 2px 0 0; color: var(--text-muted); font-size: var(--fs-caption); line-height: 1.5; }
+
+/* 가입 탭: 동의 항목만큼 늘어난 높이를 간격으로 줄여 일반 데스크톱(1440×900)에서 한 화면에 담는다. 작은 화면은 자연스럽게 스크롤한다. */
+@media (min-width: 741px) {
+  .login-form.is-signup { gap: 16px; margin-top: clamp(12px, 3vh, 36px); padding-top: 28px; padding-bottom: 26px; }
+  .login-form.is-signup .login-fields { gap: 12px; }
+  .login-form.is-signup .field-label { margin-bottom: 6px; }
+  .login-form.is-signup .field-input { min-height: 46px; padding-top: 11px; padding-bottom: 11px; }
+  .login-form.is-signup > .btn { min-height: 50px; }
+}
+@media (min-width: 741px) and (max-height: 960px) {
+  .login-form.is-signup .login-form-heading > p { display: none; }
+}
+
+/* 간편 로그인(목업): 누르기 전부터 준비 중임을 보이도록 배지를 붙이고, 브랜드 색 없이 흐린 버튼 한 줄로 둔다. */
+.login-social { padding-top: 16px; border-top: 1px solid var(--border); }
+.login-social-title { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 8px; margin: 0 0 10px; color: var(--text); font-size: var(--fs-small); font-weight: 600; }
+.soon-badge { display: inline-flex; align-items: center; min-height: 22px; padding: 0 8px; border: 1px solid var(--border-strong); background: var(--surface-soft); color: var(--warn-text); font-size: var(--fs-caption); font-weight: 700; line-height: 1; }
+.login-social-caption { color: var(--text-faint); font-size: var(--fs-caption); font-weight: 500; }
+.login-social-list { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 6px; }
+.login-social-list button { min-width: 0; min-height: 40px; padding: 0 6px; border: 1px dashed var(--border-strong); border-radius: 0; background: var(--surface-soft); color: var(--text-faint); font-size: var(--fs-caption); font-weight: 600; cursor: not-allowed; }
+.login-social-list button:focus-visible { outline: 2px solid var(--primary); outline-offset: 1px; }
+.login-social-status { margin: 10px 0 0; color: var(--text-muted); font-size: var(--fs-small); line-height: 1.55; }
 .login-social-status:empty { display: none; }
 
 /* 낮은 노트북 화면에서는 간격을 줄이고, 오류 등으로 늘어난 내용은 자연스럽게 스크롤한다. */
@@ -78,8 +99,8 @@
   .login-form .field-label { margin-bottom: 6px; }
   .login-form .field-input { min-height: 46px; padding-top: 11px; padding-bottom: 11px; }
   .login-form > .btn { min-height: 48px; }
-  .login-social { padding-top: 14px; }
-  .login-social-list button { min-height: 44px; }
+  .login-social { padding-top: 12px; }
+  .login-social-title { margin-bottom: 8px; }
 }
 @media (min-width: 741px) and (max-width: 1000px) {
   .login-shell { grid-template-columns: minmax(0, .92fr) minmax(0, 1.08fr); }
@@ -100,6 +121,7 @@
 }
 @media (max-width: 380px) {
   .login-main { padding: 16px 16px 24px; }
+  .login-social-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .login-form { padding: 24px 18px 20px; gap: 18px; }
   .login-form-heading h1 { font-size: 25px; }
 }
