@@ -4,6 +4,7 @@ import Header from "../components/Header";
 import SiteFooter from "../components/SiteFooter";
 import SubPageHeader from "../components/SubPageHeader";
 import LoadError from "../components/LoadError";
+import EducationNotice from "../components/EducationNotice";
 import { api } from "../api/client";
 import type { ReplayScenarioList, ReplaySessionSummary } from "../api/types";
 import { useAuth } from "../context/AuthContext";
@@ -57,6 +58,7 @@ export default function ReplayListPage() {
       />
       <main className="practice-main">
 
+        <EducationNotice>차트 복기는 합성 데이터로 판단을 연습하는 기능이며, 결과는 미래 수익을 예측하거나 보장하지 않습니다.</EducationNotice>
         {catalog && <p className="replay-notice" role="note">{catalog.notice}</p>}
         {error && !catalog && <LoadError message={error} onRetry={() => { setError(null); setReload(value => value + 1); }} />}
         {error && catalog && <p className="error-text" role="alert">{error}</p>}

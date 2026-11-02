@@ -150,7 +150,7 @@ export default function ResultPage() {
           <Icon name="next" size={18} />
         </button>
         <div style={{ fontSize: 13, color: "var(--text-faint)", textAlign: "center" }}>
-          본 결과는 참고용 진단이며 투자 자문이 아닙니다.
+          본 결과는 학습용 진단이며 투자 권유·자문이 아닙니다.
         </div>
       </div>
     </Shell>

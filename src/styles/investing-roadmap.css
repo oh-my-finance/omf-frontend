@@ -1,0 +1,125 @@
+/*
+ * 투자 로드맵(/investing-roadmap): 단계 탭 + 단계 패널 + 기법 비교.
+ * 공통 토큰(아이보리 배경, 짙은 초록 글자, 오렌지 포인트, 각진 모서리, 그림자 없음)만 쓴다.
+ * 넓은 화면은 비교 표, 899px 이하는 같은 내용을 카드로 쌓아 보여 준다.
+ */
+.ir-main { word-break: keep-all; overflow-wrap: break-word; }
+
+/* 교육 목적 안내: 화면 맨 위에서 바로 읽히게 둔다. */
+.ir-disclaimer { display: flex; align-items: flex-start; gap: 12px; margin: 0; padding: 16px 20px; border: 1px solid var(--border); border-left: 4px solid var(--accent); background: var(--surface-paper); color: var(--text-muted); }
+.ir-disclaimer svg { flex-shrink: 0; margin-top: 2px; color: var(--primary); }
+.ir-disclaimer p { margin: 0; font-size: 15px; line-height: 1.7; }
+.ir-disclaimer strong { color: var(--text); margin-right: 4px; }
+
+.ir-section { margin-top: 48px; }
+.ir-section-head { margin-bottom: 18px; }
+.ir-section-head h2 { margin: 0; font-size: 24px; font-weight: 800; letter-spacing: -.01em; line-height: 1.35; }
+.ir-section-head p { max-width: 780px; margin: 8px 0 0; color: var(--text-muted); font-size: 15px; line-height: 1.7; }
+
+/* 단계 탭: 1px 간격 사이로 테두리 색이 비쳐 칸 구분선이 된다. 선택된 칸은 오렌지 윗줄·옅은 오렌지 바탕. */
+.ir-tabs { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 1px; border: 1px solid var(--border); background: var(--border); }
+.ir-tab { position: relative; display: flex; flex-direction: column; align-items: flex-start; gap: 4px; min-height: 76px; padding: 16px 16px 14px; border: 0; border-radius: 0; background: var(--surface); color: var(--text-muted); text-align: left; transition: background-color .15s, color .15s; }
+.ir-tab::before { content: ''; position: absolute; top: 0; right: 0; left: 0; height: 4px; background: transparent; transition: background-color .15s; }
+.ir-tab:hover { background: var(--surface-soft); color: var(--text); }
+.ir-tab:focus-visible { z-index: 1; outline-offset: -3px; }
+.ir-tab-level { font-size: var(--fs-caption); font-weight: 700; color: var(--text-faint); font-variant-numeric: tabular-nums; }
+.ir-tab-name { font-size: var(--fs-body); font-weight: 650; line-height: 1.4; }
+.ir-tab.is-selected { background: var(--primary-tint); color: var(--text); }
+.ir-tab.is-selected::before { background: var(--primary); }
+.ir-tab.is-selected .ir-tab-level { color: var(--primary); }
+.ir-tab.is-selected .ir-tab-name { font-weight: 800; }
+
+/* 단계 패널 */
+.ir-panel { position: relative; margin-top: 16px; padding: 28px 32px 24px; }
+.ir-panel::before { content: ''; position: absolute; top: 0; bottom: 0; left: 0; width: 4px; background: var(--primary); }
+.ir-panel:focus-visible { outline-offset: 2px; }
+.ir-panel-body { animation: ir-fade .2s ease-out; }
+/* 투명도는 바꾸지 않는다: 그리기가 멈춘 탭·화면 캡처에서도 내용이 흐리게 남지 않게 살짝 올라오는 움직임만 준다. */
+@keyframes ir-fade { from { transform: translateY(6px); } to { transform: none; } }
+.ir-panel-head { display: grid; justify-items: start; gap: 6px; margin-bottom: 22px; }
+.ir-panel-head h3 { margin: 4px 0 0; font-size: 24px; font-weight: 800; letter-spacing: -.01em; line-height: 1.35; }
+.ir-panel-topics { margin: 0; color: var(--text-faint); font-size: var(--fs-small); font-weight: 600; }
+.ir-panel-summary { max-width: 820px; margin: 4px 0 0; color: var(--text-muted); font-size: var(--fs-body); line-height: 1.75; }
+
+.ir-blocks { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+.ir-block { min-width: 0; padding: 20px 22px; border: 1px solid var(--border); background: var(--surface-paper); }
+.ir-block h4 { display: flex; align-items: center; gap: 8px; margin: 0 0 12px; font-size: var(--fs-body); font-weight: 750; }
+.ir-block-learn h4 svg { color: var(--forest-strong); }
+.ir-block-tasks h4 svg { color: var(--good); }
+.ir-block-mistakes h4 svg { color: var(--warn-text); }
+.ir-block-practice h4 svg { color: var(--primary); }
+.ir-block ul { display: grid; gap: 8px; margin: 0; padding: 0; list-style: none; }
+.ir-block li { position: relative; padding-left: 20px; font-size: 15px; line-height: 1.7; }
+.ir-block li::before { content: ''; position: absolute; top: .72em; left: 2px; width: 6px; height: 6px; background: var(--forest-strong); }
+/* 확인 과업은 직접 표시해 볼 수 있는 빈 네모, 흔한 실수는 주의 색 짧은 선으로 구분한다. */
+.ir-block-tasks li::before { top: .45em; left: 0; width: 11px; height: 11px; border: 1.5px solid var(--good); background: transparent; }
+.ir-block-mistakes li::before { top: .8em; width: 9px; height: 2px; background: var(--warn-text); }
+.ir-block-practice li { display: grid; gap: 2px; padding-left: 0; }
+.ir-block-practice li::before { display: none; }
+.ir-block-practice a { display: inline-flex; align-items: center; gap: 2px; justify-self: start; min-height: 28px; font-weight: 700; }
+.ir-block-practice a:hover, .ir-block-practice a:focus-visible { text-decoration: underline; text-underline-offset: 3px; }
+.ir-block-practice span { color: var(--text-muted); font-size: var(--fs-small); line-height: 1.65; }
+
+.ir-criteria { margin-top: 14px; padding: 18px 22px; border-left: 4px solid var(--forest-strong); background: var(--sage); }
+.ir-criteria h4 { margin: 0 0 6px; font-size: 15px; font-weight: 750; }
+.ir-criteria p { margin: 0; font-size: 15px; line-height: 1.75; }
+
+.ir-panel-nav { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10px; margin-top: 20px; }
+.ir-panel-nav .btn { gap: 4px; }
+
+/* 기법 비교 표 */
+.ir-table-wrap { overflow-x: auto; border: 1px solid var(--border); background: var(--surface); }
+.ir-table { width: 100%; border-collapse: collapse; font-size: var(--fs-small); line-height: 1.65; }
+.ir-table th, .ir-table td { padding: 14px 16px; border-bottom: 1px solid var(--border); text-align: left; vertical-align: top; }
+.ir-table thead th { background: var(--sage-strong); color: var(--text); font-size: var(--fs-small); font-weight: 750; white-space: nowrap; }
+.ir-table tbody tr:last-child > * { border-bottom: 0; }
+.ir-table tbody tr:nth-child(even) { background: var(--surface-paper); }
+.ir-table tbody th { width: 160px; font-weight: 400; }
+.ir-table td { color: var(--text-muted); }
+.ir-tech-name { display: block; color: var(--text); font-size: 15px; font-weight: 750; line-height: 1.45; }
+.ir-stage-chip { display: inline-flex; align-items: center; min-height: 30px; margin-top: 8px; padding: 2px 10px; border: 1px solid var(--border-strong); border-radius: 0; background: var(--surface); color: var(--primary); font-size: var(--fs-caption); font-weight: 700; white-space: nowrap; transition: border-color .15s, background-color .15s; }
+.ir-stage-chip:hover { border-color: var(--primary); background: var(--primary-tint); }
+
+/* 좁은 화면용 기법 카드(표와 같은 내용) */
+.ir-tech-cards { display: none; margin: 0; padding: 0; list-style: none; }
+.ir-tech-card { min-width: 0; padding: 18px 20px; border: 1px solid var(--border); background: var(--surface); }
+.ir-tech-card-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.ir-tech-card-head h3 { margin: 0; font-size: 18px; font-weight: 800; line-height: 1.4; }
+.ir-tech-card-head .ir-stage-chip { margin-top: 0; }
+.ir-tech-card dl { display: grid; gap: 10px; margin: 12px 0 0; }
+.ir-tech-card dl > div { display: grid; gap: 2px; }
+.ir-tech-card dt { color: var(--text-faint); font-size: var(--fs-caption); font-weight: 700; }
+.ir-tech-card dd { margin: 0; color: var(--text-muted); font-size: 15px; line-height: 1.7; }
+
+.ir-footnote { margin: 14px 0 0; color: var(--text-muted); font-size: var(--fs-small); line-height: 1.7; }
+.ir-main > .domain-next-links { margin-top: 48px; }
+
+@media (max-width: 1000px) {
+  .ir-tabs { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+@media (max-width: 899px) {
+  .ir-table-wrap { display: none; }
+  .ir-tech-cards { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+}
+@media (max-width: 760px) {
+  .ir-blocks { grid-template-columns: 1fr; }
+  .ir-section { margin-top: 40px; }
+  .ir-section-head h2 { font-size: 22px; }
+  .ir-tech-cards { grid-template-columns: 1fr; }
+}
+@media (max-width: 600px) {
+  .ir-disclaimer { padding: 14px 16px; }
+  .ir-tabs { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .ir-tab { min-height: 64px; padding: 12px 12px 10px; }
+  .ir-tab-name { font-size: 15px; }
+  .ir-panel { padding: 22px 18px 18px; }
+  .ir-panel-head h3 { font-size: 21px; }
+  .ir-block { padding: 16px; }
+  .ir-criteria { padding: 16px; }
+  .ir-panel-nav .btn { flex: 1 1 auto; }
+  .ir-tech-card { padding: 16px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ir-panel-body { animation: none; }
+  .ir-tab, .ir-tab::before, .ir-stage-chip { transition: none; }
+}

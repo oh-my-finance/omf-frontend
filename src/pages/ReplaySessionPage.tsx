@@ -3,6 +3,7 @@ import { Link, useParams } from "react-router-dom";
 import Header from "../components/Header";
 import ReplayChart, { ReplayTable } from "../components/ReplayChart";
 import LoadError from "../components/LoadError";
+import EducationNotice from "../components/EducationNotice";
 import { ApiError, api } from "../api/client";
 import type { ReplayDecisionResult, ReplayReview, ReplayReviewDecision, ReplaySessionView } from "../api/types";
 
@@ -79,6 +80,7 @@ export default function ReplaySessionPage() {
           </div>
           <Link className="btn btn-secondary" to="/replay">목록으로</Link>
         </div>
+        <EducationNotice>실제 종목·시세가 아닌 합성 데이터이며, 결과는 미래 수익을 예측하거나 보장하지 않습니다.</EducationNotice>
         <p className="replay-notice" role="note">{view.notice} {view.scenario.dataNotice}</p>
 
         <div className="replay-status" aria-live="polite">
